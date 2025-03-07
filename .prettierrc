@@ -1,0 +1,10 @@
+{
+  "endOfLine": "auto",
+  "semi": true,
+  "singleQuote": false,
+  "plugins": [
+    "prettier-plugin-css-order",
+    "prettier-plugin-organize-imports",
+    "prettier-plugin-tailwindcss"
+  ]
+}
