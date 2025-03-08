@@ -1,5 +1,9 @@
 <script setup lang="ts"></script>
 
-<template></template>
+<template>
+  <article>
+    <router-view :key="$route.name"></router-view>
+  </article>
+</template>
 
-<style scoped></style>
+<style scoped lang="scss"></style>
