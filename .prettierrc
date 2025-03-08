@@ -4,7 +4,8 @@
   "singleQuote": false,
   "plugins": [
     "prettier-plugin-css-order",
-    "prettier-plugin-organize-imports",
+    "@trivago/prettier-plugin-sort-imports",
     "prettier-plugin-tailwindcss"
-  ]
+  ],
+  "importOrder": ["^[a-zA-Z0-9]$", "^@[a-zA-Z0-9](.*)", "^@/(.*)$", "^[./]"]
 }

@@ -11,20 +11,21 @@
   "dependencies": {
     "@tailwindcss/vite": "^4.0.12",
     "pinia": "^3.0.1",
+    "signature_pad": "^5.0.4",
     "tailwindcss": "^4.0.12",
     "vue": "^3.5.13",
     "vue-router": "4"
   },
   "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^5.2.2",
     "@vitejs/plugin-vue": "^5.2.1",
     "@vue/tsconfig": "^0.7.0",
     "postcss": "^8.5.3",
     "prettier": "^3.5.3",
     "prettier-plugin-css-order": "^2.1.2",
-    "prettier-plugin-organize-imports": "^4.1.0",
     "prettier-plugin-tailwindcss": "^0.6.11",
+    "sass-embedded": "^1.85.1",
     "typescript": "~5.7.2",
-    "vite": "^6.2.0",
-    "vue-tsc": "^2.2.4"
+    "vite": "^6.2.0"
   }
 }
