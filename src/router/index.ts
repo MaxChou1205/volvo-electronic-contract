@@ -1,5 +1,5 @@
 import { createWebHistory, createRouter } from "vue-router";
-import Model from "@/views/model.vue";
+import Model from "@/views/ModelStyle.vue";
 
 const routes = [{ path: "/", component: Model }];
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto flex w-full">
+  <div class="mx-auto flex w-full justify-center">
     <div v-for="(text, index) in textList" :key="index" class="flex">
       <div
         v-if="index !== 0"
