@@ -48,9 +48,12 @@ importers:
       prettier-plugin-css-order:
         specifier: ^2.1.2
         version: 2.1.2(postcss@8.5.3)(prettier@3.5.3)
+      prettier-plugin-organize-attributes:
+        specifier: ^1.0.0
+        version: 1.0.0(prettier@3.5.3)
       prettier-plugin-tailwindcss:
         specifier: ^0.6.11
-        version: 0.6.11(@trivago/prettier-plugin-sort-imports@5.2.2(@vue/compiler-sfc@3.5.13)(prettier@3.5.3))(prettier-plugin-css-order@2.1.2(postcss@8.5.3)(prettier@3.5.3))(prettier-plugin-organize-imports@4.1.0(prettier@3.5.3)(typescript@5.7.3)(vue-tsc@2.2.8(typescript@5.7.3)))(prettier@3.5.3)
+        version: 0.6.11(@trivago/prettier-plugin-sort-imports@5.2.2(@vue/compiler-sfc@3.5.13)(prettier@3.5.3))(prettier-plugin-css-order@2.1.2(postcss@8.5.3)(prettier@3.5.3))(prettier-plugin-organize-attributes@1.0.0(prettier@3.5.3))(prettier-plugin-organize-imports@4.1.0(prettier@3.5.3)(typescript@5.7.3)(vue-tsc@2.2.8(typescript@5.7.3)))(prettier@3.5.3)
       sass-embedded:
         specifier: ^1.85.1
         version: 1.85.1
@@ -782,6 +785,12 @@ packages:
     engines: {node: '>=16'}
     peerDependencies:
       prettier: 3.x
+
+  prettier-plugin-organize-attributes@1.0.0:
+    resolution: {integrity: sha512-+NmameaLxbCcylEXsKPmawtzla5EE6ECqvGkpfQz4KM847fXDifB1gFnPQEpoADAq6IXg+cMI8Z0ISJEXa6fhg==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      prettier: ^3.0.0
 
   prettier-plugin-organize-imports@4.1.0:
     resolution: {integrity: sha512-5aWRdCgv645xaa58X8lOxzZoiHAldAPChljr/MT0crXVOWTZ+Svl4hIWlz+niYSlO6ikE5UXkN1JrRvIP2ut0A==}
@@ -1698,6 +1707,10 @@ snapshots:
     transitivePeerDependencies:
       - postcss
 
+  prettier-plugin-organize-attributes@1.0.0(prettier@3.5.3):
+    dependencies:
+      prettier: 3.5.3
+
   prettier-plugin-organize-imports@4.1.0(prettier@3.5.3)(typescript@5.7.3)(vue-tsc@2.2.8(typescript@5.7.3)):
     dependencies:
       prettier: 3.5.3
@@ -1706,12 +1719,13 @@ snapshots:
       vue-tsc: 2.2.8(typescript@5.7.3)
     optional: true
 
-  prettier-plugin-tailwindcss@0.6.11(@trivago/prettier-plugin-sort-imports@5.2.2(@vue/compiler-sfc@3.5.13)(prettier@3.5.3))(prettier-plugin-css-order@2.1.2(postcss@8.5.3)(prettier@3.5.3))(prettier-plugin-organize-imports@4.1.0(prettier@3.5.3)(typescript@5.7.3)(vue-tsc@2.2.8(typescript@5.7.3)))(prettier@3.5.3):
+  prettier-plugin-tailwindcss@0.6.11(@trivago/prettier-plugin-sort-imports@5.2.2(@vue/compiler-sfc@3.5.13)(prettier@3.5.3))(prettier-plugin-css-order@2.1.2(postcss@8.5.3)(prettier@3.5.3))(prettier-plugin-organize-attributes@1.0.0(prettier@3.5.3))(prettier-plugin-organize-imports@4.1.0(prettier@3.5.3)(typescript@5.7.3)(vue-tsc@2.2.8(typescript@5.7.3)))(prettier@3.5.3):
     dependencies:
       prettier: 3.5.3
     optionalDependencies:
       '@trivago/prettier-plugin-sort-imports': 5.2.2(@vue/compiler-sfc@3.5.13)(prettier@3.5.3)
       prettier-plugin-css-order: 2.1.2(postcss@8.5.3)(prettier@3.5.3)
+      prettier-plugin-organize-attributes: 1.0.0(prettier@3.5.3)
       prettier-plugin-organize-imports: 4.1.0(prettier@3.5.3)(typescript@5.7.3)(vue-tsc@2.2.8(typescript@5.7.3))
 
   prettier@3.5.3: {}

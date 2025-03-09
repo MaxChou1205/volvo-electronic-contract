@@ -8,6 +8,7 @@
   --color-gray-500: #a7a8a9;
   --color-gray-600: #888b8d;
   --color-black-400: #141414;
+  --color-red: #ff0000;
 }
 
 @layer components {

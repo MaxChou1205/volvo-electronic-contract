@@ -4,6 +4,7 @@
   "singleQuote": false,
   "plugins": [
     "prettier-plugin-css-order",
+    "prettier-plugin-organize-attributes",
     "@trivago/prettier-plugin-sort-imports",
     "prettier-plugin-tailwindcss"
   ],

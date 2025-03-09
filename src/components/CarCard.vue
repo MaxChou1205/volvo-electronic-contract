@@ -6,12 +6,12 @@
       <div class="flex h-full flex-col items-stretch justify-between">
         <div class="h-43 w-43">
           <img
+            class="h-full w-full object-cover"
             src="@/assets/img/car1.png"
             alt=""
-            class="h-full w-full object-cover"
           />
         </div>
-        <router-link to="" class="block text-blue-500">更多說明</router-link>
+        <router-link class="block text-blue-500" to="">更多說明</router-link>
       </div>
       <div class="flex flex-1 flex-col text-xs">
         <div class="mb-3 flex justify-between text-sm">

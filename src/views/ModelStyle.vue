@@ -2,8 +2,8 @@
   <div>
     <div class="h-60 overflow-hidden">
       <img
-        src="@/assets/img/banner1.png"
         class="object-cover object-[0_-175px]"
+        src="@/assets/img/banner1.png"
         alt="banner"
       />
     </div>
@@ -17,22 +17,22 @@
 
       <Tabs
         class="px-15"
-        :tabs="['電動', '雙能電動', '高效輕油電']"
         v-model="currentTab"
+        :tabs="['電動', '雙能電動', '高效輕油電']"
       />
 
       <div class="relative">
         <HorizontalScroll>
           <div
+            class="flex flex-shrink-0 items-center gap-x-4"
             v-for="(cars, type, index) in processedCarList"
             :key="index"
-            class="flex flex-shrink-0 items-center gap-x-4"
           >
             <span class="text-sm">{{ type }}</span>
             <button
+              class="flex cursor-pointer flex-col"
               v-for="(car, carIndex) in cars"
               :key="carIndex"
-              class="flex cursor-pointer flex-col"
               @click="selectedCar = car.id"
             >
               <div
@@ -52,14 +52,14 @@
       </div>
 
       <div class="mt-8 grid grid-cols-2 gap-x-6 gap-y-8">
-        <Select label="級別" :options="[]" />
-        <Select label="CC 數" :options="[]" />
-        <Select label="年式" :options="[]" />
-        <Select label="出廠年份" :options="[]" />
-        <Select label="車色及代碼" :options="[]" />
-        <Select label="內裝代碼" :options="[]" />
-        <Select label="中控飾板" :options="[]" />
-        <Select label="產地" :options="[]" />
+        <Select title="級別" :options="[]" />
+        <Select title="CC 數" :options="[]" />
+        <Select title="年式" :options="[]" />
+        <Select title="出廠年份" :options="[]" />
+        <Select title="車色及代碼" :options="[]" />
+        <Select title="內裝代碼" :options="[]" />
+        <Select title="中控飾板" :options="[]" />
+        <Select title="產地" :options="[]" />
       </div>
 
       <hr class="divider" />
@@ -69,44 +69,109 @@
         <HorizontalScroll
           ><Card
             v-for="(car, index) in carList"
+            v-model="selectedProjectId"
             :key="`car${car.id}`"
             :car="car"
             :class="
-              selectedProject === car.id
+              selectedProjectId === car.id
                 ? 'border-2 border-blue-500'
                 : 'border-1 border-gray-600'
             "
-            v-model="selectedProject"
         /></HorizontalScroll>
+        <div class="text-black-400" v-if="selectedProject">
+          <div class="mb-8">
+            <SingleChoiceButton
+              :title="selectedProject.name"
+              :options="[
+                { value: '標配', label: '標配' },
+                { value: '特訂', label: '特訂' },
+              ]"
+            />
+          </div>
+          <div class="grid grid-cols-2 gap-x-6 gap-y-4">
+            <Select title="門座" :options="[]" />
+            <SingleChoiceButton
+              title="天窗"
+              :options="[
+                { label: '有', value: '有' },
+                { label: '無', value: '無' },
+              ]"
+            />
+            <SingleChoiceButton
+              title="排檔"
+              :options="[
+                { label: '自排', value: '自排' },
+                { label: '手排', value: '手排' },
+              ]"
+            />
+            <SingleChoiceButton
+              title="傳動"
+              :options="[
+                { label: '2WD', value: '2WD' },
+                { label: '4WD', value: '4WD' },
+              ]"
+            />
+            <MultiChoiceButton
+              title="其他"
+              :options="[
+                { label: '空力套件', value: '空力套件' },
+                { label: '車定置物架', value: '車定置物架' },
+              ]"
+            />
+          </div>
+        </div>
         <hr class="divider" />
       </div>
 
       <div class="mt-8">
         <div class="mb-3">約定掛牌日期</div>
-        <div class="flex items-center">
-          <RadioButton
+        <div class="flex items-start">
+          <SingleChoiceButton
+            v-model="agreedDateType"
             :options="[
               { value: '已進口車輛', label: '已進口車輛' },
               { value: '尚未進口車輛', label: '尚未進口車輛' },
             ]"
           />
-          <DatePicker class="ml-6 flex-1" v-model="date" />
+          <div class="ml-6 flex-1">
+            <DatePicker
+              v-model="date"
+              :disabled="agreedDateType === '尚未進口車輛'"
+            />
+            <span
+              class="text-red text-xs font-light"
+              v-if="agreedDateType === '尚未進口車輛'"
+              >尚未進口車輛掛牌日期另行約定</span
+            >
+          </div>
         </div>
       </div>
 
       <div class="mt-8">
-        <div class="mb-3">交車地點</div>
-        <RadioButton
+        <SingleChoiceButton
+          class="mb-4"
+          v-model="deliveryLocationType"
+          title="交車地點"
           :options="[
             { value: '預設展示中心', label: '預設展示中心' },
             { value: '自訂交車地點', label: '自訂交車地點' },
           ]"
         />
         <Select
+          class="w-full"
+          v-if="deliveryLocationType === '預設展示中心'"
           :options="['新凱汽車士林展示暨服務中心']"
           placeholder="請選擇預設展示中心"
-          class="mt-4"
         ></Select>
+        <div class="flex items-center gap-2" v-else>
+          <Select class="w-30 flex-shrink-0" :options="[]" placeholder="縣市" />
+          <Select
+            class="w-30 flex-shrink-0"
+            :options="[]"
+            placeholder="鄉鎮市區"
+          />
+          <BaseInput class="w-full" placeholder="地址" />
+        </div>
       </div>
 
       <button class="button-blue mt-12 w-full" @click="handleNext">
@@ -118,14 +183,17 @@
 
 <script setup lang="ts">
 import { computed, ref } from "vue";
+import BaseInput from "@/components/BaseInput.vue";
 import Card from "@/components/CarCard.vue";
 import DatePicker from "@/components/DatePicker.vue";
 import HorizontalScroll from "@/components/HorizontalScroll.vue";
-import RadioButton from "@/components/RadioButton.vue";
+import MultiChoiceButton from "@/components/MultiChoiceButton.vue";
 import Select from "@/components/Select.vue";
+import SingleChoiceButton from "@/components/SingleChoiceButton.vue";
 import Stepper from "@/components/Stepper.vue";
 import Tabs from "@/components/Tabs.vue";
 
+// 車型樣式
 const currentTab = ref<number>(0);
 const carTypeList = ref([
   {
@@ -164,6 +232,7 @@ const processedCarList = computed(() =>
 );
 const selectedCar = ref<number | null>(null);
 
+// 訂購類型
 const carList = ref([
   {
     id: 0,
@@ -216,10 +285,19 @@ const carList = ref([
     salesPrice: 2330000,
   },
 ]);
+const selectedProjectId = ref<number | null>(null);
+const selectedProject = computed(() => {
+  if (selectedProjectId.value !== null)
+    return carList.value.find((car) => car.id === selectedProjectId.value);
+  return null;
+});
 
+// 約定掛牌日期
+const agreedDateType = ref<string>("");
 const date = ref<Date | null>(null);
 
-const selectedProject = ref<number | null>(null);
+// 交車地點
+const deliveryLocationType = ref<string>("預設展示中心");
 
 const handleNext = () => {
   console.log("next");

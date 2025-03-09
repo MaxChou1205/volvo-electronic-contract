@@ -1,6 +1,6 @@
 <template>
-  <label class="flex flex-col gap-1">
-    <span>{{ label }}</span>
+  <label class="inline-block">
+    <div class="mb-3" v-if="title">{{ title }}</div>
     <div class="select">
       <select
         class="h-11 w-full appearance-none rounded-[4px] border-1 border-black p-3 font-light"
@@ -21,7 +21,7 @@ import { computed } from "vue";
 
 const modelValue = defineModel<string | number>({ default: "" });
 const props = defineProps<{
-  label?: string;
+  title?: string;
   options: (string | number | { label: string; value: string | number })[];
   placeholder?: string;
   disabled?: boolean;
@@ -30,7 +30,7 @@ const props = defineProps<{
 const optionsWithEmpty = computed(() => {
   return [
     {
-      label: props.placeholder || `請選擇${props.label || ""}`,
+      label: props.placeholder || `請選擇${props.title || ""}`,
       value: "",
     },
     ...props.options,
