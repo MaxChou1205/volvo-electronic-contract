@@ -117,8 +117,8 @@ const modelValue = defineModel<string | Date | null>({
   default: null,
 });
 
-const { disabled } = defineProps<{
-  disabled: boolean;
+const { disabled = false } = defineProps<{
+  disabled?: boolean;
 }>();
 
 watch(

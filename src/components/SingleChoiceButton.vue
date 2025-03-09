@@ -22,6 +22,7 @@
           type="radio"
           :value="option.value"
           :disabled="option.disabled"
+          @change="$emit('change', option.value)"
         />
       </label>
     </div>
@@ -41,6 +42,8 @@ const { title, options } = defineProps<{
   title?: string;
   options: Option[];
 }>();
+
+const emit = defineEmits(["change"]);
 
 const modelValue = defineModel<string | number | boolean>({
   default: "",

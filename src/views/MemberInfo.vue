@@ -93,7 +93,7 @@
         <router-link class="button-gray w-full" :to="{ name: 'modelStyle' }">
           上一步
         </router-link>
-        <router-link class="button-blue w-full" :to="{ name: 'memberInfo' }">
+        <router-link class="button-blue w-full" :to="{ name: 'paymentInfo' }">
           下一步
         </router-link>
       </div>

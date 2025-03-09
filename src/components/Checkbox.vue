@@ -2,35 +2,34 @@
   <div>
     <label>
       <input
+        class="mr-2"
+        v-model="modelValue"
         type="checkbox"
         :disabled="disabled"
         :value="value"
         @change="handleChange"
       />
-      {{ label }}
+      <span v-if="label">{{ label }}</span>
+      <template v-else><slot></slot></template>
     </label>
   </div>
 </template>
 
 <script setup lang="ts">
-const modelValue = defineModel<string[]>({ default: [] });
+const modelValue = defineModel<string | boolean | number>({
+  default: false,
+});
 
 const { label, value, disabled } = defineProps<{
-  label: string;
   value: string | boolean | number;
+  label?: string;
   disabled?: boolean;
 }>();
 
 const emit = defineEmits(["change"]);
 
 const handleChange = (e: Event) => {
-  const target = e.target as HTMLInputElement;
-  emit("change", target.checked);
-  if (target.checked) {
-    modelValue.value.push(target.value);
-  } else {
-    modelValue.value = modelValue.value.filter((item) => item !== target.value);
-  }
+  emit("change", (e.target as HTMLInputElement).checked);
 };
 </script>
 
