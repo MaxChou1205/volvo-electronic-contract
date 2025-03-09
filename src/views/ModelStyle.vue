@@ -174,9 +174,12 @@
         </div>
       </div>
 
-      <button class="button-blue mt-12 w-full" @click="handleNext">
+      <router-link
+        class="button-blue mt-12 w-full"
+        :to="{ name: 'memberInfo' }"
+      >
         下一步
-      </button>
+      </router-link>
     </div>
   </div>
 </template>
@@ -298,10 +301,6 @@ const date = ref<Date | null>(null);
 
 // 交車地點
 const deliveryLocationType = ref<string>("預設展示中心");
-
-const handleNext = () => {
-  console.log("next");
-};
 </script>
 
 <style scoped></style>

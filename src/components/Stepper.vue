@@ -1,23 +1,30 @@
 <template>
   <div class="mx-auto flex w-full justify-center">
-    <div v-for="(text, index) in textList" :key="index" class="flex">
+    <div class="flex" v-for="(text, index) in textList" :key="index">
+      <!-- 分隔線 -->
       <div
-        v-if="index !== 0"
         class="mt-4 h-px w-[60px]"
+        v-if="index !== 0"
         :class="props.currentStep >= index + 1 ? 'bg-blue-500' : 'bg-gray-500'"
       ></div>
       <div class="flex flex-col items-center">
         <div
           class="flex h-8 w-8 items-center justify-center rounded-full border-2"
-          :class="
-            props.currentStep >= index + 1
-              ? 'border-blue-500 text-blue-500'
-              : 'border-gray-400 text-gray-400'
-          "
+          :class="[
+            {
+              'border-blue-500 text-blue-500': props.currentStep === index + 1,
+            },
+            {
+              'border-gray-400 text-gray-400': props.currentStep < index + 1,
+            },
+            {
+              'bg-blue-500 text-white': props.currentStep > index + 1,
+            },
+          ]"
         >
           <svg
-            xmlns="http://www.w3.org/2000/svg"
             class="h-5 w-5"
+            xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
