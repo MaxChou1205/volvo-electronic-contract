@@ -24,18 +24,44 @@
       />
 
       <div class="grid grid-cols-2 gap-x-6 gap-y-8" v-if="buyerType === '個人'">
-        <BaseInput title="訂購人名稱" placeholder="請輸入訂購人名稱" />
         <BaseInput
+          v-model="buyerInfo.name"
+          title="訂購人名稱"
+          placeholder="請輸入訂購人名稱"
+        />
+        <BaseInput
+          v-model="buyerInfo.idNo"
           title="訂購人身分證字號"
           placeholder="請輸入訂購人身分證字號"
         />
-        <BaseInput title="約定掛牌名稱" placeholder="請輸入約定掛牌名稱" />
-        <BaseInput title="身分證字號" placeholder="請輸入身分證字號" />
+        <div>
+          <BaseInput
+            v-model="buyerInfo.officialName"
+            title="約定掛牌名稱"
+            placeholder="請輸入約定掛牌名稱"
+          />
+          <Checkbox
+            class="mt-3"
+            label="同訂購人"
+            :value="true"
+            @change="handleSameBuyer"
+          />
+        </div>
         <BaseInput
+          v-model="buyerInfo.officialIdNo"
+          title="身分證字號"
+          placeholder="請輸入身分證字號"
+        />
+        <BaseInput
+          v-model="buyerInfo.phone"
           title="主要聯絡電話（手機）"
           placeholder="請輸入掛牌人手機號碼"
         />
-        <BaseInput title="常用聯絡 E-mail" placeholder="請輸入 E-mail" />
+        <BaseInput
+          v-model="buyerInfo.email"
+          title="常用聯絡 E-mail"
+          placeholder="請輸入 E-mail"
+        />
       </div>
 
       <div class="grid grid-cols-2 gap-x-6 gap-y-8" v-else>
@@ -78,12 +104,30 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import BaseInput from "@/components/BaseInput.vue";
+import Checkbox from "@/components/Checkbox.vue";
 import Select from "@/components/Select.vue";
 import SingleChoiceButton from "@/components/SingleChoiceButton.vue";
 import Stepper from "@/components/Stepper.vue";
 
 // 買方類型
 const buyerType = ref("個人");
+
+// 個人
+const buyerInfo = ref({
+  name: "",
+  idNo: "",
+  officialName: "",
+  officialIdNo: "",
+  phone: "",
+  email: "",
+});
+
+const handleSameBuyer = (value: boolean) => {
+  if (value) {
+    buyerInfo.value.officialName = buyerInfo.value.name;
+    buyerInfo.value.officialIdNo = buyerInfo.value.idNo;
+  }
+};
 </script>
 
 <style scoped></style>
