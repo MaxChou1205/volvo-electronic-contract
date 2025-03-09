@@ -2,8 +2,8 @@
   <div>
     <div class="h-60 overflow-hidden">
       <img
-        class="object-cover object-[0_-175px]"
-        src="@/assets/img/banner1.png"
+        class="object-cover object-[0_-44px]"
+        src="@/assets/img/banner2.png"
         alt="banner"
       />
     </div>
