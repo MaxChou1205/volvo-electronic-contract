@@ -198,7 +198,7 @@
           >
             <span
               class="text-red text-xs font-light"
-              v-if="!buyerSignatureImageSrc"
+              v-if="!signatureStore.buyerSignatureImageSrc"
               >請 買方 詳閱上述注意事項後，請以中文正楷簽名</span
             >
             <img
@@ -338,7 +338,7 @@
         <router-link class="button-gray w-full" :to="{ name: 'memberInfo' }">
           上一步
         </router-link>
-        <router-link class="button-blue w-full" :to="{ name: 'paymentInfo' }">
+        <router-link class="button-blue w-full" :to="{ name: 'confirmView' }">
           預覽
         </router-link>
       </div>
@@ -357,7 +357,7 @@ import Modal from "@/components/Modal.vue";
 import Select from "@/components/Select.vue";
 import SingleChoiceButton from "@/components/SingleChoiceButton.vue";
 import Stepper from "@/components/Stepper.vue";
-import { useModal } from "@/composables/modal";
+import { useSignatureStore } from "@/stores/signature";
 import { toZhDigit } from "@/utils/number";
 
 const accessories = ref([
@@ -422,13 +422,11 @@ const closeContractModal = () => {
 const contractAgreement = ref<boolean>(false);
 
 // 簽名
-
+const signatureStore = useSignatureStore();
 const signatureModalRef = ref<InstanceType<typeof Modal> | null>(null);
 const signaturePadRef = ref<HTMLCanvasElement | null>(null);
 const buyerSignatureImageRef = ref<HTMLImageElement | null>(null);
-const buyerSignatureImageSrc = ref<string>("");
 const sellerSignatureImageRef = ref<HTMLImageElement | null>(null);
-const sellerSignatureImageSrc = ref<string>("");
 let signaturePad;
 let currentSignatureType = "";
 const openSignatureModal = (type: "buyer" | "seller") => {
@@ -450,10 +448,10 @@ const confirmSignature = () => {
   const data = signaturePad?.toDataURL("image/png");
 
   if (currentSignatureType === "buyer") {
-    buyerSignatureImageSrc.value = data!;
+    signatureStore.setBuyerSignatureImageSrc(data!);
     buyerSignatureImageRef.value!.src = data!;
   } else {
-    sellerSignatureImageSrc.value = data!;
+    signatureStore.setSellerSignatureImageSrc(data!);
     sellerSignatureImageRef.value!.src = data!;
   }
 };
