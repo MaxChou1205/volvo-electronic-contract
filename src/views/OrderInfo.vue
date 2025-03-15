@@ -31,7 +31,7 @@
             <div class="grid grid-cols-3 gap-x-[10%] gap-y-4">
               <Field :label="'銷售顧問'" :content="'Label'"></Field>
               <Field :label="'紙本簽約編號'" :content="'0919123456'"></Field>
-              <Field :label="'訂單類型'" :content="'0EC 訂單'"></Field>
+              <Field :label="'訂單類型'" :content="'EC 訂單'"></Field>
               <Field :label="'訂單編號'" :content="'20250107A001'"></Field>
               <Field
                 :label="'預計交車時間'"
@@ -57,7 +57,7 @@
           </div>
           <div>
             <div class="text-14px mb-4 text-center leading-relaxed font-bold">
-              買受人資訊
+              買受資訊
             </div>
             <div class="grid grid-cols-3 gap-x-[10%] gap-y-4">
               <Field :label="'購買類型'" :content="'Label'"></Field>
@@ -107,16 +107,18 @@
             </div>
           </div>
           <div class="flex flex-wrap justify-center gap-x-[10%] gap-y-4">
-            <button
-              class="h-auto w-full max-w-[250px] rounded-[8px] bg-gray-500 py-4 text-lg text-white"
+            <RouterLink
+              class="h-auto w-full max-w-[250px] rounded-[8px] bg-gray-500 py-4 text-center text-lg text-white"
+              :to="{ name: 'order' }"
             >
               <span>返回</span>
-            </button>
-            <button
-              class="bg-blue-brand h-auto w-full max-w-[250px] rounded-[8px] py-4 text-lg text-white"
+            </RouterLink>
+            <RouterLink
+              class="bg-blue-brand h-auto w-full max-w-[250px] rounded-[8px] py-4 text-center text-lg text-white"
+              :to="{ name: 'modelStyle' }"
             >
               <span>成立合約</span>
-            </button>
+            </RouterLink>
           </div>
         </div>
       </div>

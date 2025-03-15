@@ -13,7 +13,8 @@
       <div class="mt-15">
         <RouterLink
           class="flex w-full cursor-pointer items-center border-b border-gray-100 px-6 py-4 hover:bg-blue-200"
-          exact-active-class="bg-blue-200"
+          :class="[$route.path.startsWith('/order') ? 'bg-blue-200' : '']"
+          active-class="bg-blue-200"
           :to="{ name: 'order' }"
         >
           <Icon icon-name="orderManagement" :size="20" />
@@ -21,7 +22,8 @@
         </RouterLink>
         <RouterLink
           class="flex w-full cursor-pointer items-center border-b border-gray-100 px-6 py-4 hover:bg-blue-200"
-          exact-active-class="bg-blue-200"
+          :class="[$route.path.startsWith('/contract') ? 'bg-blue-200' : '']"
+          activeClass="bg-blue-200"
           :to="{ name: 'contract' }"
         >
           <Icon icon-name="contractManagement" :size="20" />

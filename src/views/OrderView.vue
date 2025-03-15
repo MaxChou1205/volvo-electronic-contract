@@ -20,10 +20,13 @@
             <Icon class="mr-1" icon-name="phone" size="16" />
             <span class="text-gray-800">0919123456</span>
           </div>
-          <div class="flex cursor-pointer items-center justify-end">
+          <RouterLink
+            class="flex cursor-pointer items-center justify-end"
+            :to="{ name: 'orderinfo', params: { id: '20250107A001' } }"
+          >
             <span class="text-blue-brand text-xs">查看更多</span>
             <Icon class="ml-1" icon-name="right-arrow" :size="24" />
-          </div>
+          </RouterLink>
         </div>
       </div>
     </main>

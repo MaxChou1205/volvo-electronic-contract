@@ -32,13 +32,21 @@
       class="sticky top-[90px] flex items-center justify-evenly bg-white px-4 text-sm"
     >
       <li
-        class="min-w-[130px] cursor-pointer pb-2 text-center"
+        class="group relative min-w-[130px] cursor-pointer pb-2 text-center"
         v-for="item in sortList"
         :key="item.value"
-        :class="{ 'border-b-2 border-blue-500': item.value === sort }"
+        :class="{ 'font-medium text-blue-500': item.value === sort }"
         @click="changeSort(item.value)"
       >
         {{ item.label }}
+        <div
+          class="absolute bottom-0 left-0 h-0.5 w-full transform-gpu transition-all duration-300 ease-out"
+          :class="
+            item.value === sort
+              ? 'scale-x-100 bg-blue-500'
+              : 'scale-x-0 bg-transparent group-hover:scale-x-100 group-hover:bg-gray-300'
+          "
+        ></div>
       </li>
       <li class="flex cursor-pointer items-center pb-2 text-center">
         <Icon class="mr-1" iconName="sort" :size="20" />
@@ -103,4 +111,4 @@ const toggleFilterMenu = () => {
 };
 </script>
 
-<style scoped></style>
+<style scoped lang="scss"></style>

@@ -5,9 +5,9 @@ import HomeView from "@/views/HomeView.vue";
 import LoginView from "@/views/LoginView.vue";
 import MemberInfo from "@/views/MemberInfo.vue";
 import Model from "@/views/ModelStyle.vue";
+import OrderInfo from "@/views/OrderInfo.vue";
 import OrderView from "@/views/OrderView.vue";
 import PaymentInfo from "@/views/PaymentInfo.vue";
-import OrderInfo from "@/views/OrderInfo.vue"
 
 const routes = [
   { path: "/", redirect: "/login" },
@@ -18,7 +18,7 @@ const routes = [
     component: HomeView,
     children: [
       { name: "order", path: "/order", component: OrderView },
-      {name: "orderinfo", path: "/order/:id", component: OrderInfo},
+      { name: "orderinfo", path: "/order/:id", component: OrderInfo },
       { name: "contract", path: "/contract", component: ContractView },
     ],
   },
