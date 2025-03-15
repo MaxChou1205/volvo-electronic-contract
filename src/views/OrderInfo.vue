@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="flex h-screen flex-col">
     <OrderHeader />
-    <main>
+    <main class="overflow-auto">
       <div class="p-[30px]">
         <div class="grid w-full gap-y-11 rounded-[10px] bg-white px-10 py-12">
           <div>

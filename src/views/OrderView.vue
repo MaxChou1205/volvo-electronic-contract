@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="flex h-screen flex-col">
     <OrderHeader />
 
-    <main class="bg-">
+    <main class="overflow-auto">
       <div class="grid grid-cols-2 gap-[30px] p-[30px]">
         <div
           class="rounded-[4px] bg-white px-4 py-5 text-sm"
