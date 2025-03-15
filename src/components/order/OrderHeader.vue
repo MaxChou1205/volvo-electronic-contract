@@ -56,7 +56,7 @@
     <!-- filter menu -->
     <div
       :class="[
-        'fixed top-0 right-0 z-30 h-full w-150 transform bg-white shadow-lg transition-transform',
+        'fixed top-0 right-0 z-30 h-full w-150 transform overflow-y-scroll bg-white shadow-lg transition-transform',
         isFilterMenuOpen ? 'translate-x-0' : 'translate-x-full',
       ]"
     >

@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="text-black-400 container mx-auto max-w-4xl overflow-auto px-4 py-6"
-  >
+  <div class="text-black-400 mx-auto max-w-4xl px-4 py-6">
     <div class="flex flex-col gap-8 md:flex-row">
       <div class="w-full md:w-1/3">
         <h2 class="mb-4 text-center text-sm font-bold">列表顯示</h2>
