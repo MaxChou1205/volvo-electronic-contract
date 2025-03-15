@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mx-auto max-w-screen-md">
     <div class="h-60 overflow-hidden">
       <img
         class="object-cover object-[0_-175px]"
