@@ -212,11 +212,11 @@
             <div>地址：臺北市內湖區民權東路6段17號</div>
             <div>電話：02-8791-3456</div>
             <div>統編：80198953</div>
-            <img
+            <!-- <img
               class="absolute right-2 bottom-2 h-[82px] w-[136px]"
               src="@/assets/img/seal.png"
               alt=""
-            />
+            /> -->
           </div>
           <div
             class="border-black-400 relative h-35 cursor-pointer rounded-[4px] border-1 p-3"
