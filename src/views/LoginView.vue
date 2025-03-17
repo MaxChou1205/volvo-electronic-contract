@@ -99,7 +99,7 @@ const login = () => {
     form.value.account.toLocaleLowerCase() === "kt001" &&
     form.value.password.toLocaleLowerCase() === "kt001"
   ) {
-    router.push({ name: "home" });
+    router.push({ name: "order" });
   } else {
     loginFailed.value = true;
   }
