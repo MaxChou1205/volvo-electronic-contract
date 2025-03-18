@@ -1,6 +1,7 @@
 import { createWebHistory, createRouter } from "vue-router";
 import ConfirmView from "@/views/ConfirmView.vue";
 import ContractView from "@/views/ContractView.vue";
+import FinishView from "@/views/FinishView.vue";
 import HomeView from "@/views/HomeView.vue";
 import LoginView from "@/views/LoginView.vue";
 import MemberInfo from "@/views/MemberInfo.vue";
@@ -26,6 +27,7 @@ const routes = [
   { name: "memberInfo", path: "/member-info", component: MemberInfo },
   { name: "paymentInfo", path: "/payment-info", component: PaymentInfo },
   { name: "confirmView", path: "/contract-confirm", component: ConfirmView },
+  { name: "finishView", path: "/contract-finish", component: FinishView },
 ];
 
 const router = createRouter({

@@ -270,7 +270,9 @@
 
       <div class="mt-12 flex w-full items-center gap-7">
         <button class="button-white w-full" type="button">列印</button>
-        <button class="button-blue w-full" type="button">完成</button>
+        <router-link class="button-blue w-full" :to="{ name: 'contract' }"
+          >完成</router-link
+        >
       </div>
     </div>
   </div>
