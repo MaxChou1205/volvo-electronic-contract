@@ -75,7 +75,7 @@
           <div class="col-span-1 mr-6 bg-gray-200">
             <img
               class="block h-full w-full object-contain align-middle"
-              src="@/assets/img/XC90 Recharge.png"
+              src="@/assets/img/XC90.png"
               alt=""
             />
           </div>
@@ -83,7 +83,7 @@
             <div>
               <div class="text-xs font-light">車型樣式</div>
               <div class="text-base font-medium text-blue-500">
-                XC90 Recharge
+                XC90
               </div>
             </div>
             <div>
@@ -124,26 +124,32 @@
             </div>
           </div>
         </div>
-        <div class="flex gap-4">
-          <div class="min-w-23 bg-gray-200 px-4 py-3">
+        <div class="mb-3 flex gap-4">
+          <div class="min-w-23 flex-1 bg-gray-200 px-4 py-3">
             <div class="text-xs font-light">門座</div>
             <div class="text-base font-medium">五門四人座</div>
           </div>
-          <div class="min-w-23 bg-gray-200 px-4 py-3">
+          <div class="min-w-23 flex-1 bg-gray-200 px-4 py-3">
             <div class="text-xs font-light">天窗</div>
             <div class="text-base font-medium">全景天窗</div>
           </div>
-          <div class="min-w-23 bg-gray-200 px-4 py-3">
+          <div class="min-w-23 flex-1 bg-gray-200 px-4 py-3">
             <div class="text-xs font-light">排檔</div>
             <div class="text-base font-medium">自排</div>
           </div>
-          <div class="min-w-23 bg-gray-200 px-4 py-3">
+          <div class="min-w-23 flex-1 bg-gray-200 px-4 py-3">
             <div class="text-xs font-light">傳動</div>
             <div class="text-base font-medium">2WD</div>
           </div>
-          <div class="min-w-23 bg-gray-200 px-4 py-3">
+        </div>
+        <div class="flex gap-4">
+          <div class="min-w-23 flex-1 bg-gray-200 px-4 py-3">
             <div class="text-xs font-light">其他</div>
             <div class="text-base font-medium">空力套件、車頂置物架</div>
+          </div>
+          <div class="min-w-23 flex-1 bg-gray-200 px-4 py-3">
+            <div class="text-xs font-light">備註</div>
+            <div class="text-base font-medium"></div>
           </div>
         </div>
       </div>

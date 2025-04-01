@@ -44,7 +44,7 @@
           <div class="mb-3 flex items-center">
             新台幣
             <CurrencyInput
-              class="mx-2"
+              class="mx-2 w-55"
               v-model="strikePrice"
               @update="handleFinalPriceChange"
             />
@@ -63,7 +63,7 @@
           <div>實收定金</div>
           <div class="flex items-center">
             新台幣
-            <CurrencyInput class="mx-2" v-model="deposit" />
+            <CurrencyInput class="mx-2 w-55" v-model="deposit" />
             元
           </div>
         </div>
@@ -166,7 +166,7 @@
       <hr class="divider" />
 
       <div class="space-y-8">
-        <Checkbox v-model="contractAgreement" :value="true"
+        <Checkbox v-model="contractAgreement" :value="true" disabled
           ><button
             class="cursor-pointer text-blue-500"
             type="button"
@@ -175,11 +175,19 @@
             新車訂購合約條款
           </button></Checkbox
         >
-
+        <Checkbox v-model="confidentialityAgreement" :value="true" disabled
+          ><button
+            class="cursor-pointer text-blue-500"
+            type="button"
+            @click="openConfidentialityModal"
+          >
+            保密條款與注意事項
+          </button></Checkbox
+        >
         <Checkbox :value="true">已詳讀並經過3日審閱期的同意勾選</Checkbox>
         <DatePicker />
         <Checkbox :value="true">本人已詳讀並同意</Checkbox>
-        <div class="grid grid-cols-[188px_268px_144px] gap-x-6 gap-y-3">
+        <div class="grid grid-cols-[144px_1fr_144px] gap-x-6 gap-y-3">
           <div class="flex items-center justify-between">
             <span>買方簽名</span>
             <span class="text-blue-500">孫大批</span>
@@ -305,6 +313,43 @@
         </div>
       </Modal>
 
+      <Modal ref="confidentialityModalRef">
+        <div class="text-black">
+          <h3 class="mb-5 text-2xl">※保密條款：</h3>
+          <p class="mb-2">
+            本契約屬雙方合意簽署之隱私保密文件，非一般涉及此類資訊之人所知悉。故買方未經賣方書面同意不得讓本契約公開給第三人賞閱、拍攝、記錄、傳送、上網分享等情事。若有損害賣方權益時買方將負賠償責任。
+          </p>
+          <p class="mb-2">
+            ※為保障台端的權益，凱銳汽車股份有限公司同仁均備有最新名片、身份證，敬請核對。
+          </p>
+          <p class="mb-2">
+            ※賣方保留接受買方此份訂購契約與否之權利，而本公司同仁如有任何承諾，均請要求以書面方式記載於本公司制式契約內容（含背面），若以其他書面另行記載約定條約，該記載一律無效。
+          </p>
+          <p class="mb-2">
+            ※車輛申辦貸款、領牌之相關費用由買方支付，如設定費、稅金、代辦費、驗車規費、選號費、保險費等，均不計入交易車價中。
+          </p>
+          <p class="mb-2">
+            ※本合約書買方給付賣方之所有款項，均需指名以「凱銳汽車股份有限公司」禁止背書之即期支票；或本公司名義之信用卡簽單（刷卡手續費除非另有約定，則全數由買方負擔）；或以銀行匯款至本公司帳戶：
+            <br />
+            永豐銀行東門分行 戶名：凱銳汽車股份有限公司 帳號：
+          </p>
+          <div class="flex items-center justify-between">
+            <Checkbox
+              v-model="confidentialityAgreement"
+              label="本人已詳讀並同意"
+              :value="true"
+            />
+            <button
+              class="button-blue"
+              type="button"
+              @click="closeConfidentialityModal"
+            >
+              關閉
+            </button>
+          </div>
+        </div>
+      </Modal>
+
       <!-- 簽名 -->
       <Modal
         ref="signatureModalRef"
@@ -313,13 +358,15 @@
         :showConfirmButton="true"
         @confirm="confirmSignature"
       >
-        <div class="relative mb-6 h-50 border-1 border-dashed">
+        <div
+          class="relative mx-auto mb-6 h-[288px] w-[288px] border-1 border-dashed"
+        >
           <canvas
             class="signature-pad"
             id="signature-pad"
             ref="signaturePadRef"
-            width="700"
-            height="200"
+            width="288"
+            height="288"
           ></canvas>
           <span class="text-red absolute top-3 left-3 text-xs font-light"
             >請以中文正楷簽名</span
@@ -420,6 +467,16 @@ const closeContractModal = () => {
   contractModalRef.value?.close();
 };
 const contractAgreement = ref<boolean>(false);
+
+// 保密條款
+const confidentialityModalRef = ref<InstanceType<typeof Modal> | null>(null);
+const openConfidentialityModal = () => {
+  confidentialityModalRef.value?.open();
+};
+const closeConfidentialityModal = () => {
+  confidentialityModalRef.value?.close();
+};
+const confidentialityAgreement = ref<boolean>(false);
 
 // 簽名
 const signatureStore = useSignatureStore();

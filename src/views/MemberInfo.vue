@@ -20,6 +20,7 @@
         :options="[
           { value: '個人', label: '個人' },
           { value: '公司', label: '公司' },
+          { value: '租賃', label: '租賃' },
         ]"
       />
 

@@ -1,7 +1,7 @@
 <template>
-  <div class="w-55">
+  <div>
     <input
-      class="text-black-400 border-black-400 inline-block h-11 cursor-text appearance-none rounded-[4px] border-1 p-3 text-right"
+      class="text-black-400 border-black-400 inline-block h-11 w-full cursor-text appearance-none rounded-[4px] border-1 p-3 text-right"
       v-if="isFocus"
       v-model.number="modelValue"
       ref="inputRef"
