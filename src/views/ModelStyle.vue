@@ -110,10 +110,7 @@
             <SingleChoiceButton
               title="排檔"
               :options="[
-                {
-                  value: '自拍（自拍/手自拍/自手排）',
-                  label: '自拍（自拍/手自拍/自手排）',
-                },
+                { value: '自排', label: '自排' },
                 { value: '手排', label: '手排' },
               ]"
             />
