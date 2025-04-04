@@ -69,8 +69,8 @@
       <hr class="divider" />
 
       <div class="mt-8">
-        <div>優惠套裝</div>
-        <HorizontalScroll
+        <!-- <div>優惠套裝</div> -->
+        <!-- <HorizontalScroll
           ><Card
             v-for="(car, index) in carList"
             v-model="selectedProjectId"
@@ -81,11 +81,18 @@
                 ? 'border-2 border-blue-500'
                 : 'border-1 border-gray-600'
             "
-        /></HorizontalScroll>
-        <div class="text-black-400" v-if="selectedProject">
+        /></HorizontalScroll> -->
+        <!-- v-if="selectedProject" -->
+        <div class="text-black-400">
           <div class="mb-8">
-            <SingleChoiceButton
+            <!-- <SingleChoiceButton
               :title="selectedProject.name"
+              :options="[
+                { value: '標配', label: '標配' },
+                { value: '特訂', label: '特訂' },
+              ]"
+            /> -->
+            <SingleChoiceButton
               :options="[
                 { value: '標配', label: '標配' },
                 { value: '特訂', label: '特訂' },
