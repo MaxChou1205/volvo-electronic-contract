@@ -82,9 +82,7 @@
           <div class="col-span-1 grid grid-cols-2 gap-4">
             <div>
               <div class="text-xs font-light">車型樣式</div>
-              <div class="text-base font-medium text-blue-500">
-                XC90
-              </div>
+              <div class="text-base font-medium text-blue-500">XC90</div>
             </div>
             <div>
               <div class="text-xs font-light">年式</div>
@@ -142,15 +140,14 @@
             <div class="text-base font-medium">2WD</div>
           </div>
         </div>
-        <div class="flex gap-4">
-          <div class="min-w-23 flex-1 bg-gray-200 px-4 py-3">
-            <div class="text-xs font-light">其他</div>
-            <div class="text-base font-medium">空力套件、車頂置物架</div>
-          </div>
-          <div class="min-w-23 flex-1 bg-gray-200 px-4 py-3">
-            <div class="text-xs font-light">備註</div>
-            <div class="text-base font-medium"></div>
-          </div>
+
+        <div class="mb-4 bg-gray-200 px-4 py-3">
+          <div class="text-xs font-light">其他</div>
+          <div class="text-base font-medium">空力套件、車頂置物架</div>
+        </div>
+        <div class="bg-gray-200 px-4 py-3">
+          <div class="text-xs font-light">備註</div>
+          <div class="text-base font-medium"></div>
         </div>
       </div>
 
