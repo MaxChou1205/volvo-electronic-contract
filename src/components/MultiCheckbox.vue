@@ -1,16 +1,22 @@
 <template>
   <div>
-    <label class="flex items-center text-sm"
+    <label class="flex cursor-pointer items-center text-sm"
       ><input
         class="border-blue-brand text-blue-brand checked:bg-blue-brand mr-2 h-5 w-5 appearance-none rounded border-2 checked:text-white"
+        v-model="modelValue"
         type="checkbox"
-      />{{ option }}</label
+        :value="option"
+      />{{ label }}</label
     >
   </div>
 </template>
 
 <script setup lang="ts">
-const { option } = defineProps<{ option: string }>();
+const modelValue = defineModel<(string | number)[]>();
+const { option, label } = defineProps<{
+  option: string | number;
+  label: string;
+}>();
 </script>
 
 <style scoped lang="scss">

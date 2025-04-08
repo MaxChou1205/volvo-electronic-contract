@@ -1,6 +1,6 @@
 <template>
   <div>
-    <label>
+    <label class="flex cursor-pointer items-center">
       <input
         class="mr-2"
         v-model="modelValue"

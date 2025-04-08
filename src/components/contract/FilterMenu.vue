@@ -11,7 +11,7 @@
             v-for="(option, index) in displayOptions"
             :key="index"
           >
-            <MultiCheckbox :option="option" />
+            <MultiCheckbox :option="option" :label="option" />
           </div>
         </div>
       </div>
