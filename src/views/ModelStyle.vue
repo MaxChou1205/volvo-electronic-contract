@@ -29,13 +29,11 @@
               class="flex cursor-pointer flex-col"
               v-for="(car, carIndex) in cars"
               :key="carIndex"
-              @click="selectedCar = car.id"
+              @click="handleChangeCarInfo('carId', car.id)"
             >
               <div
                 class="mb-1 flex h-24 w-24 items-center justify-center rounded-[4px] bg-gray-200"
-                :class="
-                  selectedCar === car.id ? 'border-1 border-blue-500' : ''
-                "
+                :class="form.carId === car.id ? 'border-1 border-blue-500' : ''"
               >
                 <img :src="car.img" alt="car" />
               </div>
@@ -48,7 +46,37 @@
       </div>
 
       <div class="mt-8 grid grid-cols-2 gap-x-6 gap-y-8">
-        <Select title="級別" :options="[]" />
+        <Select
+          v-model="form.year"
+          title="年式"
+          :options="formOptions.yearOptions"
+          @change="handleChangeCarInfo('year')"
+        />
+        <Select
+          v-model="form.config"
+          title="車款動力"
+          :options="formOptions.configOptions"
+          @change="handleChangeCarInfo('config')"
+        />
+        <Select
+          v-model="form.color"
+          title="車色"
+          :options="formOptions.colorOptions"
+          @change="handleChangeCarInfo('color')"
+        />
+        <Select
+          v-model="form.trim"
+          title="內裝"
+          :options="formOptions.trimOptions"
+          @change="handleChangeCarInfo('trim')"
+        />
+        <MultiSelect
+          v-model="form.option"
+          title="選配"
+          placeholder="請選擇選配"
+          :options="formOptions.optionOptions"
+          @change="handleChangeCarInfo('option')"
+        />
         <BaseInput title="CC 數" placeholder="請填寫CC數" />
         <SingleChoiceButton
           title="動力系統"
@@ -58,12 +86,9 @@
             { value: '油電混合', label: '油電混合' },
           ]"
         />
-        <Select title="年式" :options="[]" />
+
         <Select title="出廠年份" :options="yearOfManufacture" />
-        <Select title="車色及代碼" :options="[]" />
-        <Select title="內裝代碼" :options="[]" />
-        <Select title="中控飾板" :options="[]" />
-        <Select title="產地" :options="[]" />
+        <BaseInput title="產地" placeholder="請輸入產地" />
       </div>
 
       <hr class="divider" />
@@ -195,97 +220,211 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import BaseInput from "@/components/BaseInput.vue";
 import CurrencyInput from "@/components/CurrencyInput.vue";
 import DatePicker from "@/components/DatePicker.vue";
 import HorizontalScroll from "@/components/HorizontalScroll.vue";
-import MultiChoiceButton from "@/components/MultiChoiceButton.vue";
 import MultiSelect from "@/components/MultiSelect.vue";
 import Select from "@/components/Select.vue";
 import SingleChoiceButton from "@/components/SingleChoiceButton.vue";
 import Stepper from "@/components/Stepper.vue";
 import Tabs from "@/components/Tabs.vue";
+import { useCar } from "@/composables/car";
+import type { CarFormRequest } from "@/types/carType";
 import county from "../assets/county.json";
 import exhibitionCenter from "../assets/exhibitionCenter.json";
 
-const form = ref({
+const carService = useCar();
+
+const carInfoMap = new Map([
+  ["carId", { optionsKey: "", callbackKey: "", nextKey: "year" }],
+  [
+    "year",
+    {
+      optionsKey: "yearOptions",
+      callbackKey: "getYearOptions",
+      nextKey: "config",
+    },
+  ],
+  [
+    "config",
+    {
+      optionsKey: "configOptions",
+      callbackKey: "getConfigOptions",
+      nextKey: "color",
+    },
+  ],
+  [
+    "color",
+    {
+      optionsKey: "colorOptions",
+      callbackKey: "getColorOptions",
+      nextKey: "trim",
+    },
+  ],
+  [
+    "trim",
+    {
+      optionsKey: "trimOptions",
+      callbackKey: "getTrimOptions",
+      nextKey: "option",
+    },
+  ],
+  ["option", { optionsKey: "optionOptions", callbackKey: "getOptionOptions" }],
+]);
+const carInfoMapKeys = Array.from(carInfoMap.keys());
+const form = ref<CarFormRequest>({
+  carId: "",
+  year: "",
+  config: "",
+  color: "",
+  trim: "",
+  option: [],
   area: "",
   areaCode: "",
   district: "",
   address: "",
   exhibitionCenter: "",
 });
+const formOptions = ref({
+  yearOptions: [],
+  configOptions: [],
+  colorOptions: [],
+  trimOptions: [],
+  optionOptions: [],
+});
 
-// 車型樣式
+onMounted(async () => {
+  const carList = await carService.getCarList();
+  carList.forEach((car) => {
+    const matchData = carTypeList.value.find(
+      (item) => item.name === car.modelName,
+    );
+    if (matchData) {
+      matchData.id = car.modelId;
+    }
+  });
+});
+
+// ---車型樣式---
 const currentTabIndex = ref<number>(0);
 const tabs = ["電動", "雙能電動", "高效輕油電"];
+
+const findRestMapKeys = (currentKey: string) => {
+  const currentIndex = carInfoMapKeys.indexOf(currentKey);
+
+  if (currentIndex !== -1) {
+    return carInfoMapKeys.slice(currentIndex + 1);
+  }
+
+  return [];
+};
+
+const handleChangeCarInfo = async (formKey: string, value?: string) => {
+  resetOptions(formKey);
+  const info = carInfoMap.get(formKey);
+  if (!info) return;
+
+  if (value) {
+    form.value[formKey] = value;
+  }
+
+  if (info.nextKey && carInfoMap.get(info.nextKey)) {
+    const nextInfo = carInfoMap.get(info.nextKey)!;
+    if (nextInfo.optionsKey && nextInfo.callbackKey) {
+      const options = await carService[nextInfo.callbackKey](form.value);
+      formOptions.value[nextInfo.optionsKey] = options;
+    }
+  }
+};
+
+const resetOptions = (currentKey: string) => {
+  const keys = findRestMapKeys(currentKey);
+
+  if (keys.length > 0) {
+    // Reset form values for those keys
+    keys.forEach((key) => {
+      form.value[key] = "";
+    });
+
+    // Reset options arrays for those keys
+    keys.forEach((key) => {
+      const optionsName = carInfoMap.get(key);
+      if (optionsName) {
+        // Reset the options array to empty
+        formOptions.value[optionsName.optionsKey] = [];
+      }
+    });
+  }
+};
+
 const carTypeList = ref([
   {
-    id: 0,
+    id: "0",
     name: "EX40",
     img: new URL("@/assets/img/EX40.png", import.meta.url).href,
     mainCategory: "電動",
     type: "休旅車",
   },
   {
-    id: 1,
+    id: "1",
     name: "EX30",
     img: new URL("@/assets/img/EX30.png", import.meta.url).href,
     mainCategory: "電動",
     type: "休旅車",
   },
   {
-    id: 2,
+    id: "2",
     name: "EC40",
     img: new URL("@/assets/img/EC40.png", import.meta.url).href,
     mainCategory: "電動",
     type: "跨界跑旅",
   },
   {
-    id: 3,
+    id: "3",
     name: "XC90",
     img: new URL("@/assets/img/XC90.png", import.meta.url).href,
     mainCategory: "雙能電動",
     type: "休旅車",
   },
   {
-    id: 4,
+    id: "4",
     name: "XC60",
     img: new URL("@/assets/img/XC60.png", import.meta.url).href,
     mainCategory: "雙能電動",
     type: "休旅車",
   },
   {
-    id: 5,
+    id: "5",
     name: "V60",
     img: new URL("@/assets/img/V60.png", import.meta.url).href,
     mainCategory: "雙能電動",
     type: "旅行車",
   },
   {
-    id: 6,
+    id: "6",
     name: "XC90",
     img: new URL("@/assets/img/XC90.png", import.meta.url).href,
     mainCategory: "高效輕油電",
     type: "休旅車",
   },
   {
-    id: 7,
+    id: "7",
     name: "XC60",
     img: new URL("@/assets/img/XC60.png", import.meta.url).href,
     mainCategory: "高效輕油電",
     type: "休旅車",
   },
   {
-    id: 8,
+    id: "8",
     name: "XC40",
     img: new URL("@/assets/img/XC40.png", import.meta.url).href,
     mainCategory: "高效輕油電",
     type: "休旅車",
   },
   {
-    id: 9,
+    id: "9",
     name: "V60",
     img: new URL("@/assets/img/V60.png", import.meta.url).href,
     mainCategory: "高效輕油電",
@@ -298,7 +437,6 @@ const processedCarList = computed(() => {
   );
   return Object.groupBy(filteredCarList, (item) => item.type);
 });
-const selectedCar = ref<number | null>(null);
 
 // 出廠年份
 const yearOfManufacture = computed(() => {
