@@ -10,9 +10,11 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.12",
+    "@types/node": "^22.14.0",
     "@vuepic/vue-datepicker": "^11.0.1",
     "@vueuse/components": "^13.1.0",
     "@vueuse/core": "^13.1.0",
+    "axios": "^1.8.4",
     "pinia": "^3.0.1",
     "signature_pad": "^5.0.4",
     "tailwindcss": "^4.0.12",
