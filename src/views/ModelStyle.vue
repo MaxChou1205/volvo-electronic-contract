@@ -120,13 +120,6 @@
                 { label: '4WD', value: '4WD' },
               ]"
             />
-            <MultiChoiceButton
-              title="其他"
-              :options="[
-                { label: '空力套件', value: '空力套件' },
-                { label: '車定置物架', value: '車定置物架' },
-              ]"
-            />
           </div>
         </div>
         <hr class="divider" />
