@@ -13,18 +13,6 @@
     <Stepper :currentStep="3" />
 
     <div class="text-black-400 mt-8 px-15 pb-15">
-      <div class="mb-8 flex items-center justify-between">
-        <div>購買方式</div>
-        <SingleChoiceButton
-          v-model="purchaseType"
-          :options="[
-            { value: '現金購車', label: '現金購車' },
-            { value: '分期付款', label: '分期付款' },
-          ]"
-          @change="handleChangePurchaseType"
-        />
-      </div>
-
       <div class="mb-8 grid grid-cols-2 justify-between gap-y-4">
         <div>建議售價(含營業稅)</div>
         <div class="justify-self-end">新台幣 1,450,000 元</div>
@@ -555,13 +543,6 @@ const accessories = ref([
 
 // 購買方式
 const purchaseType = ref("現金購車");
-const handleChangePurchaseType = (value: string) => {
-  if (value === "現金購車") {
-    finalPriceType.value = "現金";
-  } else {
-    finalPriceType.value = "分期付款";
-  }
-};
 
 const strikePrice = ref(0);
 const localeValue = ref("零");
