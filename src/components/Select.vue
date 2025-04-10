@@ -7,6 +7,7 @@
         v-model="modelValue"
         :placeholder="placeholder"
         :disabled="disabled"
+        @change="$emit('change', ($event.target as HTMLSelectElement).value)"
       >
         <option v-for="item in optionsWithEmpty" :value="getValue(item)">
           {{ getLabel(item) }}
@@ -26,6 +27,7 @@ const props = defineProps<{
   placeholder?: string;
   disabled?: boolean;
 }>();
+const emit = defineEmits(["change"]);
 
 const optionsWithEmpty = computed(() => {
   return [

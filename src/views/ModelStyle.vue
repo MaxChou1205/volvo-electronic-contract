@@ -82,16 +82,8 @@
                 : 'border-1 border-gray-600'
             "
         /></HorizontalScroll> -->
-        <!-- v-if="selectedProject" -->
         <div class="text-black-400">
           <div class="mb-8">
-            <!-- <SingleChoiceButton
-              :title="selectedProject.name"
-              :options="[
-                { value: '標配', label: '標配' },
-                { value: '特訂', label: '特訂' },
-              ]"
-            /> -->
             <SingleChoiceButton
               :options="[
                 { value: '標配', label: '標配' },
@@ -177,17 +169,25 @@
         <Select
           class="w-full"
           v-if="deliveryLocationType === '預設展示中心'"
-          :options="['新凱汽車士林展示暨服務中心']"
+          v-model="form.exhibitionCenter"
+          :options="exhibitionCenterOptions"
           placeholder="請選擇預設展示中心"
         ></Select>
         <div class="flex items-center gap-2" v-else>
-          <Select class="w-30 flex-shrink-0" :options="[]" placeholder="縣市" />
           <Select
             class="w-30 flex-shrink-0"
-            :options="[]"
+            v-model.number="form.areaCode"
+            :options="areaOptions"
+            placeholder="縣市"
+            @change="handleAreaChange"
+          />
+          <Select
+            class="w-30 flex-shrink-0"
+            v-model="form.district"
+            :options="districtOptions"
             placeholder="鄉鎮市區"
           />
-          <BaseInput class="w-full" placeholder="地址" />
+          <BaseInput class="w-full" v-model="form.address" placeholder="地址" />
         </div>
       </div>
 
@@ -204,15 +204,25 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import BaseInput from "@/components/BaseInput.vue";
-import Card from "@/components/CarCard.vue";
 import CurrencyInput from "@/components/CurrencyInput.vue";
 import DatePicker from "@/components/DatePicker.vue";
 import HorizontalScroll from "@/components/HorizontalScroll.vue";
 import MultiChoiceButton from "@/components/MultiChoiceButton.vue";
+import MultiSelect from "@/components/MultiSelect.vue";
 import Select from "@/components/Select.vue";
 import SingleChoiceButton from "@/components/SingleChoiceButton.vue";
 import Stepper from "@/components/Stepper.vue";
 import Tabs from "@/components/Tabs.vue";
+import county from "../assets/county.json";
+import exhibitionCenter from "../assets/exhibitionCenter.json";
+
+const form = ref({
+  area: "",
+  areaCode: "",
+  district: "",
+  address: "",
+  exhibitionCenter: "",
+});
 
 // 車型樣式
 const currentTabIndex = ref<number>(0);
@@ -370,8 +380,35 @@ const selectedProject = computed(() => {
 const agreedDateType = ref<string>("");
 const date = ref<Date | null>(null);
 
-// 交車地點
+// ---交車地點---
 const deliveryLocationType = ref<string>("預設展示中心");
+
+// 展示中心
+const exhibitionCenterOptions = exhibitionCenter;
+
+// 縣市
+const areaOptions = county
+  .filter((item) => item.parentCode === null)
+  .map((item) => ({
+    value: item.countyCode,
+    label: item.countyName,
+  }));
+const handleAreaChange = (value: string) => {
+  form.value.district = "";
+  form.value.area =
+    areaOptions.find((item) => item.value === Number(value))?.label || "";
+};
+
+// 鄉鎮市區
+const districtOptions = computed(() => {
+  if (!form.value.area) return [];
+  return county
+    .filter((item) => item.parentCode === Number(form.value.areaCode))
+    .map((item) => ({
+      value: item.countyName,
+      label: item.countyName,
+    }));
+});
 </script>
 
 <style scoped></style>

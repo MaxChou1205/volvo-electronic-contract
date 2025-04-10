@@ -1,0 +1,2676 @@
+[
+  {
+    "countyCode": 66,
+    "countyName": "台中市",
+    "countyNameEn": "Taichung City",
+    "areaType": "縣市",
+    "parentCode": null
+  },
+  {
+    "countyCode": 63,
+    "countyName": "台北市",
+    "countyNameEn": "Taipei City",
+    "areaType": "縣市",
+    "parentCode": null
+  },
+  {
+    "countyCode": 67,
+    "countyName": "台南市",
+    "countyNameEn": "Tainan City",
+    "areaType": "縣市",
+    "parentCode": null
+  },
+  {
+    "countyCode": 10002,
+    "countyName": "宜蘭縣",
+    "countyNameEn": "Yilan County",
+    "areaType": "縣市",
+    "parentCode": null
+  },
+  {
+    "countyCode": 10015,
+    "countyName": "花蓮縣",
+    "countyNameEn": "Hualien County",
+    "areaType": "縣市",
+    "parentCode": null
+  },
+  {
+    "countyCode": 9020,
+    "countyName": "金門縣",
+    "countyNameEn": "Kinmen County",
+    "areaType": "縣市",
+    "parentCode": null
+  },
+  {
+    "countyCode": 10008,
+    "countyName": "南投縣",
+    "countyNameEn": "Nantou County",
+    "areaType": "縣市",
+    "parentCode": null
+  },
+  {
+    "countyCode": 10013,
+    "countyName": "屏東縣",
+    "countyNameEn": "Pingtung County",
+    "areaType": "縣市",
+    "parentCode": null
+  },
+  {
+    "countyCode": 10005,
+    "countyName": "苗栗縣",
+    "countyNameEn": "Miaoli County",
+    "areaType": "縣市",
+    "parentCode": null
+  },
+  {
+    "countyCode": 10003,
+    "countyName": "桃園市",
+    "countyNameEn": "Taoyuan City",
+    "areaType": "縣市",
+    "parentCode": null
+  },
+  {
+    "countyCode": 64,
+    "countyName": "高雄市",
+    "countyNameEn": "Kaohsiung",
+    "areaType": "縣市",
+    "parentCode": null
+  },
+  {
+    "countyCode": 10017,
+    "countyName": "基隆市",
+    "countyNameEn": "Keelung",
+    "areaType": "縣市",
+    "parentCode": null
+  },
+  {
+    "countyCode": 9007,
+    "countyName": "連江縣",
+    "countyNameEn": "Lianjiang County",
+    "areaType": "縣市",
+    "parentCode": null
+  },
+  {
+    "countyCode": 10009,
+    "countyName": "雲林縣",
+    "countyNameEn": "Yunlin County",
+    "areaType": "縣市",
+    "parentCode": null
+  },
+  {
+    "countyCode": 65,
+    "countyName": "新北市",
+    "countyNameEn": "New Taipei City",
+    "areaType": "縣市",
+    "parentCode": null
+  },
+  {
+    "countyCode": 10018,
+    "countyName": "新竹市",
+    "countyNameEn": "Hsinchu City",
+    "areaType": "縣市",
+    "parentCode": null
+  },
+  {
+    "countyCode": 10004,
+    "countyName": "新竹縣",
+    "countyNameEn": "Hsinchu County",
+    "areaType": "縣市",
+    "parentCode": null
+  },
+  {
+    "countyCode": 10020,
+    "countyName": "嘉義市",
+    "countyNameEn": "Chiayi City",
+    "areaType": "縣市",
+    "parentCode": null
+  },
+  {
+    "countyCode": 1002001,
+    "countyName": "東區",
+    "countyNameEn": "East District",
+    "areaType": "區鄉鎮",
+    "parentCode": 10020
+  },
+  {
+    "countyCode": 1002002,
+    "countyName": "西區",
+    "countyNameEn": "West District",
+    "areaType": "區鄉鎮",
+    "parentCode": 10020
+  },
+  {
+    "countyCode": 10010,
+    "countyName": "嘉義縣",
+    "countyNameEn": "Chiayi County",
+    "areaType": "縣市",
+    "parentCode": null
+  },
+  {
+    "countyCode": 10007,
+    "countyName": "彰化縣",
+    "countyNameEn": "Changhua County",
+    "areaType": "縣市",
+    "parentCode": null
+  },
+  {
+    "countyCode": 10014,
+    "countyName": "臺東縣",
+    "countyNameEn": "Taitung County",
+    "areaType": "縣市",
+    "parentCode": null
+  },
+  {
+    "countyCode": 10016,
+    "countyName": "澎湖縣",
+    "countyNameEn": "Penghu County",
+    "areaType": "縣市",
+    "parentCode": null
+  },
+  {
+    "countyCode": 6701500,
+    "countyName": "七股區",
+    "countyNameEn": "Qigu District",
+    "areaType": "區鄉鎮",
+    "parentCode": 67
+  },
+  {
+    "countyCode": 1001606,
+    "countyName": "七美鄉",
+    "countyNameEn": "Chimei Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10016
+  },
+  {
+    "countyCode": 1001702,
+    "countyName": "七堵區",
+    "countyNameEn": "Chifu District",
+    "areaType": "區鄉鎮",
+    "parentCode": 10017
+  },
+  {
+    "countyCode": 1001308,
+    "countyName": "九如鄉",
+    "countyNameEn": "Jiuru",
+    "areaType": "區鄉鎮",
+    "parentCode": 10013
+  },
+  {
+    "countyCode": 1000718,
+    "countyName": "二水鄉",
+    "countyNameEn": "Ershui Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10007
+  },
+  {
+    "countyCode": 1000720,
+    "countyName": "二林鎮",
+    "countyNameEn": "Erlin Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10007
+  },
+  {
+    "countyCode": 1000911,
+    "countyName": "二崙鄉",
+    "countyNameEn": "Erlun Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10009
+  },
+  {
+    "countyCode": 6502300,
+    "countyName": "八里區",
+    "countyNameEn": "Bali",
+    "areaType": "區鄉鎮",
+    "parentCode": 65
+  },
+  {
+    "countyCode": 1000308,
+    "countyName": "八德市",
+    "countyNameEn": "Bade City",
+    "areaType": "區鄉鎮",
+    "parentCode": 10003
+  },
+  {
+    "countyCode": 6400500,
+    "countyName": "三民區",
+    "countyNameEn": "Sanmin District",
+    "areaType": "區鄉鎮",
+    "parentCode": 64
+  },
+  {
+    "countyCode": 1001326,
+    "countyName": "三地門鄉",
+    "countyNameEn": "Sandimen Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10013
+  },
+  {
+    "countyCode": 6502100,
+    "countyName": "三芝區",
+    "countyNameEn": "Sanzhi",
+    "areaType": "區鄉鎮",
+    "parentCode": 65
+  },
+  {
+    "countyCode": 1000210,
+    "countyName": "三星鄉",
+    "countyNameEn": "Sanshing Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10002
+  },
+  {
+    "countyCode": 6500200,
+    "countyName": "三重區",
+    "countyNameEn": "Sanchong",
+    "areaType": "區鄉鎮",
+    "parentCode": 65
+  },
+  {
+    "countyCode": 6500900,
+    "countyName": "三峽區",
+    "countyNameEn": "Sanxia District",
+    "areaType": "區鄉鎮",
+    "parentCode": 65
+  },
+  {
+    "countyCode": 1000513,
+    "countyName": "三義鄉",
+    "countyNameEn": "San Yi",
+    "areaType": "區鄉鎮",
+    "parentCode": 10005
+  },
+  {
+    "countyCode": 1000516,
+    "countyName": "三灣鄉",
+    "countyNameEn": "Sanwan Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10005
+  },
+  {
+    "countyCode": 6700800,
+    "countyName": "下營區",
+    "countyNameEn": "Xiaying District",
+    "areaType": "區鄉鎮",
+    "parentCode": 67
+  },
+  {
+    "countyCode": 1000919,
+    "countyName": "口湖鄉",
+    "countyNameEn": "Kouhu Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10009
+  },
+  {
+    "countyCode": 6501300,
+    "countyName": "土城區",
+    "countyNameEn": "Tucheng District",
+    "areaType": "區鄉鎮",
+    "parentCode": 65
+  },
+  {
+    "countyCode": 1000905,
+    "countyName": "土庫鎮",
+    "countyNameEn": "Tuku Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10009
+  },
+  {
+    "countyCode": 6301100,
+    "countyName": "士林區",
+    "countyNameEn": "Shilin District",
+    "areaType": "區鄉鎮",
+    "parentCode": 63
+  },
+  {
+    "countyCode": 6701100,
+    "countyName": "大內區",
+    "countyNameEn": "Danei District",
+    "areaType": "區鄉鎮",
+    "parentCode": 67
+  },
+  {
+    "countyCode": 6601100,
+    "countyName": "大甲區",
+    "countyNameEn": "Dajia District",
+    "areaType": "區鄉鎮",
+    "parentCode": 66
+  },
+  {
+    "countyCode": 6300600,
+    "countyName": "大同區",
+    "countyNameEn": "Datong District",
+    "areaType": "區鄉鎮",
+    "parentCode": 63
+  },
+  {
+    "countyCode": 1000211,
+    "countyName": "大同鄉",
+    "countyNameEn": "Datong Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10002
+  },
+  {
+    "countyCode": 6300300,
+    "countyName": "大安區",
+    "countyNameEn": "Da-an District",
+    "areaType": "區鄉鎮",
+    "parentCode": 63
+  },
+  {
+    "countyCode": 6602200,
+    "countyName": "大安區",
+    "countyNameEn": "Da-an District",
+    "areaType": "區鄉鎮",
+    "parentCode": 66
+  },
+  {
+    "countyCode": 1000713,
+    "countyName": "大村鄉",
+    "countyNameEn": "Dacun Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10007
+  },
+  {
+    "countyCode": 6602400,
+    "countyName": "大肚區",
+    "countyNameEn": "Datou District",
+    "areaType": "區鄉鎮",
+    "parentCode": 66
+  },
+  {
+    "countyCode": 6602800,
+    "countyName": "大里區",
+    "countyNameEn": "Dali District",
+    "areaType": "區鄉鎮",
+    "parentCode": 66
+  },
+  {
+    "countyCode": 1001004,
+    "countyName": "大林鎮",
+    "countyNameEn": "Dalin Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10010
+  },
+  {
+    "countyCode": 1001410,
+    "countyName": "大武鄉",
+    "countyNameEn": "Dawu Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10014
+  },
+  {
+    "countyCode": 6401600,
+    "countyName": "大社區",
+    "countyNameEn": "Dashe District",
+    "areaType": "區鄉鎮",
+    "parentCode": 64
+  },
+  {
+    "countyCode": 1000724,
+    "countyName": "大城鄉",
+    "countyNameEn": "Dacheng Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10007
+  },
+  {
+    "countyCode": 1001017,
+    "countyName": "大埔鄉",
+    "countyNameEn": "Dapu Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10010
+  },
+  {
+    "countyCode": 1000908,
+    "countyName": "大埤鄉",
+    "countyNameEn": "Dabi Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10009
+  },
+  {
+    "countyCode": 1000508,
+    "countyName": "大湖鄉",
+    "countyNameEn": "Dahu",
+    "areaType": "區鄉鎮",
+    "parentCode": 10005
+  },
+  {
+    "countyCode": 6601800,
+    "countyName": "大雅區",
+    "countyNameEn": "Daya",
+    "areaType": "區鄉鎮",
+    "parentCode": 66
+  },
+  {
+    "countyCode": 1000306,
+    "countyName": "大園鄉",
+    "countyNameEn": "Dayuan Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10003
+  },
+  {
+    "countyCode": 1000303,
+    "countyName": "大溪鎮",
+    "countyNameEn": "Daxi Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10003
+  },
+  {
+    "countyCode": 6401400,
+    "countyName": "大寮區",
+    "countyNameEn": "Daliao District",
+    "areaType": "區鄉鎮",
+    "parentCode": 64
+  },
+  {
+    "countyCode": 6401500,
+    "countyName": "大樹區",
+    "countyNameEn": "Dashu District",
+    "areaType": "區鄉鎮",
+    "parentCode": 64
+  },
+  {
+    "countyCode": 6401100,
+    "countyName": "小港區",
+    "countyNameEn": "Xiaogang",
+    "areaType": "區鄉鎮",
+    "parentCode": 64
+  },
+  {
+    "countyCode": 6702200,
+    "countyName": "山上區",
+    "countyNameEn": "Shan District",
+    "areaType": "區鄉鎮",
+    "parentCode": 67
+  },
+  {
+    "countyCode": 6300400,
+    "countyName": "中山區",
+    "countyNameEn": "Zhongshan District",
+    "areaType": "區鄉鎮",
+    "parentCode": 63
+  },
+  {
+    "countyCode": 6300500,
+    "countyName": "中正區",
+    "countyNameEn": "Zhongzheng District",
+    "areaType": "區鄉鎮",
+    "parentCode": 63
+  },
+  {
+    "countyCode": 6703700,
+    "countyName": "中西區",
+    "countyNameEn": "Central & Western",
+    "areaType": "區鄉鎮",
+    "parentCode": 67
+  },
+  {
+    "countyCode": 6500300,
+    "countyName": "中和區",
+    "countyNameEn": "Zhonghe District",
+    "areaType": "區鄉鎮",
+    "parentCode": 65
+  },
+  {
+    "countyCode": 1001013,
+    "countyName": "中埔鄉",
+    "countyNameEn": "Zhongpu",
+    "areaType": "區鄉鎮",
+    "parentCode": 10010
+  },
+  {
+    "countyCode": 6600100,
+    "countyName": "中區",
+    "countyNameEn": "Central District",
+    "areaType": "區鄉鎮",
+    "parentCode": 66
+  },
+  {
+    "countyCode": 1000808,
+    "countyName": "中寮鄉",
+    "countyNameEn": "Zhongliao Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10008
+  },
+  {
+    "countyCode": 1000302,
+    "countyName": "中壢市",
+    "countyNameEn": "Zhongli City",
+    "areaType": "區鄉鎮",
+    "parentCode": 10003
+  },
+  {
+    "countyCode": 6501500,
+    "countyName": "五股區",
+    "countyNameEn": "Wugu District",
+    "areaType": "區鄉鎮",
+    "parentCode": 65
+  },
+  {
+    "countyCode": 1000413,
+    "countyName": "五峰鄉",
+    "countyNameEn": "Wufeng Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10004
+  },
+  {
+    "countyCode": 1000209,
+    "countyName": "五結鄉",
+    "countyNameEn": "Wujie Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10002
+  },
+  {
+    "countyCode": 6401700,
+    "countyName": "仁武區",
+    "countyNameEn": "Renwu District",
+    "areaType": "區鄉鎮",
+    "parentCode": 64
+  },
+  {
+    "countyCode": 1001704,
+    "countyName": "仁愛區",
+    "countyNameEn": "Renai District",
+    "areaType": "區鄉鎮",
+    "parentCode": 10017
+  },
+  {
+    "countyCode": 1000813,
+    "countyName": "仁愛鄉",
+    "countyNameEn": "Renai Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10008
+  },
+  {
+    "countyCode": 6702700,
+    "countyName": "仁德區",
+    "countyNameEn": "Rende District",
+    "areaType": "區鄉鎮",
+    "parentCode": 67
+  },
+  {
+    "countyCode": 1000917,
+    "countyName": "元長鄉",
+    "countyNameEn": "Yuanchang Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10009
+  },
+  {
+    "countyCode": 6403500,
+    "countyName": "內門區",
+    "countyNameEn": "Neimen District",
+    "areaType": "區鄉鎮",
+    "parentCode": 64
+  },
+  {
+    "countyCode": 1001313,
+    "countyName": "內埔鄉",
+    "countyNameEn": "Neipu Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10013
+  },
+  {
+    "countyCode": 6301000,
+    "countyName": "內湖區",
+    "countyNameEn": "Neihu District",
+    "areaType": "區鄉鎮",
+    "parentCode": 63
+  },
+  {
+    "countyCode": 1000509,
+    "countyName": "公館鄉",
+    "countyNameEn": "Gongguan Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10005
+  },
+  {
+    "countyCode": 6700900,
+    "countyName": "六甲區",
+    "countyNameEn": "Liujia District",
+    "areaType": "區鄉鎮",
+    "parentCode": 67
+  },
+  {
+    "countyCode": 1001008,
+    "countyName": "六腳鄉",
+    "countyNameEn": "Liupu Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10010
+  },
+  {
+    "countyCode": 6403200,
+    "countyName": "六龜區",
+    "countyNameEn": "Liugui District",
+    "areaType": "區鄉鎮",
+    "parentCode": 64
+  },
+  {
+    "countyCode": 6602700,
+    "countyName": "太平區",
+    "countyNameEn": "Taiping District",
+    "areaType": "區鄉鎮",
+    "parentCode": 66
+  },
+  {
+    "countyCode": 1001001,
+    "countyName": "太保市",
+    "countyNameEn": "Taipo City",
+    "areaType": "區鄉鎮",
+    "parentCode": 10010
+  },
+  {
+    "countyCode": 1001409,
+    "countyName": "太麻里鄉",
+    "countyNameEn": "Taimali Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10014
+  },
+  {
+    "countyCode": 6300800,
+    "countyName": "文山區",
+    "countyNameEn": "Wenshan District",
+    "areaType": "區鄉鎮",
+    "parentCode": 63
+  },
+  {
+    "countyCode": 1000901,
+    "countyName": "斗六市",
+    "countyNameEn": "Douliu City",
+    "areaType": "區鄉鎮",
+    "parentCode": 10009
+  },
+  {
+    "countyCode": 1000902,
+    "countyName": "斗南鎮",
+    "countyNameEn": "Tounan Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10009
+  },
+  {
+    "countyCode": 1001012,
+    "countyName": "水上鄉",
+    "countyNameEn": "Shuishang Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10010
+  },
+  {
+    "countyCode": 1000811,
+    "countyName": "水里鄉",
+    "countyNameEn": "Shuili Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10008
+  },
+  {
+    "countyCode": 1000920,
+    "countyName": "水林鄉",
+    "countyNameEn": "Shuilin Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10009
+  },
+  {
+    "countyCode": 1000208,
+    "countyName": "冬山鄉",
+    "countyNameEn": "Dongshan Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10002
+  },
+  {
+    "countyCode": 6600800,
+    "countyName": "北屯區",
+    "countyNameEn": "Beitun",
+    "areaType": "區鄉鎮",
+    "parentCode": 66
+  },
+  {
+    "countyCode": 1000719,
+    "countyName": "北斗鎮",
+    "countyNameEn": "Beidou Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10007
+  },
+  {
+    "countyCode": 6301200,
+    "countyName": "北投區",
+    "countyNameEn": "Beitou Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 63
+  },
+  {
+    "countyCode": 6701700,
+    "countyName": "北門區",
+    "countyNameEn": "Beimen District",
+    "areaType": "區鄉鎮",
+    "parentCode": 67
+  },
+  {
+    "countyCode": 900702,
+    "countyName": "北竿鄉",
+    "countyNameEn": "Beigan Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 9007
+  },
+  {
+    "countyCode": 1000409,
+    "countyName": "北埔鄉",
+    "countyNameEn": "Beipu Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10004
+  },
+  {
+    "countyCode": 6600500,
+    "countyName": "北區",
+    "countyNameEn": "Beidou District",
+    "areaType": "區鄉鎮",
+    "parentCode": 66
+  },
+  {
+    "countyCode": 1000906,
+    "countyName": "北港鎮",
+    "countyNameEn": "Beigang Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10009
+  },
+  {
+    "countyCode": 1000907,
+    "countyName": "古坑鄉",
+    "countyNameEn": "Gukeng Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10009
+  },
+  {
+    "countyCode": 1000918,
+    "countyName": "四湖鄉",
+    "countyNameEn": "Sihu Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10009
+  },
+  {
+    "countyCode": 6602100,
+    "countyName": "外埔區",
+    "countyNameEn": "Wai Po",
+    "areaType": "區鄉鎮",
+    "parentCode": 66
+  },
+  {
+    "countyCode": 6400300,
+    "countyName": "左營區",
+    "countyNameEn": "Zuoying",
+    "areaType": "區鄉鎮",
+    "parentCode": 64
+  },
+  {
+    "countyCode": 6702600,
+    "countyName": "左鎮區",
+    "countyNameEn": "Zuozhen District",
+    "areaType": "區鄉鎮",
+    "parentCode": 67
+  },
+  {
+    "countyCode": 1001003,
+    "countyName": "布袋鎮",
+    "countyNameEn": "Bu Dai Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10010
+  },
+  {
+    "countyCode": 6502400,
+    "countyName": "平溪區",
+    "countyNameEn": "Pingxi District",
+    "areaType": "區鄉鎮",
+    "parentCode": 65
+  },
+  {
+    "countyCode": 1000310,
+    "countyName": "平鎮市",
+    "countyNameEn": "Pingzhen City",
+    "areaType": "區鄉鎮",
+    "parentCode": 10003
+  },
+  {
+    "countyCode": 1001005,
+    "countyName": "民雄鄉",
+    "countyNameEn": "Minxiong Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10010
+  },
+  {
+    "countyCode": 6402700,
+    "countyName": "永安區",
+    "countyNameEn": "Yongan District",
+    "areaType": "區鄉鎮",
+    "parentCode": 64
+  },
+  {
+    "countyCode": 6500400,
+    "countyName": "永和區",
+    "countyNameEn": "Yonghe District",
+    "areaType": "區鄉鎮",
+    "parentCode": 65
+  },
+  {
+    "countyCode": 6703100,
+    "countyName": "永康區",
+    "countyNameEn": "Yongkang District",
+    "areaType": "區鄉鎮",
+    "parentCode": 67
+  },
+  {
+    "countyCode": 1000716,
+    "countyName": "永靖鄉",
+    "countyNameEn": "Yongjing Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10007
+  },
+  {
+    "countyCode": 6702300,
+    "countyName": "玉井區",
+    "countyNameEn": "Yujing District",
+    "areaType": "區鄉鎮",
+    "parentCode": 67
+  },
+  {
+    "countyCode": 1001503,
+    "countyName": "玉里鎮",
+    "countyNameEn": "Yuli Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10015
+  },
+  {
+    "countyCode": 1000712,
+    "countyName": "田中鎮",
+    "countyNameEn": "Tianzhong Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10007
+  },
+  {
+    "countyCode": 1000721,
+    "countyName": "田尾鄉",
+    "countyNameEn": "Tianwei Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10007
+  },
+  {
+    "countyCode": 6402200,
+    "countyName": "田寮區",
+    "countyNameEn": "Tianliao District",
+    "areaType": "區鄉鎮",
+    "parentCode": 64
+  },
+  {
+    "countyCode": 6403300,
+    "countyName": "甲仙區",
+    "countyNameEn": "Jixian District",
+    "areaType": "區鄉鎮",
+    "parentCode": 64
+  },
+  {
+    "countyCode": 1001603,
+    "countyName": "白沙鄉",
+    "countyNameEn": "Baisha Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10016
+  },
+  {
+    "countyCode": 6700300,
+    "countyName": "白河區",
+    "countyNameEn": "Baihe District",
+    "areaType": "區鄉鎮",
+    "parentCode": 67
+  },
+  {
+    "countyCode": 6602000,
+    "countyName": "石岡區",
+    "countyNameEn": "Shigang District",
+    "areaType": "區鄉鎮",
+    "parentCode": 66
+  },
+  {
+    "countyCode": 6502200,
+    "countyName": "石門區",
+    "countyNameEn": "Shimen District",
+    "areaType": "區鄉鎮",
+    "parentCode": 65
+  },
+  {
+    "countyCode": 6501900,
+    "countyName": "石碇區",
+    "countyNameEn": "Shidian District",
+    "areaType": "區鄉鎮",
+    "parentCode": 65
+  },
+  {
+    "countyCode": 1001507,
+    "countyName": "光復鄉",
+    "countyNameEn": "Guangfu Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10015
+  },
+  {
+    "countyCode": 1001505,
+    "countyName": "吉安鄉",
+    "countyNameEn": "Ji'an Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10015
+  },
+  {
+    "countyCode": 1000806,
+    "countyName": "名間鄉",
+    "countyNameEn": "Meiman Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10008
+  },
+  {
+    "countyCode": 6601500,
+    "countyName": "后里區",
+    "countyNameEn": "Houli District",
+    "areaType": "區鄉鎮",
+    "parentCode": 66
+  },
+  {
+    "countyCode": 6703600,
+    "countyName": "安平區",
+    "countyNameEn": "Anping",
+    "areaType": "區鄉鎮",
+    "parentCode": 67
+  },
+  {
+    "countyCode": 6702100,
+    "countyName": "安定區",
+    "countyNameEn": "Anding",
+    "areaType": "區鄉鎮",
+    "parentCode": 67
+  },
+  {
+    "countyCode": 6703500,
+    "countyName": "安南區",
+    "countyNameEn": "Annam District",
+    "areaType": "區鄉鎮",
+    "parentCode": 67
+  },
+  {
+    "countyCode": 1001706,
+    "countyName": "安樂區",
+    "countyNameEn": "Anle District",
+    "areaType": "區鄉鎮",
+    "parentCode": 10017
+  },
+  {
+    "countyCode": 1000412,
+    "countyName": "尖石鄉",
+    "countyNameEn": "Jianshi Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10004
+  },
+  {
+    "countyCode": 1001402,
+    "countyName": "成功鎮",
+    "countyNameEn": "Chenggong Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10014
+  },
+  {
+    "countyCode": 1001002,
+    "countyName": "朴子市",
+    "countyNameEn": "Park City",
+    "areaType": "區鄉鎮",
+    "parentCode": 10010
+  },
+  {
+    "countyCode": 6501100,
+    "countyName": "汐止區",
+    "countyNameEn": "Xizhi District",
+    "areaType": "區鄉鎮",
+    "parentCode": 65
+  },
+  {
+    "countyCode": 1001406,
+    "countyName": "池上鄉",
+    "countyNameEn": "Chishang Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10014
+  },
+  {
+    "countyCode": 1000804,
+    "countyName": "竹山鎮",
+    "countyNameEn": "Jhushan Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10008
+  },
+  {
+    "countyCode": 1000401,
+    "countyName": "竹北市",
+    "countyNameEn": "Jubei City",
+    "areaType": "區鄉鎮",
+    "parentCode": 10004
+  },
+  {
+    "countyCode": 1001314,
+    "countyName": "竹田鄉",
+    "countyNameEn": "Zhutian Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10013
+  },
+  {
+    "countyCode": 1000402,
+    "countyName": "竹東鎮",
+    "countyNameEn": "Zhudong Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10004
+  },
+  {
+    "countyCode": 1000504,
+    "countyName": "竹南鎮",
+    "countyNameEn": "Zhunan Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10005
+  },
+  {
+    "countyCode": 1001014,
+    "countyName": "竹崎鄉",
+    "countyNameEn": "Zhuzaki Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10010
+  },
+  {
+    "countyCode": 1000725,
+    "countyName": "竹塘鄉",
+    "countyNameEn": "Zhutang Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10007
+  },
+  {
+    "countyCode": 6600600,
+    "countyName": "西屯區",
+    "countyNameEn": "Xitun District",
+    "areaType": "區鄉鎮",
+    "parentCode": 66
+  },
+  {
+    "countyCode": 6600400,
+    "countyName": "西區",
+    "countyNameEn": "West District",
+    "areaType": "區鄉鎮",
+    "parentCode": 66
+  },
+  {
+    "countyCode": 6701400,
+    "countyName": "西港區",
+    "countyNameEn": "Xigang",
+    "areaType": "區鄉鎮",
+    "parentCode": 67
+  },
+  {
+    "countyCode": 1000514,
+    "countyName": "西湖鄉",
+    "countyNameEn": "Xihu",
+    "areaType": "區鄉鎮",
+    "parentCode": 10005
+  },
+  {
+    "countyCode": 1001604,
+    "countyName": "西嶼鄉",
+    "countyNameEn": "Xiyu Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10016
+  },
+  {
+    "countyCode": 1000904,
+    "countyName": "西螺鎮",
+    "countyNameEn": "Xiluo Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10009
+  },
+  {
+    "countyCode": 1000705,
+    "countyName": "伸港鄉",
+    "countyNameEn": "Xingang Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10007
+  },
+  {
+    "countyCode": 1000206,
+    "countyName": "壯圍鄉",
+    "countyNameEn": "Zhuangwei Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10002
+  },
+  {
+    "countyCode": 6403400,
+    "countyName": "杉林區",
+    "countyNameEn": "Cedar Grove",
+    "areaType": "區鄉鎮",
+    "parentCode": 64
+  },
+  {
+    "countyCode": 6601300,
+    "countyName": "沙鹿區",
+    "countyNameEn": "Shalu",
+    "areaType": "區鄉鎮",
+    "parentCode": 66
+  },
+  {
+    "countyCode": 1001333,
+    "countyName": "牡丹鄉",
+    "countyNameEn": "Mudan Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10013
+  },
+  {
+    "countyCode": 1000707,
+    "countyName": "秀水鄉",
+    "countyNameEn": "Xiushui Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10007
+  },
+  {
+    "countyCode": 1001511,
+    "countyName": "秀林鄉",
+    "countyNameEn": "Xiulin Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10015
+  },
+  {
+    "countyCode": 1000407,
+    "countyName": "芎林鄉",
+    "countyNameEn": "Xionglin Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10004
+  },
+  {
+    "countyCode": 1001323,
+    "countyName": "車城鄉",
+    "countyNameEn": "Checheng Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10013
+  },
+  {
+    "countyCode": 6403800,
+    "countyName": "那瑪夏區",
+    "countyNameEn": "Namahia",
+    "areaType": "區鄉鎮",
+    "parentCode": 64
+  },
+  {
+    "countyCode": 1001309,
+    "countyName": "里港鄉",
+    "countyNameEn": "Ligang Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10013
+  },
+  {
+    "countyCode": 1001321,
+    "countyName": "佳冬鄉",
+    "countyNameEn": "Jiadong Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10013
+  },
+  {
+    "countyCode": 6701200,
+    "countyName": "佳里區",
+    "countyNameEn": "Jiali District",
+    "areaType": "區鄉鎮",
+    "parentCode": 67
+  },
+  {
+    "countyCode": 1001330,
+    "countyName": "來義鄉",
+    "countyNameEn": "Laiyi",
+    "areaType": "區鄉鎮",
+    "parentCode": 10013
+  },
+  {
+    "countyCode": 1001404,
+    "countyName": "卑南鄉",
+    "countyNameEn": "Beinan Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10014
+  },
+  {
+    "countyCode": 1001513,
+    "countyName": "卓溪鄉",
+    "countyNameEn": "Zhuoxi Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10015
+  },
+  {
+    "countyCode": 1000507,
+    "countyName": "卓蘭鎮",
+    "countyNameEn": "Zhulan Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10005
+  },
+  {
+    "countyCode": 6602900,
+    "countyName": "和平區",
+    "countyNameEn": "Heping District",
+    "areaType": "區鄉鎮",
+    "parentCode": 66
+  },
+  {
+    "countyCode": 1000703,
+    "countyName": "和美鎮",
+    "countyNameEn": "Hemei Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10007
+  },
+  {
+    "countyCode": 6502000,
+    "countyName": "坪林區",
+    "countyNameEn": "Pinglin District",
+    "areaType": "區鄉鎮",
+    "parentCode": 65
+  },
+  {
+    "countyCode": 6701000,
+    "countyName": "官田區",
+    "countyNameEn": "Guantian District",
+    "areaType": "區鄉鎮",
+    "parentCode": 67
+  },
+  {
+    "countyCode": 1000201,
+    "countyName": "宜蘭市",
+    "countyNameEn": "Yilan",
+    "areaType": "區鄉鎮",
+    "parentCode": 10002
+  },
+  {
+    "countyCode": 6401900,
+    "countyName": "岡山區",
+    "countyNameEn": "Gangshan District",
+    "areaType": "區鄉鎮",
+    "parentCode": 64
+  },
+  {
+    "countyCode": 1001413,
+    "countyName": "延平鄉",
+    "countyNameEn": "Yanping Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10014
+  },
+  {
+    "countyCode": 6700600,
+    "countyName": "東山區",
+    "countyNameEn": "Dongshan",
+    "areaType": "區鄉鎮",
+    "parentCode": 67
+  },
+  {
+    "countyCode": 900704,
+    "countyName": "東引鄉",
+    "countyNameEn": "Dongyin Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 9007
+  },
+  {
+    "countyCode": 1001009,
+    "countyName": "東石鄉",
+    "countyNameEn": "Dongshi Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10010
+  },
+  {
+    "countyCode": 1001407,
+    "countyName": "東河鄉",
+    "countyNameEn": "Donghe",
+    "areaType": "區鄉鎮",
+    "parentCode": 10014
+  },
+  {
+    "countyCode": 6600200,
+    "countyName": "東區",
+    "countyNameEn": "East District",
+    "areaType": "區鄉鎮",
+    "parentCode": 66
+  },
+  {
+    "countyCode": 1001303,
+    "countyName": "東港鎮",
+    "countyNameEn": "Donggang Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10013
+  },
+  {
+    "countyCode": 6601000,
+    "countyName": "東勢區",
+    "countyNameEn": "Dongshi District",
+    "areaType": "區鄉鎮",
+    "parentCode": 66
+  },
+  {
+    "countyCode": 1000914,
+    "countyName": "東勢鄉",
+    "countyNameEn": "Dongshi Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10009
+  },
+  {
+    "countyCode": 6300100,
+    "countyName": "松山區",
+    "countyNameEn": "Songshan District",
+    "areaType": "區鄉鎮",
+    "parentCode": 63
+  },
+  {
+    "countyCode": 6500100,
+    "countyName": "板橋區",
+    "countyNameEn": "Banqiao District",
+    "areaType": "區鄉鎮",
+    "parentCode": 65
+  },
+  {
+    "countyCode": 1001325,
+    "countyName": "枋山鄉",
+    "countyNameEn": "Fangshan Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10013
+  },
+  {
+    "countyCode": 1001316,
+    "countyName": "枋寮鄉",
+    "countyNameEn": "Fangliao Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10013
+  },
+  {
+    "countyCode": 6501700,
+    "countyName": "林口區",
+    "countyNameEn": "Linkou District",
+    "areaType": "區鄉鎮",
+    "parentCode": 65
+  },
+  {
+    "countyCode": 1000910,
+    "countyName": "林內鄉",
+    "countyNameEn": "Linnei Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10009
+  },
+  {
+    "countyCode": 6401300,
+    "countyName": "林園區",
+    "countyNameEn": "Linyuan District",
+    "areaType": "區鄉鎮",
+    "parentCode": 64
+  },
+  {
+    "countyCode": 1001319,
+    "countyName": "林邊鄉",
+    "countyNameEn": "Linbian Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10013
+  },
+  {
+    "countyCode": 1000717,
+    "countyName": "社頭鄉",
+    "countyNameEn": "Shetou Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10007
+  },
+  {
+    "countyCode": 1000709,
+    "countyName": "芬園鄉",
+    "countyNameEn": "Fenyuan Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10007
+  },
+  {
+    "countyCode": 1001501,
+    "countyName": "花蓮市",
+    "countyNameEn": "Hualien City",
+    "areaType": "區鄉鎮",
+    "parentCode": 10015
+  },
+  {
+    "countyCode": 1000708,
+    "countyName": "花壇鄉",
+    "countyNameEn": "Huatan Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10007
+  },
+  {
+    "countyCode": 1000723,
+    "countyName": "芳苑鄉",
+    "countyNameEn": "Fangyuan Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10007
+  },
+  {
+    "countyCode": 1000903,
+    "countyName": "虎尾鎮",
+    "countyNameEn": "Huwei Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10009
+  },
+  {
+    "countyCode": 6502700,
+    "countyName": "金山區",
+    "countyNameEn": "Jinshan District",
+    "areaType": "區鄉鎮",
+    "parentCode": 65
+  },
+  {
+    "countyCode": 902002,
+    "countyName": "金沙鎮",
+    "countyNameEn": "Jinsha Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 9020
+  },
+  {
+    "countyCode": 902001,
+    "countyName": "金城鎮",
+    "countyNameEn": "Jincheng Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 9020
+  },
+  {
+    "countyCode": 1001414,
+    "countyName": "金峰鄉",
+    "countyNameEn": "Jinfeng Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10014
+  },
+  {
+    "countyCode": 902003,
+    "countyName": "金湖鎮",
+    "countyNameEn": "Jinhu Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 9020
+  },
+  {
+    "countyCode": 902004,
+    "countyName": "金寧鄉",
+    "countyNameEn": "Jinning Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 9020
+  },
+  {
+    "countyCode": 1001306,
+    "countyName": "長治鄉",
+    "countyNameEn": "Changzhi Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10013
+  },
+  {
+    "countyCode": 1001408,
+    "countyName": "長濱鄉",
+    "countyNameEn": "Changbin Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10014
+  },
+  {
+    "countyCode": 1001018,
+    "countyName": "阿里山鄉",
+    "countyNameEn": "Alishan Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10010
+  },
+  {
+    "countyCode": 6402300,
+    "countyName": "阿蓮區",
+    "countyNameEn": "Alian District",
+    "areaType": "區鄉鎮",
+    "parentCode": 64
+  },
+  {
+    "countyCode": 6300200,
+    "countyName": "信義區",
+    "countyNameEn": "Xinyi District",
+    "areaType": "區鄉鎮",
+    "parentCode": 63
+  },
+  {
+    "countyCode": 1000812,
+    "countyName": "信義鄉",
+    "countyNameEn": "Xinyi Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10008
+  },
+  {
+    "countyCode": 6400700,
+    "countyName": "前金區",
+    "countyNameEn": "Qianjin District",
+    "areaType": "區鄉鎮",
+    "parentCode": 64
+  },
+  {
+    "countyCode": 6400900,
+    "countyName": "前鎮區",
+    "countyNameEn": "Qianzhen District",
+    "areaType": "區鄉鎮",
+    "parentCode": 64
+  },
+  {
+    "countyCode": 6702500,
+    "countyName": "南化區",
+    "countyNameEn": "Nanhua District",
+    "areaType": "區鄉鎮",
+    "parentCode": 67
+  },
+  {
+    "countyCode": 6600700,
+    "countyName": "南屯區",
+    "countyNameEn": "Nantun District",
+    "areaType": "區鄉鎮",
+    "parentCode": 66
+  },
+  {
+    "countyCode": 1001320,
+    "countyName": "南州鄉",
+    "countyNameEn": "Nanzhou Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10013
+  },
+  {
+    "countyCode": 1000511,
+    "countyName": "南庄鄉",
+    "countyNameEn": "Nanzhuang Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10005
+  },
+  {
+    "countyCode": 1000801,
+    "countyName": "南投市",
+    "countyNameEn": "Nantou City",
+    "areaType": "區鄉鎮",
+    "parentCode": 10008
+  },
+  {
+    "countyCode": 900701,
+    "countyName": "南竿鄉",
+    "countyNameEn": "Nangan Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 9007
+  },
+  {
+    "countyCode": 6600300,
+    "countyName": "南區",
+    "countyNameEn": "Nantou District",
+    "areaType": "區鄉鎮",
+    "parentCode": 66
+  },
+  {
+    "countyCode": 6300900,
+    "countyName": "南港區",
+    "countyNameEn": "Nangang District",
+    "areaType": "區鄉鎮",
+    "parentCode": 63
+  },
+  {
+    "countyCode": 1000212,
+    "countyName": "南澳鄉",
+    "countyNameEn": "Nanao Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10002
+  },
+  {
+    "countyCode": 1001301,
+    "countyName": "屏東市",
+    "countyNameEn": "Pingtung City",
+    "areaType": "區鄉鎮",
+    "parentCode": 10013
+  },
+  {
+    "countyCode": 6700500,
+    "countyName": "後壁區",
+    "countyNameEn": "Houbi District",
+    "areaType": "區鄉鎮",
+    "parentCode": 67
+  },
+  {
+    "countyCode": 1000506,
+    "countyName": "後龍鎮",
+    "countyNameEn": "Houlong Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10005
+  },
+  {
+    "countyCode": 1001304,
+    "countyName": "恆春鎮",
+    "countyNameEn": "Hengchun Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10013
+  },
+  {
+    "countyCode": 1001331,
+    "countyName": "春日鄉",
+    "countyNameEn": "Chunri Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10013
+  },
+  {
+    "countyCode": 6700400,
+    "countyName": "柳營區",
+    "countyNameEn": "Liuying District",
+    "areaType": "區鄉鎮",
+    "parentCode": 67
+  },
+  {
+    "countyCode": 6403100,
+    "countyName": "美濃區",
+    "countyNameEn": "Meinong District",
+    "areaType": "區鄉鎮",
+    "parentCode": 64
+  },
+  {
+    "countyCode": 1000502,
+    "countyName": "苑裡鎮",
+    "countyNameEn": "Yuanli Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10005
+  },
+  {
+    "countyCode": 6400800,
+    "countyName": "苓雅區",
+    "countyNameEn": "Lingya District",
+    "areaType": "區鄉鎮",
+    "parentCode": 64
+  },
+  {
+    "countyCode": 1000501,
+    "countyName": "苗栗市",
+    "countyNameEn": "Miaoli City",
+    "areaType": "區鄉鎮",
+    "parentCode": 10005
+  },
+  {
+    "countyCode": 6403600,
+    "countyName": "茂林區",
+    "countyNameEn": "Maolin District",
+    "areaType": "區鄉鎮",
+    "parentCode": 64
+  },
+  {
+    "countyCode": 6402600,
+    "countyName": "茄萣區",
+    "countyNameEn": "Jiajia District",
+    "areaType": "區鄉鎮",
+    "parentCode": 64
+  },
+  {
+    "countyCode": 1001803,
+    "countyName": "香山區",
+    "countyNameEn": "Xiangshan District",
+    "areaType": "區鄉鎮",
+    "parentCode": 10018
+  },
+  {
+    "countyCode": 1000207,
+    "countyName": "員山鄉",
+    "countyNameEn": "Yuanshan Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10002
+  },
+  {
+    "countyCode": 1000710,
+    "countyName": "員林鎮",
+    "countyNameEn": "Yuanlin Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10007
+  },
+  {
+    "countyCode": 1000715,
+    "countyName": "埔心鄉",
+    "countyNameEn": "Puxin Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10007
+  },
+  {
+    "countyCode": 1000802,
+    "countyName": "埔里鎮",
+    "countyNameEn": "Puli Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10008
+  },
+  {
+    "countyCode": 1000714,
+    "countyName": "埔鹽鄉",
+    "countyNameEn": "Puyan Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10007
+  },
+  {
+    "countyCode": 1000411,
+    "countyName": "峨眉鄉",
+    "countyNameEn": "Emei Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10004
+  },
+  {
+    "countyCode": 1001318,
+    "countyName": "崁頂鄉",
+    "countyNameEn": "Kanting Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10013
+  },
+  {
+    "countyCode": 1000301,
+    "countyName": "桃園市",
+    "countyNameEn": "Taoyuan City",
+    "areaType": "區鄉鎮",
+    "parentCode": 10003
+  },
+  {
+    "countyCode": 6403700,
+    "countyName": "桃源區",
+    "countyNameEn": "Taoyuan",
+    "areaType": "區鄉鎮",
+    "parentCode": 64
+  },
+  {
+    "countyCode": 6501600,
+    "countyName": "泰山區",
+    "countyNameEn": "Taishan District",
+    "areaType": "區鄉鎮",
+    "parentCode": 65
+  },
+  {
+    "countyCode": 1000518,
+    "countyName": "泰安鄉",
+    "countyNameEn": "Taian Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10005
+  },
+  {
+    "countyCode": 1001329,
+    "countyName": "泰武鄉",
+    "countyNameEn": "Taiwu Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10013
+  },
+  {
+    "countyCode": 1001412,
+    "countyName": "海端鄉",
+    "countyNameEn": "Haiduan Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10014
+  },
+  {
+    "countyCode": 902005,
+    "countyName": "烈嶼鄉",
+    "countyNameEn": "Lieyu Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 9020
+  },
+  {
+    "countyCode": 6602300,
+    "countyName": "烏日區",
+    "countyNameEn": "Wurih District",
+    "areaType": "區鄉鎮",
+    "parentCode": 66
+  },
+  {
+    "countyCode": 6502900,
+    "countyName": "烏來區",
+    "countyNameEn": "Wulai",
+    "areaType": "區鄉鎮",
+    "parentCode": 65
+  },
+  {
+    "countyCode": 902006,
+    "countyName": "烏坵鄉",
+    "countyNameEn": "Wuqiu Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 9020
+  },
+  {
+    "countyCode": 1001322,
+    "countyName": "琉球鄉",
+    "countyNameEn": "Ryukyu Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10013
+  },
+  {
+    "countyCode": 6601600,
+    "countyName": "神岡區",
+    "countyNameEn": "Shengang District",
+    "areaType": "區鄉鎮",
+    "parentCode": 66
+  },
+  {
+    "countyCode": 1000803,
+    "countyName": "草屯鎮",
+    "countyNameEn": "Caotun Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10008
+  },
+  {
+    "countyCode": 6502600,
+    "countyName": "貢寮區",
+    "countyNameEn": "Gongliao District",
+    "areaType": "區鄉鎮",
+    "parentCode": 65
+  },
+  {
+    "countyCode": 1001601,
+    "countyName": "馬公市",
+    "countyNameEn": "Magong City",
+    "areaType": "區鄉鎮",
+    "parentCode": 10016
+  },
+  {
+    "countyCode": 1001311,
+    "countyName": "高樹鄉",
+    "countyNameEn": "Gaoshu Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10013
+  },
+  {
+    "countyCode": 1000810,
+    "countyName": "國姓鄉",
+    "countyNameEn": "Guoxiao Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10008
+  },
+  {
+    "countyCode": 1000722,
+    "countyName": "埤頭鄉",
+    "countyNameEn": "Beitou Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10007
+  },
+  {
+    "countyCode": 6701600,
+    "countyName": "將軍區",
+    "countyNameEn": "Tseung Kwan O District",
+    "areaType": "區鄉鎮",
+    "parentCode": 67
+  },
+  {
+    "countyCode": 1000912,
+    "countyName": "崙背鄉",
+    "countyNameEn": "Lunbei Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10009
+  },
+  {
+    "countyCode": 1001605,
+    "countyName": "望安鄉",
+    "countyNameEn": "Wang'an Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10016
+  },
+  {
+    "countyCode": 1001015,
+    "countyName": "梅山鄉",
+    "countyNameEn": "Meishan Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10010
+  },
+  {
+    "countyCode": 6402900,
+    "countyName": "梓官區",
+    "countyNameEn": "Ziguan District",
+    "areaType": "區鄉鎮",
+    "parentCode": 64
+  },
+  {
+    "countyCode": 6601400,
+    "countyName": "梧棲區",
+    "countyNameEn": "Wuqi District",
+    "areaType": "區鄉鎮",
+    "parentCode": 66
+  },
+  {
+    "countyCode": 6501000,
+    "countyName": "淡水區",
+    "countyNameEn": "Danshui District",
+    "areaType": "區鄉鎮",
+    "parentCode": 65
+  },
+  {
+    "countyCode": 6501800,
+    "countyName": "深坑區",
+    "countyNameEn": "Shenkeng",
+    "areaType": "區鄉鎮",
+    "parentCode": 65
+  },
+  {
+    "countyCode": 6601200,
+    "countyName": "清水區",
+    "countyNameEn": "Qingshui",
+    "areaType": "區鄉鎮",
+    "parentCode": 66
+  },
+  {
+    "countyCode": 900703,
+    "countyName": "莒光鄉",
+    "countyNameEn": "Juguang Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 9007
+  },
+  {
+    "countyCode": 1000503,
+    "countyName": "通霄鎮",
+    "countyNameEn": "Tongxiao Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10005
+  },
+  {
+    "countyCode": 1000515,
+    "countyName": "造橋鄉",
+    "countyNameEn": "Zaoqiao Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10005
+  },
+  {
+    "countyCode": 1000809,
+    "countyName": "魚池鄉",
+    "countyNameEn": "Yuchi Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10008
+  },
+  {
+    "countyCode": 6401800,
+    "countyName": "鳥松區",
+    "countyNameEn": "Tousong Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 64
+  },
+  {
+    "countyCode": 1000807,
+    "countyName": "鹿谷鄉",
+    "countyNameEn": "Lugu Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10008
+  },
+  {
+    "countyCode": 1001011,
+    "countyName": "鹿草鄉",
+    "countyNameEn": "Lucao Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10010
+  },
+  {
+    "countyCode": 1001405,
+    "countyName": "鹿野鄉",
+    "countyNameEn": "Deerfield Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10014
+  },
+  {
+    "countyCode": 1000702,
+    "countyName": "鹿港鎮",
+    "countyNameEn": "Lugang Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10007
+  },
+  {
+    "countyCode": 1000913,
+    "countyName": "麥寮鄉",
+    "countyNameEn": "Mailiao Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10009
+  },
+  {
+    "countyCode": 6700700,
+    "countyName": "麻豆區",
+    "countyNameEn": "Maidou District",
+    "areaType": "區鄉鎮",
+    "parentCode": 67
+  },
+  {
+    "countyCode": 6701900,
+    "countyName": "善化區",
+    "countyNameEn": "Shanhua",
+    "areaType": "區鄉鎮",
+    "parentCode": 67
+  },
+  {
+    "countyCode": 1001510,
+    "countyName": "富里鄉",
+    "countyNameEn": "Fuli Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10015
+  },
+  {
+    "countyCode": 1000313,
+    "countyName": "復興鄉",
+    "countyNameEn": "Fuxing Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10003
+  },
+  {
+    "countyCode": 1000405,
+    "countyName": "湖口鄉",
+    "countyNameEn": "Hukou",
+    "areaType": "區鄉鎮",
+    "parentCode": 10004
+  },
+  {
+    "countyCode": 6402500,
+    "countyName": "湖內區",
+    "countyNameEn": "Hunei",
+    "areaType": "區鄉鎮",
+    "parentCode": 64
+  },
+  {
+    "countyCode": 1001602,
+    "countyName": "湖西鄉",
+    "countyNameEn": "Huxi",
+    "areaType": "區鄉鎮",
+    "parentCode": 10016
+  },
+  {
+    "countyCode": 1001016,
+    "countyName": "番路鄉",
+    "countyNameEn": "Fanlu",
+    "areaType": "區鄉鎮",
+    "parentCode": 10010
+  },
+  {
+    "countyCode": 1000909,
+    "countyName": "莿桐鄉",
+    "countyNameEn": "Urtica Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10009
+  },
+  {
+    "countyCode": 1000805,
+    "countyName": "集集鎮",
+    "countyNameEn": "Jiji Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10008
+  },
+  {
+    "countyCode": 6701800,
+    "countyName": "新化區",
+    "countyNameEn": "Xinhua District",
+    "areaType": "區鄉鎮",
+    "parentCode": 67
+  },
+  {
+    "countyCode": 6702000,
+    "countyName": "新市區",
+    "countyNameEn": "Xinshi District",
+    "areaType": "區鄉鎮",
+    "parentCode": 67
+  },
+  {
+    "countyCode": 6500600,
+    "countyName": "新店區",
+    "countyNameEn": "Xindian District",
+    "areaType": "區鄉鎮",
+    "parentCode": 65
+  },
+  {
+    "countyCode": 6601900,
+    "countyName": "新社區",
+    "countyNameEn": "Xincheng Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 66
+  },
+  {
+    "countyCode": 1001504,
+    "countyName": "新城鄉",
+    "countyNameEn": "Xincheng Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10015
+  },
+  {
+    "countyCode": 1000311,
+    "countyName": "新屋鄉",
+    "countyNameEn": "Xinyu Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10003
+  },
+  {
+    "countyCode": 1000403,
+    "countyName": "新埔鎮",
+    "countyNameEn": "Xinpu Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10004
+  },
+  {
+    "countyCode": 1001315,
+    "countyName": "新埤鄉",
+    "countyNameEn": "Xin Bei Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10013
+  },
+  {
+    "countyCode": 6500500,
+    "countyName": "新莊區",
+    "countyNameEn": "Xinzhuang District",
+    "areaType": "區鄉鎮",
+    "parentCode": 65
+  },
+  {
+    "countyCode": 1001007,
+    "countyName": "新港鄉",
+    "countyNameEn": "Xingang Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10010
+  },
+  {
+    "countyCode": 1001317,
+    "countyName": "新園鄉",
+    "countyNameEn": "Xinyuan Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10013
+  },
+  {
+    "countyCode": 6400600,
+    "countyName": "新興區",
+    "countyNameEn": "Xinxing District",
+    "areaType": "區鄉鎮",
+    "parentCode": 64
+  },
+  {
+    "countyCode": 6700100,
+    "countyName": "新營區",
+    "countyNameEn": "Xinying District",
+    "areaType": "區鄉鎮",
+    "parentCode": 67
+  },
+  {
+    "countyCode": 1000406,
+    "countyName": "新豐鄉",
+    "countyNameEn": "Xinfeng",
+    "areaType": "區鄉鎮",
+    "parentCode": 10004
+  },
+  {
+    "countyCode": 1001703,
+    "countyName": "暖暖區",
+    "countyNameEn": "Nuan Nuan District",
+    "areaType": "區鄉鎮",
+    "parentCode": 10017
+  },
+  {
+    "countyCode": 1000304,
+    "countyName": "楊梅市",
+    "countyNameEn": "Yangmei",
+    "areaType": "區鄉鎮",
+    "parentCode": 10003
+  },
+  {
+    "countyCode": 6702400,
+    "countyName": "楠西區",
+    "countyNameEn": "Nanxi District",
+    "areaType": "區鄉鎮",
+    "parentCode": 67
+  },
+  {
+    "countyCode": 6400400,
+    "countyName": "楠梓區",
+    "countyNameEn": "Nanzi District",
+    "areaType": "區鄉鎮",
+    "parentCode": 64
+  },
+  {
+    "countyCode": 1001006,
+    "countyName": "溪口鄉",
+    "countyNameEn": "Xikou Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10010
+  },
+  {
+    "countyCode": 1000726,
+    "countyName": "溪州鄉",
+    "countyNameEn": "Xizhou Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10007
+  },
+  {
+    "countyCode": 1000711,
+    "countyName": "溪湖鎮",
+    "countyNameEn": "Xihu Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10007
+  },
+  {
+    "countyCode": 1001332,
+    "countyName": "獅子鄉",
+    "countyNameEn": "Shizi Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10013
+  },
+  {
+    "countyCode": 1000517,
+    "countyName": "獅潭鄉",
+    "countyNameEn": "Shihtan Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10005
+  },
+  {
+    "countyCode": 6501200,
+    "countyName": "瑞芳區",
+    "countyNameEn": "Ruifang District",
+    "areaType": "區鄉鎮",
+    "parentCode": 65
+  },
+  {
+    "countyCode": 1001509,
+    "countyName": "瑞穗鄉",
+    "countyNameEn": "Ruisui Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10015
+  },
+  {
+    "countyCode": 1001010,
+    "countyName": "義竹鄉",
+    "countyNameEn": "Yizhu Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10010
+  },
+  {
+    "countyCode": 1001305,
+    "countyName": "萬丹鄉",
+    "countyNameEn": "Wandan Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10013
+  },
+  {
+    "countyCode": 6502800,
+    "countyName": "萬里區",
+    "countyNameEn": "Wanli District",
+    "areaType": "區鄉鎮",
+    "parentCode": 65
+  },
+  {
+    "countyCode": 6300700,
+    "countyName": "萬華區",
+    "countyNameEn": "Wanhua District",
+    "areaType": "區鄉鎮",
+    "parentCode": 63
+  },
+  {
+    "countyCode": 1001512,
+    "countyName": "萬榮鄉",
+    "countyNameEn": "Wanrong",
+    "areaType": "區鄉鎮",
+    "parentCode": 10015
+  },
+  {
+    "countyCode": 1001312,
+    "countyName": "萬巒鄉",
+    "countyNameEn": "Wan Ruan Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10013
+  },
+  {
+    "countyCode": 6402400,
+    "countyName": "路竹區",
+    "countyNameEn": "Luzhu District",
+    "areaType": "區鄉鎮",
+    "parentCode": 64
+  },
+  {
+    "countyCode": 1001415,
+    "countyName": "達仁鄉",
+    "countyNameEn": "Darren Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10014
+  },
+  {
+    "countyCode": 6400200,
+    "countyName": "鼓山區",
+    "countyNameEn": "Gushan",
+    "areaType": "區鄉鎮",
+    "parentCode": 64
+  },
+  {
+    "countyCode": 1001506,
+    "countyName": "壽豐鄉",
+    "countyNameEn": "Shoufeng Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10015
+  },
+  {
+    "countyCode": 1000701,
+    "countyName": "彰化市",
+    "countyNameEn": "Changhua City",
+    "areaType": "區鄉鎮",
+    "parentCode": 10007
+  },
+  {
+    "countyCode": 6403000,
+    "countyName": "旗山區",
+    "countyNameEn": "Qishan District",
+    "areaType": "區鄉鎮",
+    "parentCode": 64
+  },
+  {
+    "countyCode": 6401000,
+    "countyName": "旗津區",
+    "countyNameEn": "Qijin District",
+    "areaType": "區鄉鎮",
+    "parentCode": 64
+  },
+  {
+    "countyCode": 1001324,
+    "countyName": "滿州鄉",
+    "countyNameEn": "Manzhou Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10013
+  },
+  {
+    "countyCode": 1001328,
+    "countyName": "瑪家鄉",
+    "countyNameEn": "Majia Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10013
+  },
+  {
+    "countyCode": 1000706,
+    "countyName": "福興鄉",
+    "countyNameEn": "Fuxing Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10007
+  },
+  {
+    "countyCode": 1001411,
+    "countyName": "綠島鄉",
+    "countyNameEn": "Green Island",
+    "areaType": "區鄉鎮",
+    "parentCode": 10014
+  },
+  {
+    "countyCode": 1000916,
+    "countyName": "臺西鄉",
+    "countyNameEn": "Taixi Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10009
+  },
+  {
+    "countyCode": 1001401,
+    "countyName": "臺東市",
+    "countyNameEn": "Taitung City",
+    "areaType": "區鄉鎮",
+    "parentCode": 10014
+  },
+  {
+    "countyCode": 1000510,
+    "countyName": "銅鑼鄉",
+    "countyNameEn": "Causeway Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10005
+  },
+  {
+    "countyCode": 6401200,
+    "countyName": "鳳山區",
+    "countyNameEn": "Fungshan District",
+    "areaType": "區鄉鎮",
+    "parentCode": 64
+  },
+  {
+    "countyCode": 1001502,
+    "countyName": "鳳林鎮",
+    "countyNameEn": "Fenglin Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10015
+  },
+  {
+    "countyCode": 6601700,
+    "countyName": "潭子區",
+    "countyNameEn": "Tanzi District",
+    "areaType": "區鄉鎮",
+    "parentCode": 66
+  },
+  {
+    "countyCode": 1001302,
+    "countyName": "潮州鎮",
+    "countyNameEn": "Chaozhou Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10013
+  },
+  {
+    "countyCode": 1000704,
+    "countyName": "線西鄉",
+    "countyNameEn": "Jiansi Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10007
+  },
+  {
+    "countyCode": 1000915,
+    "countyName": "褒忠鄉",
+    "countyNameEn": "Baozhong Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10009
+  },
+  {
+    "countyCode": 6701300,
+    "countyName": "學甲區",
+    "countyNameEn": "Xuejia District",
+    "areaType": "區鄉鎮",
+    "parentCode": 67
+  },
+  {
+    "countyCode": 6500700,
+    "countyName": "樹林區",
+    "countyNameEn": "Shulin District",
+    "areaType": "區鄉鎮",
+    "parentCode": 65
+  },
+  {
+    "countyCode": 6402000,
+    "countyName": "橋頭區",
+    "countyNameEn": "Qiaotou District",
+    "areaType": "區鄉鎮",
+    "parentCode": 64
+  },
+  {
+    "countyCode": 1000408,
+    "countyName": "橫山鄉",
+    "countyNameEn": "Hengshan Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10004
+  },
+  {
+    "countyCode": 6402100,
+    "countyName": "燕巢區",
+    "countyNameEn": "Yanchao District",
+    "areaType": "區鄉鎮",
+    "parentCode": 64
+  },
+  {
+    "countyCode": 1000505,
+    "countyName": "頭份鎮",
+    "countyNameEn": "Toufen Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10005
+  },
+  {
+    "countyCode": 1000204,
+    "countyName": "頭城鎮",
+    "countyNameEn": "Toucheng Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10002
+  },
+  {
+    "countyCode": 1000512,
+    "countyName": "頭屋鄉",
+    "countyNameEn": "Touya Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10005
+  },
+  {
+    "countyCode": 6602500,
+    "countyName": "龍井區",
+    "countyNameEn": "Longjing District",
+    "areaType": "區鄉鎮",
+    "parentCode": 66
+  },
+  {
+    "countyCode": 6703000,
+    "countyName": "龍崎區",
+    "countyNameEn": "Longqi District",
+    "areaType": "區鄉鎮",
+    "parentCode": 67
+  },
+  {
+    "countyCode": 1000309,
+    "countyName": "龍潭鄉",
+    "countyNameEn": "Longtan Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10003
+  },
+  {
+    "countyCode": 1000307,
+    "countyName": "龜山鄉",
+    "countyNameEn": "Gueishan Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10003
+  },
+  {
+    "countyCode": 6402800,
+    "countyName": "彌陀區",
+    "countyNameEn": "Meituo District",
+    "areaType": "區鄉鎮",
+    "parentCode": 64
+  },
+  {
+    "countyCode": 1000205,
+    "countyName": "礁溪鄉",
+    "countyNameEn": "Jiaoxi Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10002
+  },
+  {
+    "countyCode": 6702800,
+    "countyName": "歸仁區",
+    "countyNameEn": "Guiren District",
+    "areaType": "區鄉鎮",
+    "parentCode": 67
+  },
+  {
+    "countyCode": 6600900,
+    "countyName": "豐原區",
+    "countyNameEn": "Fengyuan District",
+    "areaType": "區鄉鎮",
+    "parentCode": 66
+  },
+  {
+    "countyCode": 1001508,
+    "countyName": "豐濱鄉",
+    "countyNameEn": "Fengbin Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10015
+  },
+  {
+    "countyCode": 6502500,
+    "countyName": "雙溪區",
+    "countyNameEn": "Shuangxi District",
+    "areaType": "區鄉鎮",
+    "parentCode": 65
+  },
+  {
+    "countyCode": 1000202,
+    "countyName": "羅東鎮",
+    "countyNameEn": "Luodong Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10002
+  },
+  {
+    "countyCode": 1001403,
+    "countyName": "關山鎮",
+    "countyNameEn": "Guanshan Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10014
+  },
+  {
+    "countyCode": 1000404,
+    "countyName": "關西鎮",
+    "countyNameEn": "Guanxi Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10004
+  },
+  {
+    "countyCode": 6702900,
+    "countyName": "關廟區",
+    "countyNameEn": "Guanmiao District",
+    "areaType": "區鄉鎮",
+    "parentCode": 67
+  },
+  {
+    "countyCode": 6602600,
+    "countyName": "霧峰區",
+    "countyNameEn": "Wufeng District",
+    "areaType": "區鄉鎮",
+    "parentCode": 66
+  },
+  {
+    "countyCode": 1001327,
+    "countyName": "霧臺鄉",
+    "countyNameEn": "Wutai Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10013
+  },
+  {
+    "countyCode": 1000410,
+    "countyName": "寶山鄉",
+    "countyNameEn": "Baoshan Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10004
+  },
+  {
+    "countyCode": 1000305,
+    "countyName": "蘆竹市",
+    "countyNameEn": "Luzhu City",
+    "areaType": "區鄉鎮",
+    "parentCode": 10003
+  },
+  {
+    "countyCode": 6501400,
+    "countyName": "蘆洲區",
+    "countyNameEn": "Luzhou District",
+    "areaType": "區鄉鎮",
+    "parentCode": 65
+  },
+  {
+    "countyCode": 1000203,
+    "countyName": "蘇澳鎮",
+    "countyNameEn": "Su'ao Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10002
+  },
+  {
+    "countyCode": 1001416,
+    "countyName": "蘭嶼鄉",
+    "countyNameEn": "Lanyu Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10014
+  },
+  {
+    "countyCode": 6500800,
+    "countyName": "鶯歌區",
+    "countyNameEn": "Yingge District",
+    "areaType": "區鄉鎮",
+    "parentCode": 65
+  },
+  {
+    "countyCode": 1001307,
+    "countyName": "麟洛鄉",
+    "countyNameEn": "Linluo Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10013
+  },
+  {
+    "countyCode": 6700200,
+    "countyName": "鹽水區",
+    "countyNameEn": "Yanshui District",
+    "areaType": "區鄉鎮",
+    "parentCode": 67
+  },
+  {
+    "countyCode": 1001310,
+    "countyName": "鹽埔鄉",
+    "countyNameEn": "Yanpu Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10013
+  },
+  {
+    "countyCode": 6400100,
+    "countyName": "鹽埕區",
+    "countyNameEn": "Yancheng District",
+    "areaType": "區鄉鎮",
+    "parentCode": 64
+  },
+  {
+    "countyCode": 1000312,
+    "countyName": "觀音鄉",
+    "countyNameEn": "Guanyin Township",
+    "areaType": "區鄉鎮",
+    "parentCode": 10003
+  }
+]

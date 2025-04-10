@@ -17,6 +17,7 @@
     "baseUrl": ".",
     "allowJs": true,
     "checkJs": true,
+    "resolveJsonModule": true,
     "types": [
       "vite/client"
     ],
