@@ -146,6 +146,11 @@
         <div class="font-light" v-if="finalPriceType === '分期付款'">
           <div class="mb-3 font-medium">貸款約定事項</div>
           <div class="mb-4 flex items-center gap-2.5">
+            <div>首付金額</div>
+            <CurrencyInput class="flex-1" />
+            <span>元</span>
+          </div>
+          <div class="mb-4 flex items-center gap-2.5">
             <span>買方委辦貸款</span>
             <BaseInput class="w-[150px]" placeholder="預估貸" />
             <span>萬</span>
