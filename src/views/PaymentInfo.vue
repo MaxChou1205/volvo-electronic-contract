@@ -69,12 +69,16 @@
           />
         </div>
 
-        <div v-if="depositType === '票據'">
+        <div v-if="depositType === '支票'">
           <BaseInput
             class="mb-4"
             title="票號"
             placeholder="請輸入票號"
           ></BaseInput>
+          <div>
+            <div class="mb-4">支票日期</div>
+            <DatePicker class="mb-4" placeholder="請輸入票號"></DatePicker>
+          </div>
           <div class="mb-3">付款行庫｜分行｜帳號</div>
           <div class="flex items-center gap-3">
             <Select

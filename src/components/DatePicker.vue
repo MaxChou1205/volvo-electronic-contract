@@ -30,7 +30,7 @@
             :class="
               disabled
                 ? 'border-gray-500 placeholder:text-gray-500'
-                : 'border-black-400 placeholder:text-black-400'
+                : 'border-black-400 placeholder:text-black-300'
             "
             type="text"
             :value="value"
