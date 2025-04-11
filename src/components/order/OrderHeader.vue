@@ -35,20 +35,33 @@
         class="group relative min-w-[130px] cursor-pointer pb-2 text-center"
         v-for="item in sortList"
         :key="item.value"
-        :class="{ 'font-medium text-blue-500': item.value === sort }"
-        @click="changeSort(item.value)"
+        :class="{
+          'font-medium text-blue-500':
+            item.value === orderStore.sortInfo.sortBy,
+        }"
+        @click="
+          orderStore.changeSort(item.value, orderStore.sortInfo.sortAscending)
+        "
       >
         {{ item.label }}
         <div
           class="absolute bottom-0 left-0 h-0.5 w-full transform-gpu transition-all duration-300 ease-out"
           :class="
-            item.value === sort
+            item.value === orderStore.sortInfo.sortBy
               ? 'scale-x-100 bg-blue-500'
               : 'scale-x-0 bg-transparent group-hover:scale-x-100 group-hover:bg-gray-300'
           "
         ></div>
       </li>
-      <li class="flex cursor-pointer items-center pb-2 text-center">
+      <li
+        class="flex cursor-pointer items-center pb-2 text-center"
+        @click="
+          orderStore.changeSort(
+            orderStore.sortInfo.sortBy,
+            !orderStore.sortInfo.sortAscending,
+          )
+        "
+      >
         <Icon class="mr-1" iconName="sort" :size="20" />
         排序
       </li>
@@ -78,26 +91,23 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import FilterMenu from "@/components/order/FilterMenu.vue";
+import { useOrderStore } from "@/stores/orderStore";
 
-const sortList = ref([
+const orderStore = useOrderStore();
+const sortList = [
   {
     label: "訂單創建日",
-    value: "createDate",
+    value: "createdAt",
   },
   {
     label: "訂單提交日",
-    value: "submitDate",
+    value: "submitTime",
   },
   {
     label: "訂單編號",
-    value: "id",
+    value: "soNo",
   },
-]);
-const sort = ref("createDate");
-
-const changeSort = (param: string) => {
-  sort.value = param;
-};
+];
 
 const isFilterMenuOpen = ref(false);
 const toggleFilterMenu = () => {
