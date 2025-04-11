@@ -63,7 +63,8 @@
             :options="[
               { value: '現金', label: '現金' },
               { value: '刷卡', label: '刷卡' },
-              { value: '票據', label: '票據' },
+              { value: '支票', label: '支票' },
+              { value: '轉帳匯款', label: '轉帳匯款' },
             ]"
           />
         </div>
