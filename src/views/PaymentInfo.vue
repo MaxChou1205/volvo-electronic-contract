@@ -562,8 +562,6 @@ const finalPriceTypeOptions = computed(() => {
     return [
       { value: "現金", label: "現金" },
       { value: "刷卡", label: "刷卡" },
-      { value: "票據", label: "票據" },
-      { value: "匯款", label: "匯款" },
       { value: "分期付款", label: "分期付款" },
     ];
   } else {
