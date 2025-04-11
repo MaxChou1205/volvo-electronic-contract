@@ -8,7 +8,7 @@
         @click="openDropdown"
         :tabindex="disabled ? -1 : 0"
         @keydown.esc="isOpen = false"
-        :class="{ 'bg-gray-300': disabled, 'cursor-not-allowed': disabled }"
+        :class="{ 'bg-gray-200': disabled, 'cursor-not-allowed': disabled }"
       >
         <!-- Selected tags -->
         <span

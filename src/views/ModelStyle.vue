@@ -50,24 +50,28 @@
           v-model="form.year"
           title="年式"
           :options="formOptions.yearOptions"
+          :disabled="formOptions.yearOptions.length === 0"
           @change="handleChangeCarInfo('year')"
         />
         <Select
           v-model="form.config"
           title="車款動力"
           :options="formOptions.configOptions"
+          :disabled="formOptions.configOptions.length === 0"
           @change="handleChangeCarInfo('config')"
         />
         <Select
           v-model="form.color"
           title="車色"
           :options="formOptions.colorOptions"
+          :disabled="formOptions.colorOptions.length === 0"
           @change="handleChangeCarInfo('color')"
         />
         <Select
           v-model="form.trim"
           title="內裝"
           :options="formOptions.trimOptions"
+          :disabled="formOptions.trimOptions.length === 0"
           @change="handleChangeCarInfo('trim')"
         />
         <MultiSelect
@@ -75,6 +79,7 @@
           title="選配"
           placeholder="請選擇選配"
           :options="formOptions.optionOptions"
+          :disabled="formOptions.optionOptions.length === 0"
           @change="handleChangeCarInfo('option')"
         />
         <BaseInput title="CC 數" placeholder="請填寫CC數" />

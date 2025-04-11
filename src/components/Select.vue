@@ -3,7 +3,7 @@
     <div class="mb-3" v-if="title">{{ title }}</div>
     <div class="select">
       <select
-        class="h-11 w-full appearance-none rounded-[4px] border-1 border-black p-3 font-light"
+        class="h-11 w-full appearance-none rounded-[4px] border-1 border-black p-3 font-light disabled:cursor-not-allowed disabled:bg-gray-200"
         v-model="modelValue"
         :placeholder="placeholder"
         :disabled="disabled"
