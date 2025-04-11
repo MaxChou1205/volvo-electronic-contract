@@ -3,7 +3,7 @@
     class="fixed inset-0 z-40 flex items-center justify-center backdrop-blur-md"
     v-if="loading"
   >
-    <div class="absolute inset-0 bg-black/30"></div>
+    <div class="absolute inset-0 bg-black/20"></div>
     <div class="loader"></div>
   </div>
 </template>
@@ -15,52 +15,39 @@ const { loading } = useLoading();
 </script>
 
 <style scoped>
+/* HTML: <div class="loader"></div> */
 .loader {
-  aspect-ratio: 1;
-  width: 40px;
-  --c: linear-gradient(#000 0 0);
-  --r1: radial-gradient(farthest-side at bottom, #000 93%, #0000);
-  --r2: radial-gradient(farthest-side at top, #000 93%, #0000);
-  animation: l1 1s infinite alternate;
+  display: grid;
+  position: relative;
+  animation: l10 2s infinite linear;
+  border-radius: 50%;
   background:
-    var(--c), var(--r1), var(--r2), var(--c), var(--r1), var(--r2), var(--c),
-    var(--r1), var(--r2);
-  background-repeat: no-repeat;
+    conic-gradient(
+        from 90deg at 4px 4px,
+        #0000 90deg,
+        currentColor 0
+      ) -4px -4px /
+      calc(50% + 2px) calc(50% + 2px),
+    radial-gradient(
+        farthest-side,
+        currentColor 6px,
+        #0000 7px calc(100% - 6px),
+        currentColor calc(100% - 5px)
+      )
+      no-repeat;
+  aspect-ratio: 1;
+  width: 50px;
+  color: #141414;
 }
-@keyframes l1 {
-  0%,
-  10% {
-    background-position:
-      0 50%,
-      0 calc(50% - 2px),
-      0 calc(50% + 2px),
-      50% 50%,
-      50% calc(50% - 2px),
-      50% calc(50% + 2px),
-      100% 50%,
-      100% calc(50% - 2px),
-      100% calc(50% + 2px);
-    background-size:
-      8px 0,
-      8px 4px,
-      8px 4px;
-  }
-  90%,
-  100% {
-    background-position:
-      0 50%,
-      0 -2px,
-      0 calc(100% + 2px),
-      50% 50%,
-      50% -2px,
-      50% calc(100% + 2px),
-      100% 50%,
-      100% -2px,
-      100% calc(100% + 2px);
-    background-size:
-      8px 100%,
-      8px 4px,
-      8px 4px;
+.loader:before {
+  transform: rotate(45deg);
+  border-radius: inherit;
+  background: inherit;
+  content: "";
+}
+@keyframes l10 {
+  to {
+    transform: rotate(0.5turn);
   }
 }
 </style>

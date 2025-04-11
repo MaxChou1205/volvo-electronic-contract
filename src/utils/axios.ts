@@ -22,7 +22,7 @@ axiosInstance.interceptors.request.use((config) => {
 
   loadingTimers[requestId] = window.setTimeout(() => {
     useLoading().open();
-  }, 300);
+  }, 400);
 
   return config;
 });
