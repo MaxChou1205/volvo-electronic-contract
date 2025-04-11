@@ -94,6 +94,15 @@
             <BaseInput class="w-full" placeholder="請輸入帳號" />
           </div>
         </div>
+
+        <div v-if="depositType === '轉帳匯款'">
+          <BaseInput
+            class="mb-4"
+            title="轉帳銀行名稱"
+            placeholder="請輸入轉帳銀行名稱"
+          ></BaseInput>
+          <BaseInput title="帳號末五碼" placeholder="請輸入帳號末五碼" />
+        </div>
       </div>
 
       <hr class="divider" />
