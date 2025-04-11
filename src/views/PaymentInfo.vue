@@ -192,7 +192,10 @@
           </button></Checkbox
         >
         <Checkbox :value="true">已詳讀並經過3日審閱期的同意勾選</Checkbox>
-        <DatePicker />
+        <div>
+          <div class="mb-2">合約日期</div>
+          <DatePicker />
+        </div>
         <Checkbox :value="true">本人已詳讀並同意</Checkbox>
         <div class="grid grid-cols-[144px_1fr_144px] gap-x-6 gap-y-3">
           <div class="flex items-center justify-between">
