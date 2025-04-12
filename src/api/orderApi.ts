@@ -1,5 +1,5 @@
 import { ApiPaginationResponse } from "@/types/apiType";
-import { ApiOrderListItem } from "@/types/orderType";
+import type { ApiOrderDetail, ApiOrderListItem } from "@/types/orderType";
 import { axiosInstance } from "@/utils/axios";
 
 export const orderApi = {
@@ -22,7 +22,9 @@ export const orderApi = {
     return response.data;
   },
   getDetail: async (id: string) => {
-    const response = await axiosInstance.get(`/${id}`);
+    const response = await axiosInstance.get<ApiOrderDetail>(
+      `/${id}`,
+    );
     return response.data;
   },
 };
