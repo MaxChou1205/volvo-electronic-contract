@@ -88,7 +88,7 @@
               ></Field>
               <Field
                 :label="'選裝包'"
-                :content="orderDetail.modelOptionNames"
+                :content="orderDetail.modelOptionNames.join('')"
               ></Field>
               <Field
                 :label="'是否需安裝充電樁'"

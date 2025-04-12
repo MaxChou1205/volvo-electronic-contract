@@ -7,7 +7,13 @@
         v-model="modelValue"
         :placeholder="placeholder"
         :disabled="disabled"
-        @change="$emit('change', ($event.target as HTMLSelectElement).value)"
+        @change="
+          $emit('change', {
+            label: ($event.target as HTMLSelectElement).selectedOptions[0]
+              .textContent,
+            value: ($event.target as HTMLSelectElement).value,
+          })
+        "
       >
         <option v-for="item in optionsWithEmpty" :value="getValue(item)">
           {{ getLabel(item) }}
@@ -18,14 +24,16 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, onMounted } from "vue";
 
 const modelValue = defineModel<string | number>({ default: "" });
+
 const props = defineProps<{
   title?: string;
   options: (string | number | { label: string; value: string | number })[];
   placeholder?: string;
   disabled?: boolean;
+  initValue?: { label: string; value: string | number };
 }>();
 const emit = defineEmits(["change"]);
 
@@ -50,6 +58,15 @@ function getLabel(
 ): string | number {
   return typeof item === "object" ? item.label : item;
 }
+
+onMounted(() => {
+  if (props.initValue) {
+    props.options.push({
+      label: props.initValue.label,
+      value: props.initValue.value,
+    });
+  }
+});
 </script>
 
 <style scoped lang="scss">

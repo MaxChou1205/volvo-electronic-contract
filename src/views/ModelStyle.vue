@@ -12,7 +12,7 @@
 
     <Stepper :currentStep="1" />
 
-    <div class="mt-8 px-15 pb-15">
+    <div class="mt-8 px-15 pb-15" v-if="form">
       <div class="text-black-400 mb-5 leading-6">車型樣式</div>
 
       <Tabs class="px-15" v-model="currentTabIndex" :tabs="tabs" />
@@ -29,11 +29,13 @@
               class="flex cursor-pointer flex-col"
               v-for="(car, carIndex) in cars"
               :key="carIndex"
-              @click="handleChangeCarInfo('carId', car.id)"
+              @click="handleChangeCarInfo('modelId', car.id)"
             >
               <div
                 class="mb-1 flex h-24 w-24 items-center justify-center rounded-[4px] bg-gray-200"
-                :class="form.carId === car.id ? 'border-1 border-blue-500' : ''"
+                :class="
+                  form.modelId === car.id ? 'border-1 border-blue-500' : ''
+                "
               >
                 <img :src="car.img" alt="car" />
               </div>
@@ -47,40 +49,48 @@
 
       <div class="mt-8 grid grid-cols-2 gap-x-6 gap-y-8">
         <Select
-          v-model="form.year"
+          v-model="form.modelYearId"
           title="年式"
           :options="formOptions.yearOptions"
           :disabled="formOptions.yearOptions.length === 0"
-          @change="handleChangeCarInfo('year')"
+          :initValue="{ label: form.modelYearName, value: form.modelYearId }"
+          @change="handleChangeCarInfo('modelYearId')"
         />
         <Select
-          v-model="form.config"
+          v-model="form.modelConfigId"
           title="車款動力"
           :options="formOptions.configOptions"
           :disabled="formOptions.configOptions.length === 0"
-          @change="handleChangeCarInfo('config')"
+          :initValue="{
+            label: form.modelConfigName ?? '',
+            value: form.modelConfigId,
+          }"
+          @change="handleChangeCarInfo('modelConfigId')"
         />
         <Select
-          v-model="form.color"
+          v-model="form.modelColorId"
           title="車色"
           :options="formOptions.colorOptions"
           :disabled="formOptions.colorOptions.length === 0"
-          @change="handleChangeCarInfo('color')"
+          :initValue="{ label: form.modelColorName, value: form.modelColorId }"
+          @change="handleChangeCarInfo('modelColorId')"
         />
         <Select
-          v-model="form.trim"
+          v-model="form.modelTrimId"
           title="內裝"
           :options="formOptions.trimOptions"
           :disabled="formOptions.trimOptions.length === 0"
-          @change="handleChangeCarInfo('trim')"
+          :initValue="{ label: form.modelTrimName, value: form.modelTrimId }"
+          @change="handleChangeCarInfo('modelTrimId')"
         />
         <MultiSelect
-          v-model="form.option"
+          v-model="form.modelOptionNames"
           title="選配"
           placeholder="請選擇選配"
           :options="formOptions.optionOptions"
           :disabled="formOptions.optionOptions.length === 0"
-          @change="handleChangeCarInfo('option')"
+          :initValue="form.modelOptionNames"
+          @change="handleChangeCarInfo('modelOptionId')"
         />
         <BaseInput title="CC 數" placeholder="請填寫CC數" />
         <SingleChoiceButton
@@ -189,28 +199,35 @@
             { value: '自訂交車地點', label: '自訂交車地點' },
           ]"
         />
-        <Select
+        <!-- <Select
           class="w-full"
           v-if="deliveryLocationType === '預設展示中心'"
           v-model="form.exhibitionCenter"
           :options="exhibitionCenterOptions"
           placeholder="請選擇預設展示中心"
-        ></Select>
-        <div class="flex items-center gap-2" v-else>
+        ></Select> -->
+        <div class="flex items-center gap-2">
           <Select
             class="w-30 flex-shrink-0"
-            v-model.number="form.areaCode"
+            v-model.number="form.cityId"
             :options="areaOptions"
             placeholder="縣市"
+            :initValue="{ label: form.cityName, value: form.cityId }"
             @change="handleAreaChange"
           />
           <Select
             class="w-30 flex-shrink-0"
-            v-model="form.district"
+            v-model.number="form.districtId"
             :options="districtOptions"
+            :initValue="{ label: form.districtName, value: form.districtId }"
             placeholder="鄉鎮市區"
+            @change="handleDistrictChange"
           />
-          <BaseInput class="w-full" v-model="form.address" placeholder="地址" />
+          <BaseInput
+            class="w-full"
+            v-model="form.customerAddress"
+            placeholder="地址"
+          />
         </div>
       </div>
 
@@ -225,7 +242,9 @@
 </template>
 
 <script setup lang="ts">
+import { storeToRefs } from "pinia";
 import { computed, onMounted, ref } from "vue";
+import { useRouter } from "vue-router";
 import BaseInput from "@/components/BaseInput.vue";
 import CurrencyInput from "@/components/CurrencyInput.vue";
 import DatePicker from "@/components/DatePicker.vue";
@@ -236,62 +255,56 @@ import SingleChoiceButton from "@/components/SingleChoiceButton.vue";
 import Stepper from "@/components/Stepper.vue";
 import Tabs from "@/components/Tabs.vue";
 import { useCar } from "@/composables/car";
-import type { CarFormRequest } from "@/types/carType";
+import { useOrderStore } from "@/stores/orderStore";
 import county from "../assets/county.json";
 import exhibitionCenter from "../assets/exhibitionCenter.json";
 
+const router = useRouter();
+const orderStore = useOrderStore();
 const carService = useCar();
 
 const carInfoMap = new Map([
-  ["carId", { optionsKey: "", callbackKey: "", nextKey: "year" }],
+  ["modelId", { optionsKey: "", callbackKey: "", nextKey: "modelYearId" }],
   [
-    "year",
+    "modelYearId",
     {
       optionsKey: "yearOptions",
       callbackKey: "getYearOptions",
-      nextKey: "config",
+      nextKey: "modelConfigId",
     },
   ],
   [
-    "config",
+    "modelConfigId",
     {
       optionsKey: "configOptions",
       callbackKey: "getConfigOptions",
-      nextKey: "color",
+      nextKey: "modelColorId",
     },
   ],
   [
-    "color",
+    "modelColorId",
     {
       optionsKey: "colorOptions",
       callbackKey: "getColorOptions",
-      nextKey: "trim",
+      nextKey: "modelTrimId",
     },
   ],
   [
-    "trim",
+    "modelTrimId",
     {
       optionsKey: "trimOptions",
       callbackKey: "getTrimOptions",
-      nextKey: "option",
+      nextKey: "modelOptionId",
     },
   ],
-  ["option", { optionsKey: "optionOptions", callbackKey: "getOptionOptions" }],
+  [
+    "modelOptionId",
+    { optionsKey: "optionOptions", callbackKey: "getOptionOptions" },
+  ],
 ]);
 const carInfoMapKeys = Array.from(carInfoMap.keys());
-const form = ref<CarFormRequest>({
-  carId: "",
-  year: "",
-  config: "",
-  color: "",
-  trim: "",
-  option: [],
-  area: "",
-  areaCode: "",
-  district: "",
-  address: "",
-  exhibitionCenter: "",
-});
+
+const { orderDetail: form } = storeToRefs(orderStore);
 const formOptions = ref({
   yearOptions: [],
   configOptions: [],
@@ -301,6 +314,7 @@ const formOptions = ref({
 });
 
 onMounted(async () => {
+  if (!form.value) router.push({ name: "order" });
   const carList = await carService.getCarList();
   carList.forEach((car) => {
     const matchData = carTypeList.value.find(
@@ -310,11 +324,14 @@ onMounted(async () => {
       matchData.id = car.modelId;
     }
   });
-});
 
-// ---車型樣式---
-const currentTabIndex = ref<number>(0);
-const tabs = ["電動", "雙能電動", "高效輕油電"];
+  const currentCarInfo = carTypeList.value.find(
+    (car) => car.id === form.value!.modelId,
+  );
+  if (currentCarInfo) {
+    currentTabIndex.value = tabs.indexOf(currentCarInfo.mainCategory);
+  }
+});
 
 const findRestMapKeys = (currentKey: string) => {
   const currentIndex = carInfoMapKeys.indexOf(currentKey);
@@ -332,7 +349,7 @@ const handleChangeCarInfo = async (formKey: string, value?: string) => {
   if (!info) return;
 
   if (value) {
-    form.value[formKey] = value;
+    form.value![formKey] = value;
   }
 
   if (info.nextKey && carInfoMap.get(info.nextKey)) {
@@ -350,7 +367,7 @@ const resetOptions = (currentKey: string) => {
   if (keys.length > 0) {
     // Reset form values for those keys
     keys.forEach((key) => {
-      form.value[key] = "";
+      form.value![key] = "";
     });
 
     // Reset options arrays for those keys
@@ -363,6 +380,10 @@ const resetOptions = (currentKey: string) => {
     });
   }
 };
+
+// ---車型樣式---
+const currentTabIndex = ref<number>(0);
+const tabs = ["電動", "雙能電動", "高效輕油電"];
 
 const carTypeList = ref([
   {
@@ -517,7 +538,7 @@ const agreedDateType = ref<string>("");
 const date = ref<Date | null>(null);
 
 // ---交車地點---
-const deliveryLocationType = ref<string>("預設展示中心");
+const deliveryLocationType = ref<string>("自訂交車地點");
 
 // 展示中心
 const exhibitionCenterOptions = exhibitionCenter;
@@ -529,22 +550,39 @@ const areaOptions = county
     value: item.countyCode,
     label: item.countyName,
   }));
-const handleAreaChange = (value: string) => {
-  form.value.district = "";
-  form.value.area =
-    areaOptions.find((item) => item.value === Number(value))?.label || "";
+const handleAreaChange = ({
+  label,
+  value,
+}: {
+  label: string;
+  value: string;
+}) => {
+  form.value!.cityId = value;
+  form.value!.cityName = label;
+  form.value!.districtId = "";
+  form.value!.districtName = "";
 };
 
 // 鄉鎮市區
 const districtOptions = computed(() => {
-  if (!form.value.area) return [];
+  if (!form.value?.cityId) return [];
   return county
-    .filter((item) => item.parentCode === Number(form.value.areaCode))
+    .filter((item) => item.parentCode === Number(form.value!.cityId))
     .map((item) => ({
-      value: item.countyName,
+      value: item.countyCode,
       label: item.countyName,
     }));
 });
+const handleDistrictChange = ({
+  label,
+  value,
+}: {
+  label: string;
+  value: string;
+}) => {
+  form.value!.districtId = value;
+  form.value!.districtName = label;
+};
 </script>
 
 <style scoped></style>

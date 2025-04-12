@@ -72,6 +72,8 @@ export const useOrderStore = defineStore("order", {
       const response = await orderApi.getDetail(id);
       this.orderDetail = {
         ...response,
+        modelConfigId: response.modelConfigId ?? "",
+        modelOptionNames: response.modelOptionNames.split(""),
         deliveringDate: new Date(response.deliveringDate),
         checkDate: response.checkDate ? new Date(response.checkDate) : null,
       };
