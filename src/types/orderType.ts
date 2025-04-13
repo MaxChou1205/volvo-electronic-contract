@@ -81,9 +81,8 @@ export type ApiOrderDetail = {
 
 export type OrderDetail = Omit<
   ApiOrderDetail,
-  "deliveringDate" | "checkDate" | "modelConfigId" | "modelOptionNames"
+  "deliveringDate" | "checkDate" | "modelOptionNames"
 > & {
-  modelConfigId: string;
   modelOptionNames: string[];
   deliveringDate: Date;
   checkDate: Date | null;

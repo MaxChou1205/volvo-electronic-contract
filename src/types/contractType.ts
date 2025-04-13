@@ -12,7 +12,7 @@ export type Contract = {
   cashCheckNo: string;
   cc: string;
   powerSystem: string;
-  factoryYear: string;
+  factoryYear: string | null;
   origin: string;
   isSpecific: boolean | null;
   door: number;
@@ -24,9 +24,9 @@ export type Contract = {
   isImported: boolean | null;
   deliveryLocation: number;
   showroom: string;
-  deliveryCityId: number;
+  deliveryCityId: number | null;
   deliveryCityName: string;
-  deliveryDistrictId: number;
+  deliveryDistrictId: number | null;
   deliveryDistrictName: string;
   deliveryAddress: string;
 };

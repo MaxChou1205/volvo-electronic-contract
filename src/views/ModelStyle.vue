@@ -15,7 +15,7 @@
     <div class="mt-8 px-15 pb-15" v-if="form">
       <div class="text-black-400 mb-5 leading-6">車型樣式</div>
 
-      <Tabs class="px-15" v-model="currentTabIndex" :tabs="tabs" />
+      <!-- <Tabs class="px-15" v-model="currentTabIndex" :tabs="tabs" /> -->
 
       <div class="relative">
         <HorizontalScroll>
@@ -259,7 +259,7 @@
           />
           <BaseInput
             class="w-full"
-            v-model="form.order.customerAddress"
+            v-model="form.deliveryAddress"
             placeholder="地址"
           />
         </div>
@@ -286,7 +286,6 @@ import MultiSelect from "@/components/MultiSelect.vue";
 import Select from "@/components/Select.vue";
 import SingleChoiceButton from "@/components/SingleChoiceButton.vue";
 import Stepper from "@/components/Stepper.vue";
-import Tabs from "@/components/Tabs.vue";
 import { useCarService } from "@/composables/carService";
 import { useContractStore } from "@/stores/contractStore";
 import county from "../assets/county.json";
@@ -507,10 +506,10 @@ const carTypeList = ref([
   },
 ]);
 const processedCarList = computed(() => {
-  const filteredCarList = carTypeList.value.filter(
-    (item) => item.mainCategory === tabs[currentTabIndex.value],
-  );
-  return Object.groupBy(filteredCarList, (item) => item.type);
+  // const filteredCarList = carTypeList.value.filter(
+  //   (item) => item.mainCategory === tabs[currentTabIndex.value],
+  // );
+  return Object.groupBy(carTypeList.value, (item) => item.type);
 });
 
 // 出廠年份
@@ -600,17 +599,17 @@ const handleAreaChange = ({
   label: string;
   value: string;
 }) => {
-  form.value.order.cityId = value;
-  form.value.order.cityName = label;
-  form.value.order.districtId = "";
-  form.value.order.districtName = "";
+  form.value.deliveryCityId = Number(value);
+  form.value.deliveryCityName = label;
+  form.value.deliveryDistrictId = 0;
+  form.value.deliveryDistrictName = "";
 };
 
 // 鄉鎮市區
 const districtOptions = computed(() => {
-  if (!form.value.order.cityId) return [];
+  if (!form.value.deliveryCityId) return [];
   return county
-    .filter((item) => item.parentCode === Number(form.value.order.cityId))
+    .filter((item) => item.parentCode === Number(form.value.deliveryCityId))
     .map((item) => ({
       value: item.countyCode,
       label: item.countyName,
@@ -623,8 +622,8 @@ const handleDistrictChange = ({
   label: string;
   value: string;
 }) => {
-  form.value.order.districtId = value;
-  form.value.order.districtName = label;
+  form.value.deliveryDistrictId = Number(value);
+  form.value.deliveryDistrictName = label;
 };
 </script>
 

@@ -26,14 +26,18 @@
 <script setup lang="ts">
 import { computed, onMounted } from "vue";
 
-const modelValue = defineModel<string | number>({ default: "" });
+const modelValue = defineModel<string | number | null>({ default: null });
 
 const props = defineProps<{
   title?: string;
-  options: (string | number | { label: string; value: string | number })[];
+  options: (
+    | string
+    | number
+    | { label: string; value: string | number | null }
+  )[];
   placeholder?: string;
   disabled?: boolean;
-  initValue?: { label: string; value: string | number };
+  initValue?: { label: string; value: string | number | null };
 }>();
 const emit = defineEmits(["change"]);
 
@@ -41,20 +45,20 @@ const optionsWithEmpty = computed(() => {
   return [
     {
       label: props.placeholder || `請選擇${props.title || ""}`,
-      value: "",
+      value: null,
     },
     ...props.options,
   ];
 });
 
 function getValue(
-  item: string | number | { label: string; value: string | number },
-): string | number {
-  return typeof item === "object" ? item.value : item;
+  item: string | number | { label: string; value: string | number | null },
+): string | number | null {
+  return typeof item === "object" ? item!.value : item;
 }
 
 function getLabel(
-  item: string | number | { label: string; value: string | number },
+  item: string | number | { label: string; value: string | number | null },
 ): string | number {
   return typeof item === "object" ? item.label : item;
 }
