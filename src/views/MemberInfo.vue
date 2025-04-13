@@ -15,29 +15,32 @@
     <div class="mt-8 px-15 pb-15">
       <SingleChoiceButton
         class="mb-8"
-        v-model="buyerType"
+        v-model.number="form.order.drawerCtCode"
         title="買方類型"
         :options="[
-          { value: '個人', label: '個人' },
-          { value: '公司', label: '公司' },
-          { value: '租賃', label: '租賃' },
+          { value: 15231001, label: '個人' },
+          { value: 15231002, label: '公司' },
+          { value: 15231004, label: '租賃' },
         ]"
       />
 
-      <div class="grid grid-cols-2 gap-x-6 gap-y-8" v-if="buyerType === '個人'">
+      <div
+        class="grid grid-cols-2 gap-x-6 gap-y-8"
+        v-if="form.order.drawerCtCode === 15231001"
+      >
         <BaseInput
-          v-model="buyerInfo.name"
+          v-model="form.order.drawerName"
           title="訂購人名稱"
           placeholder="請輸入訂購人名稱"
         />
         <BaseInput
-          v-model="buyerInfo.idNo"
+          v-model="form.order.drawerCertificateNo"
           title="訂購人身分證字號"
           placeholder="請輸入訂購人身分證字號"
         />
         <div>
           <BaseInput
-            v-model="buyerInfo.officialName"
+            v-model="form.order.drawerName"
             title="約定掛牌名稱"
             placeholder="請輸入約定掛牌名稱"
           />
@@ -49,31 +52,40 @@
           />
         </div>
         <BaseInput
-          v-model="buyerInfo.officialIdNo"
+          v-model="form.order.drawerCertificateNo"
           title="身分證字號"
           placeholder="請輸入身分證字號"
         />
         <BaseInput
-          v-model="buyerInfo.phone"
+          v-model="form.order.drawerTel"
           title="主要聯絡電話（手機）"
           placeholder="請輸入掛牌人手機號碼"
         />
-        <BaseInput
-          v-model="buyerInfo.email"
-          title="常用聯絡 E-mail"
-          placeholder="請輸入 E-mail"
-        />
+        <BaseInput title="常用聯絡 E-mail" placeholder="請輸入 E-mail" />
       </div>
 
       <div class="grid grid-cols-2 gap-x-6 gap-y-8" v-else>
         <BaseInput title="約定掛牌名稱" placeholder="請輸入約定掛牌名稱" />
-        <BaseInput title="統一編號" placeholder="請輸入統一編號" />
-        <BaseInput title="代表人名稱" placeholder="請輸入代表人名稱" />
         <BaseInput
+          v-model="form.order.drawerCertificateNo"
+          title="統一編號"
+          placeholder="請輸入統一編號"
+        />
+        <BaseInput
+          v-model="form.order.drawerName"
+          title="代表人名稱"
+          placeholder="請輸入代表人名稱"
+        />
+        <BaseInput
+          v-model="form.order.drawerCertificateNo"
           title="代表人身分證字號"
           placeholder="請輸入代表人身分證字號"
         />
-        <BaseInput title="主要聯絡電話（手機）" placeholder="請輸入手機號碼" />
+        <BaseInput
+          v-model="form.order.drawerTel"
+          title="主要聯絡電話（手機）"
+          placeholder="請輸入手機號碼"
+        />
         <BaseInput title="常用聯絡 E-mail" placeholder="請輸入 E-mail" />
       </div>
 
@@ -86,7 +98,11 @@
             placeholder="鄉鎮市區"
             :options="[]"
           />
-          <BaseInput class="w-full" placeholder="請輸入地址" />
+          <BaseInput
+            class="w-full"
+            v-model="form.order.drawerAddress!"
+            placeholder="請輸入地址"
+          />
         </div>
       </div>
 
@@ -103,31 +119,24 @@
 </template>
 
 <script setup lang="ts">
+import { storeToRefs } from "pinia";
 import { ref } from "vue";
 import BaseInput from "@/components/BaseInput.vue";
 import Checkbox from "@/components/Checkbox.vue";
 import Select from "@/components/Select.vue";
 import SingleChoiceButton from "@/components/SingleChoiceButton.vue";
 import Stepper from "@/components/Stepper.vue";
+import { useContractStore } from "@/stores/contractStore";
 
-// 買方類型
-const buyerType = ref("個人");
+const contractStore = useContractStore();
 
-// 個人
-const buyerInfo = ref({
-  name: "",
-  idNo: "",
-  officialName: "",
-  officialIdNo: "",
-  phone: "",
-  email: "",
-});
+const { contract: form } = storeToRefs(contractStore);
 
 const handleSameBuyer = (value: boolean) => {
-  if (value) {
-    buyerInfo.value.officialName = buyerInfo.value.name;
-    buyerInfo.value.officialIdNo = buyerInfo.value.idNo;
-  }
+  // if (value) {
+  //   buyerInfo.value.officialName = buyerInfo.value.name;
+  //   buyerInfo.value.officialIdNo = buyerInfo.value.idNo;
+  // }
 };
 </script>
 

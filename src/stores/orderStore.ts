@@ -88,6 +88,7 @@ export const useOrderStore = defineStore("order", {
           modelOptionNames: response.modelOptionNames.split(""),
           deliveringDate: new Date(response.deliveringDate),
           checkDate: response.checkDate ? new Date(response.checkDate) : null,
+          drawerAddress: response.drawerAddress ?? "",
         };
         return this.orderDetail;
       } catch (err) {
