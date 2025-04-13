@@ -110,6 +110,7 @@
             { value: '汽油', label: '汽油' },
             { value: '柴油', label: '柴油' },
             { value: '油電混合', label: '油電混合' },
+            { value: '電動', label: '電動' },
           ]"
         />
 
