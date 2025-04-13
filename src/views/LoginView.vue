@@ -31,6 +31,7 @@
           class="mb-2"
           v-model="form.password"
           type="secondary"
+          inputType="password"
           @keyup.enter="login"
         ></BaseInput>
         <!-- <span class="text-xs text-gray-700" v-if="!passwordWarning"
