@@ -1,0 +1,32 @@
+import type { OrderDetail } from "./orderType";
+
+export type Contract = {
+  order: OrderDetail;
+  contractNo: string;
+  pdfUrl: string;
+  email: string;
+  contractDate: string;
+  payModeName: string;
+  loanRate: number;
+  interestSubsidy: number;
+  cashCheckNo: string;
+  cc: string;
+  powerSystem: string;
+  factoryYear: string;
+  origin: string;
+  isSpecific: boolean | null;
+  door: number;
+  seat: number;
+  sunroof: string;
+  gearShift: string;
+  transmission: string;
+  scheduledLicenseDate: string;
+  isImported: boolean | null;
+  deliveryLocation: number;
+  showroom: string;
+  deliveryCityId: number;
+  deliveryCityName: string;
+  deliveryDistrictId: number;
+  deliveryDistrictName: string;
+  deliveryAddress: string;
+};

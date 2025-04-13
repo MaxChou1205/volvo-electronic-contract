@@ -1,13 +1,13 @@
 import { carApi } from "@/api/carApi";
-import { ApiOrderDetail } from "@/types/orderType";
+import { OrderDetail } from "@/types/orderType";
 
-export const useCar = () => {
+export const useCarService = () => {
   const getCarList = async () => {
     const response = await carApi.getCarList();
     return response;
   };
 
-  const getYearOptions = async (form: Partial<ApiOrderDetail>) => {
+  const getYearOptions = async (form: Partial<OrderDetail>) => {
     if (!form.modelId) return;
     const response = await carApi.getCarYears(form.modelId);
     return response.map((item) => ({
@@ -16,7 +16,7 @@ export const useCar = () => {
     }));
   };
 
-  const getConfigOptions = async (form: Partial<ApiOrderDetail>) => {
+  const getConfigOptions = async (form: Partial<OrderDetail>) => {
     if (!form.modelId || !form.modelYearId) return;
     const response = await carApi.getCarConfigs(form.modelId, form.modelYearId);
     return response.map((item) => ({
@@ -25,7 +25,7 @@ export const useCar = () => {
     }));
   };
 
-  const getColorOptions = async (form: Partial<ApiOrderDetail>) => {
+  const getColorOptions = async (form: Partial<OrderDetail>) => {
     if (!form.modelYearId || !form.modelConfigId) return;
     const response = await carApi.getCarColors(
       form.modelYearId,
@@ -37,7 +37,7 @@ export const useCar = () => {
     }));
   };
 
-  const getTrimOptions = async (form: Partial<ApiOrderDetail>) => {
+  const getTrimOptions = async (form: Partial<OrderDetail>) => {
     if (!form.modelYearId || !form.modelConfigId || !form.modelColorId) return;
     const response = await carApi.getCarTrims(
       form.modelYearId,
@@ -50,7 +50,7 @@ export const useCar = () => {
     }));
   };
 
-  const getOptionOptions = async (form: Partial<ApiOrderDetail>) => {
+  const getOptionOptions = async (form: Partial<OrderDetail>) => {
     if (
       !form.modelYearId ||
       !form.modelConfigId ||
@@ -65,7 +65,7 @@ export const useCar = () => {
       form.modelTrimId,
     );
     return response.map((item) => ({
-      value: item.modelOptionCode,
+      value: item.modelOptionName,
       label: item.modelOptionName,
     }));
   };

@@ -213,7 +213,7 @@
             </RouterLink>
             <RouterLink
               class="bg-blue-brand h-auto w-full max-w-[250px] rounded-[8px] py-4 text-center text-lg text-white"
-              :to="{ name: 'modelStyle' }"
+              :to="{ name: 'modelStyle', params: { orderId: id } }"
             >
               <span>成立合約</span>
             </RouterLink>

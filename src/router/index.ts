@@ -1,4 +1,6 @@
 import { createWebHistory, createRouter } from "vue-router";
+import { authMiddleware } from "@/middlewares/authMiddleware";
+import { contractMiddleware } from "@/middlewares/contractMiddleware";
 import ConfirmView from "@/views/ConfirmView.vue";
 import ContractView from "@/views/ContractView.vue";
 import FinishView from "@/views/FinishView.vue";
@@ -11,7 +13,6 @@ import OrderView from "@/views/OrderView.vue";
 import PaymentInfo from "@/views/PaymentInfo.vue";
 
 const routes = [
-  { path: "/", redirect: "/login" },
   { name: "login", path: "/login", component: LoginView },
   {
     name: "home",
@@ -22,12 +23,38 @@ const routes = [
       { name: "orderinfo", path: "/order/:id", component: OrderInfo },
       { name: "contract", path: "/contract", component: ContractView },
     ],
+    beforeEnter: [authMiddleware],
   },
-  { name: "modelStyle", path: "/model", component: Model },
-  { name: "memberInfo", path: "/member-info", component: MemberInfo },
-  { name: "paymentInfo", path: "/payment-info", component: PaymentInfo },
-  { name: "confirmView", path: "/contract-confirm", component: ConfirmView },
-  { name: "finishView", path: "/contract-finish", component: FinishView },
+  {
+    name: "modelStyle",
+    path: "/model-style/:orderId",
+    component: Model,
+    beforeEnter: [authMiddleware, contractMiddleware],
+  },
+  {
+    name: "memberInfo",
+    path: "/member-info/:orderId",
+    component: MemberInfo,
+    beforeEnter: [authMiddleware, contractMiddleware],
+  },
+  {
+    name: "paymentInfo",
+    path: "/payment-info/:orderId",
+    component: PaymentInfo,
+    beforeEnter: [authMiddleware, contractMiddleware],
+  },
+  {
+    name: "confirmView",
+    path: "/contract-confirm/:orderId",
+    component: ConfirmView,
+    beforeEnter: [authMiddleware, contractMiddleware],
+  },
+  {
+    name: "finishView",
+    path: "/contract-finish/:orderId",
+    component: FinishView,
+    beforeEnter: [authMiddleware, contractMiddleware],
+  },
 ];
 
 const router = createRouter({

@@ -1,9 +1,5 @@
 <script setup lang="ts">
 import Loader from "@/components/Loader.vue";
-import { useAuthStore } from "@/stores/authStore";
-
-const authStore = useAuthStore();
-authStore.login({ username: "nickchen", password: "Aa1234567" });
 </script>
 
 <template>

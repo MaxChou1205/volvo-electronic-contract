@@ -1,6 +1,8 @@
+import { AxiosError } from "axios";
 import { format } from "date-fns";
 import { defineStore, acceptHMRUpdate } from "pinia";
 import { orderApi } from "@/api/orderApi";
+import { useAuthStore } from "@/stores/authStore";
 import type {
   OrderDetail,
   OrderDetailView,
@@ -55,28 +57,44 @@ export const useOrderStore = defineStore("order", {
       this.getOrders();
     },
     async getOrders() {
-      const response = await orderApi.getList({
-        page: this.paginationInfo.page,
-        pageSize: this.paginationInfo.pageSize,
-        sortBy: this.sortInfo.sortBy,
-        sortAscending: this.sortInfo.sortAscending,
-      });
-      this.orderList = response.items.map((item) => ({
-        orderNo: item.orderNo,
-        customerName: item.customerName,
-        gender: item.gender,
-        genderLabel: item.gender === 10021001 ? "先生" : "小姐",
-      }));
+      const authStore = useAuthStore();
+      try {
+        const response = await orderApi.getList({
+          page: this.paginationInfo.page,
+          pageSize: this.paginationInfo.pageSize,
+          sortBy: this.sortInfo.sortBy,
+          sortAscending: this.sortInfo.sortAscending,
+        });
+        this.orderList = response.items.map((item) => ({
+          orderNo: item.orderNo,
+          customerName: item.customerName,
+          gender: item.gender,
+          genderLabel: item.gender === 10021001 ? "先生" : "小姐",
+        }));
+      } catch (err) {
+        if (err instanceof AxiosError && err.response?.status === 500) {
+          authStore.logout();
+        }
+      }
     },
     async getOrderDetail(id: string) {
-      const response = await orderApi.getDetail(id);
-      this.orderDetail = {
-        ...response,
-        modelConfigId: response.modelConfigId ?? "",
-        modelOptionNames: response.modelOptionNames.split(""),
-        deliveringDate: new Date(response.deliveringDate),
-        checkDate: response.checkDate ? new Date(response.checkDate) : null,
-      };
+      const authStore = useAuthStore();
+
+      try {
+        const response = await orderApi.getDetail(id);
+        this.orderDetail = {
+          ...response,
+          modelConfigId: response.modelConfigId ?? "",
+          modelOptionNames: response.modelOptionNames.split(""),
+          deliveringDate: new Date(response.deliveringDate),
+          checkDate: response.checkDate ? new Date(response.checkDate) : null,
+        };
+        return this.orderDetail;
+      } catch (err) {
+        if (err instanceof AxiosError && err.response?.status === 500) {
+          authStore.logout();
+        }
+      }
     },
   },
 });

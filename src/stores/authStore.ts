@@ -1,16 +1,21 @@
 import { defineStore } from "pinia";
 import { accountApi } from "@/api/accountApi";
+import router from "@/router";
 
 export const useAuthStore = defineStore("auth", {
-  state: () => ({
-    isLogin: false,
-  }),
+  getters: {
+    isLogin: (state) => {
+      return !!window.sessionStorage.getItem("isLogin");
+    },
+  },
   actions: {
     async login(params: { username: string; password: string }) {
       await accountApi.login(params);
+      window.sessionStorage.setItem("isLogin", "true");
     },
     logout() {
-      this.isLogin = false;
+      window.sessionStorage.removeItem("isLogin");
+      router.push({ name: "login" });
     },
   },
 });

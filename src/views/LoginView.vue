@@ -14,15 +14,14 @@
           class="mb-2"
           v-model="form.account"
           type="secondary"
-          :warning="accountWarning"
           @keyup.enter="login"
         ></BaseInput>
-        <span class="text-xs text-gray-700" v-if="!accountWarning"
+        <!-- <span class="text-xs text-gray-700" v-if="!accountWarning"
           >請填寫經銷商代碼 + 編號，例如：KT077</span
-        >
-        <span class="text-red-waring text-xs" v-else v-if="accountWarning"
+        > -->
+        <!-- <span class="text-red-waring text-xs" v-else v-if="accountWarning"
           >請輸入正確格式</span
-        >
+        > -->
       </div>
       <div>
         <label class="mb-2 block text-sm font-bold text-gray-700"
@@ -32,13 +31,12 @@
           class="mb-2"
           v-model="form.password"
           type="secondary"
-          :warning="passwordWarning"
           @keyup.enter="login"
         ></BaseInput>
-        <span class="text-xs text-gray-700" v-if="!passwordWarning"
+        <!-- <span class="text-xs text-gray-700" v-if="!passwordWarning"
           >*如忘記密碼請洽管理人員</span
-        >
-        <span class="text-red-waring text-xs" v-else>請輸入正確格式</span>
+        > -->
+        <!-- <span class="text-red-waring text-xs" v-else>請輸入正確格式</span> -->
       </div>
       <div class="mt-11">
         <button
@@ -64,20 +62,23 @@
 import { ref, computed, nextTick } from "vue";
 import BaseInput from "@/components/BaseInput.vue";
 import router from "@/router";
+import { useAuthStore } from "@/stores/authStore";
+
+const authStore = useAuthStore();
 
 const form = ref({
-  account: "kt001",
-  password: "kt001",
+  account: "",
+  password: "",
 });
-const accountWarning = computed(
-  () =>
-    submitted.value && !form.value.account.toLocaleLowerCase().startsWith("kt"),
-);
-const passwordWarning = computed(
-  () =>
-    submitted.value &&
-    !form.value.password.toLocaleLowerCase().startsWith("kt"),
-);
+// const accountWarning = computed(
+//   () =>
+//     submitted.value && !form.value.account.toLocaleLowerCase().startsWith("kt"),
+// );
+// const passwordWarning = computed(
+//   () =>
+//     submitted.value &&
+//     !form.value.password.toLocaleLowerCase().startsWith("kt"),
+// );
 const submitted = ref(false);
 const loginFailed = ref(false);
 
@@ -85,22 +86,22 @@ const buttonDisabled = computed(() => {
   return form.value.account === "" || form.value.password === "";
 });
 
-const login = () => {
+const login = async () => {
   if (buttonDisabled.value) {
     return;
   }
   submitted.value = true;
-  if (accountWarning.value || passwordWarning.value) {
-    return;
-  }
+  // if (accountWarning.value || passwordWarning.value) {
+  //   return;
+  // }
 
-  // TODO: login
-  if (
-    form.value.account.toLocaleLowerCase() === "kt001" &&
-    form.value.password.toLocaleLowerCase() === "kt001"
-  ) {
+  try {
+    await authStore.login({
+      username: form.value.account,
+      password: form.value.password,
+    });
     router.push({ name: "order" });
-  } else {
+  } catch (err) {
     loginFailed.value = true;
   }
 };

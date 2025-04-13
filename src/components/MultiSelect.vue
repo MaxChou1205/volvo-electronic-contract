@@ -30,7 +30,7 @@
 
       <!-- Dropdown menu -->
       <div
-        class="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded border border-gray-200 bg-white py-1 shadow-lg"
+        class="absolute z-10 mt-1 max-h-60 w-max overflow-auto rounded border border-gray-200 bg-white py-1 shadow-lg"
         v-show="isOpen"
       >
         <div

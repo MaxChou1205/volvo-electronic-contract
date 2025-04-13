@@ -30,8 +30,6 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue";
-
 type Option = {
   label: string;
   value: string | number | boolean;
@@ -45,15 +43,8 @@ const { title, options } = defineProps<{
 
 const emit = defineEmits(["change"]);
 
-const modelValue = defineModel<string | number | boolean>({
+const modelValue = defineModel<string | number | boolean | null>({
   default: "",
-});
-
-onMounted(() => {
-  if (!modelValue.value) {
-    //temp for demo
-    modelValue.value = options[0]?.value || "";
-  }
 });
 </script>
 

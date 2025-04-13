@@ -23,7 +23,7 @@ export const orderApi = {
   },
   getDetail: async (id: string) => {
     const response = await axiosInstance.get<ApiOrderDetail>(
-      `/${id}`,
+      `/api/order/${id}`,
     );
     return response.data;
   },
