@@ -29,14 +29,16 @@
         v-if="form.order.drawerCtCode === 15231001"
       >
         <BaseInput
-          v-model="form.order.drawerName"
+          v-model="form.order.customerName"
           title="訂購人名稱"
           placeholder="請輸入訂購人名稱"
+          disabled
         />
         <BaseInput
-          v-model="form.order.drawerCertificateNo"
+          v-model="form.order.customerCertificateNo"
           title="訂購人身分證字號"
           placeholder="請輸入訂購人身分證字號"
+          disabled
         />
         <div>
           <BaseInput
@@ -61,13 +63,22 @@
           title="主要聯絡電話（手機）"
           placeholder="請輸入掛牌人手機號碼"
         />
-        <BaseInput title="常用聯絡 E-mail" placeholder="請輸入 E-mail" />
+        <BaseInput
+          v-model="form.email"
+          title="常用聯絡 E-mail"
+          placeholder="請輸入 E-mail"
+        />
       </div>
 
       <div class="grid grid-cols-2 gap-x-6 gap-y-8" v-else>
-        <BaseInput title="約定掛牌名稱" placeholder="請輸入約定掛牌名稱" />
         <BaseInput
-          v-model="form.order.drawerCertificateNo"
+          v-model="form.order.customerName"
+          disabled
+          title="約定掛牌名稱"
+          placeholder="請輸入約定掛牌名稱"
+        />
+        <BaseInput
+          v-model="form.order.customerCertificateNo"
           title="統一編號"
           placeholder="請輸入統一編號"
         />
@@ -92,15 +103,31 @@
       <div class="mt-8">
         <div class="mb-3">掛牌戶籍地址</div>
         <div class="flex w-full items-center gap-2">
-          <Select class="w-30 flex-shrink-0" placeholder="縣市" :options="[]" />
           <Select
             class="w-30 flex-shrink-0"
+            v-model="form.order.cityId"
+            placeholder="縣市"
+            :options="cityOptions"
+            :initValue="{
+              label: form.order.cityName ?? '',
+              value: form.order.cityId,
+            }"
+            @change="handleAreaChange"
+          />
+          <Select
+            class="w-30 flex-shrink-0"
+            v-model="form.order.districtId"
             placeholder="鄉鎮市區"
-            :options="[]"
+            :options="districtOptions"
+            :initValue="{
+              label: form.order.districtName ?? '',
+              value: form.order.districtId,
+            }"
+            @change="handleDistrictChange"
           />
           <BaseInput
             class="w-full"
-            v-model="form.order.drawerAddress!"
+            v-model="form.order.customerAddress"
             placeholder="請輸入地址"
           />
         </div>
@@ -120,7 +147,8 @@
 
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
-import { ref } from "vue";
+import { computed } from "vue";
+import county from "@/assets/county.json";
 import BaseInput from "@/components/BaseInput.vue";
 import Checkbox from "@/components/Checkbox.vue";
 import Select from "@/components/Select.vue";
@@ -133,10 +161,52 @@ const contractStore = useContractStore();
 const { contract: form } = storeToRefs(contractStore);
 
 const handleSameBuyer = (value: boolean) => {
-  // if (value) {
-  //   buyerInfo.value.officialName = buyerInfo.value.name;
-  //   buyerInfo.value.officialIdNo = buyerInfo.value.idNo;
-  // }
+  if (value) {
+    form.value.order.drawerName = form.value.order.customerName;
+    form.value.order.drawerCertificateNo =
+      form.value.order.customerCertificateNo;
+  }
+};
+
+// 縣市
+const cityOptions = county
+  .filter((item) => item.parentCode === null)
+  .map((item) => ({
+    value: item.countyCode,
+    label: item.countyName,
+  }));
+const handleAreaChange = ({
+  label,
+  value,
+}: {
+  label: string;
+  value: string;
+}) => {
+  form.value.order.cityId = value;
+  form.value.order.cityName = label;
+  form.value.order.districtId = "";
+  form.value.order.districtName = "";
+};
+
+// 鄉鎮市區
+const districtOptions = computed(() => {
+  if (!form.value.order.cityId) return [];
+  return county
+    .filter((item) => item.parentCode === Number(form.value.order.cityId))
+    .map((item) => ({
+      value: item.countyCode,
+      label: item.countyName,
+    }));
+});
+const handleDistrictChange = ({
+  label,
+  value,
+}: {
+  label: string;
+  value: string;
+}) => {
+  form.value.order.districtId = value;
+  form.value.order.districtName = label;
 };
 </script>
 
