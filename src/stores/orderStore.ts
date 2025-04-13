@@ -88,6 +88,11 @@ export const useOrderStore = defineStore("order", {
           deliveringDate: new Date(response.deliveringDate),
           checkDate: response.checkDate ? new Date(response.checkDate) : null,
           drawerAddress: response.drawerAddress ?? "",
+          initialPayment: response.initialPayment ?? 0,
+          transferBankName: response.transferBankName ?? "",
+          lastFiveBankAccount: response.lastFiveBankAccount ?? "",
+          paymentBankName: response.paymentBankName ?? "",
+          loanAmounts: response.loanAmounts ?? 0,
         };
         return this.orderDetail;
       } catch (err) {

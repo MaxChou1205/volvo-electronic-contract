@@ -15,7 +15,9 @@
     <div class="text-black-400 mt-8 px-15 pb-15">
       <div class="mb-8 grid grid-cols-2 justify-between gap-y-4">
         <div>建議售價(含營業稅)</div>
-        <div class="justify-self-end">新台幣 1,450,000 元</div>
+        <div class="justify-self-end">
+          新台幣 {{ form.order.vehicleRetailAllAmount?.toLocaleString() }} 元
+        </div>
         <template v-for="(accessory, index) in accessories" :key="index">
           <div class="pl-4">配件 {{ accessory.name }}</div>
           <div class="justify-self-end">
@@ -33,7 +35,7 @@
             新台幣
             <CurrencyInput
               class="mx-2 w-55"
-              v-model="strikePrice"
+              v-model="form.order.orderAllAmount"
               @update="handleFinalPriceChange"
             />
             元
@@ -51,7 +53,10 @@
           <div>實收定金</div>
           <div class="flex items-center">
             新台幣
-            <CurrencyInput class="mx-2 w-55" v-model="deposit" />
+            <CurrencyInput
+              class="mx-2 w-55"
+              v-model="form.order.contractEarnest"
+            />
             元
           </div>
         </div>
@@ -59,49 +64,64 @@
         <div class="mb-4 flex items-center justify-between">
           <div>定金付款方式</div>
           <SingleChoiceButton
-            v-model="depositType"
+            v-model.number="form.order.depositPayWay"
             :options="[
-              { value: '現金', label: '現金' },
-              { value: '刷卡', label: '刷卡' },
-              { value: '支票', label: '支票' },
-              { value: '轉帳匯款', label: '轉帳匯款' },
+              { value: 88031003, label: '現金' },
+              { value: 88031001, label: '刷卡' },
+              { value: 88031004, label: '支票' },
+              { value: 88031005, label: '轉帳匯款' },
             ]"
           />
         </div>
 
-        <div v-if="depositType === '支票'">
+        <!-- 支票 -->
+        <div v-if="form.order.depositPayWay === 88031004">
+          <SingleChoiceButton
+            class="mb-4"
+            v-model.number="form.order.isCashCheck"
+            title="現金支票"
+            :options="[
+              { value: true, label: '是' },
+              { value: false, label: '否' },
+            ]"
+          />
           <BaseInput
             class="mb-4"
+            v-model="form.cashCheckNo"
             title="票號"
             placeholder="請輸入票號"
           ></BaseInput>
           <div>
             <div class="mb-4">支票日期</div>
-            <DatePicker class="mb-4" placeholder="請輸入票號"></DatePicker>
+            <DatePicker
+              class="mb-4"
+              v-model="form.order.checkDate"
+              placeholder="請輸入票號"
+            ></DatePicker>
           </div>
           <div class="mb-3">付款行庫｜分行｜帳號</div>
           <div class="flex items-center gap-3">
-            <Select
-              class="w-45 flex-shrink-0"
-              :options="[]"
-              placeholder="付款行庫"
+            <BaseInput
+              class="w-full"
+              v-model="form.order.paymentBankName!"
+              placeholder="請輸入付款行庫"
             />
-            <Select
-              class="w-45 flex-shrink-0"
-              :options="[]"
-              placeholder="分行"
-            />
-            <BaseInput class="w-full" placeholder="請輸入帳號" />
           </div>
         </div>
 
-        <div v-if="depositType === '轉帳匯款'">
+        <!-- 轉帳匯款 -->
+        <div v-if="form.order.depositPayWay === 88031005">
           <BaseInput
             class="mb-4"
+            v-model="form.order.transferBankName!"
             title="轉帳銀行名稱"
             placeholder="請輸入轉帳銀行名稱"
           ></BaseInput>
-          <BaseInput title="帳號末五碼" placeholder="請輸入帳號末五碼" />
+          <BaseInput
+            v-model="form.order.lastFiveBankAccount!"
+            title="帳號末五碼"
+            placeholder="請輸入帳號末五碼"
+          />
         </div>
       </div>
 
@@ -110,18 +130,20 @@
       <div class="mb-4">
         <div class="mb-4 flex w-full items-center justify-between">
           <div>尾款金額</div>
-          <div class="text-blue-500">新台幣 1,000,000 元</div>
+          <div class="text-blue-500">
+            新台幣 {{ finalPrice.toLocaleString() }} 元
+          </div>
         </div>
 
         <div class="mb-4 flex w-full items-center justify-between">
           <div>尾款付款方式</div>
           <SingleChoiceButton
-            v-model="finalPriceType"
+            v-model.number="form.order.payMode"
             :options="finalPriceTypeOptions"
           />
         </div>
 
-        <div v-if="finalPriceType === '票據'">
+        <div v-if="form.order.payMode === 14261004">
           <BaseInput
             class="mb-4"
             title="票號"
@@ -143,26 +165,45 @@
           </div>
         </div>
 
-        <div class="font-light" v-if="finalPriceType === '分期付款'">
+        <div class="font-light" v-if="form.order.payMode === 14261002">
           <div class="mb-3 font-medium">貸款約定事項</div>
           <div class="mb-4 flex items-center gap-2.5">
             <div>首付金額</div>
-            <CurrencyInput class="flex-1" />
+            <CurrencyInput
+              class="flex-1"
+              v-model="form.order.initialPayment!"
+            />
             <span>元</span>
           </div>
           <div class="mb-4 flex items-center gap-2.5">
             <span>買方委辦貸款</span>
-            <BaseInput class="w-[150px]" placeholder="預估貸" />
-            <span>萬</span>
-            <Select class="w-[150px]" placeholder="期數" :options="[]" />
+            <BaseInput
+              class="w-[150px]"
+              v-model="form.order.loanAmounts!"
+              placeholder="預估貸"
+            />
+            <span>元</span>
+            <Select
+              class="w-[150px]"
+              v-model.number="form.order.loanTerm"
+              placeholder="期數"
+              :options="[
+                { value: 70901001, label: '十二期' },
+                { value: 70901006, label: '十八期' },
+                { value: 70901002, label: '二十四期' },
+                { value: 70901003, label: '三十六期' },
+                { value: 70901004, label: '四十八期' },
+                { value: 70901005, label: '六十期' },
+              ]"
+            />
             <span>期，年利率</span>
-            <BaseInput class="w-20" />
+            <BaseInput class="w-20" v-model="form.loanRate!" />
             <span>%</span>
           </div>
           <div class="mb-4 flex items-center gap-2.5">
             <span>若銀行核貸時總貼息費用超過責方承諾利息補貼金額新台幣</span>
-            <BaseInput class="w-45" />
-            <span>萬元</span>
+            <BaseInput class="w-45" v-model="form.interestSubsidy!" />
+            <span>元</span>
           </div>
           <div>
             (已計入交易車價內）時，則由買方自付差額或改現金購車，因個人信用條件不一，賣方不負擔銀行核貸通過與否的責任。
@@ -194,7 +235,7 @@
         <Checkbox :value="true">已詳讀並經過3日審閱期的同意勾選</Checkbox>
         <div>
           <div class="mb-2">合約日期</div>
-          <DatePicker />
+          <DatePicker v-model="form.contractDate" />
         </div>
         <Checkbox :value="true">本人已詳讀並同意</Checkbox>
         <div class="grid grid-cols-[144px_1fr_144px] gap-x-6 gap-y-3">
@@ -535,6 +576,7 @@
 </template>
 
 <script setup lang="ts">
+import { storeToRefs } from "pinia";
 import SignaturePad from "signature_pad";
 import { computed, nextTick, onMounted, ref } from "vue";
 import BaseInput from "@/components/BaseInput.vue";
@@ -545,6 +587,7 @@ import Modal from "@/components/Modal.vue";
 import Select from "@/components/Select.vue";
 import SingleChoiceButton from "@/components/SingleChoiceButton.vue";
 import Stepper from "@/components/Stepper.vue";
+import { useContractStore } from "@/stores/contractStore";
 import { useSignatureStore } from "@/stores/signature";
 import { toZhDigit } from "@/utils/number";
 
@@ -563,32 +606,24 @@ const accessories = ref([
   },
 ]);
 
-// 購買方式
-const purchaseType = ref("現金購車");
+const contractStore = useContractStore();
 
-const strikePrice = ref(0);
+const { contract: form } = storeToRefs(contractStore);
+
 const localeValue = ref("零");
 const handleFinalPriceChange = (value: number) => {
   localeValue.value = toZhDigit(value);
 };
 
-// 定金
-const deposit = ref(0);
-const depositType = ref("現金");
-
 // 尾款
-const finalPrice = ref(0);
-const finalPriceType = ref("現金");
+const finalPrice = computed(
+  () => form.value.order.salesUnitPrice - form.value.order.orderAllAmount,
+);
 const finalPriceTypeOptions = computed(() => {
-  if (purchaseType.value === "現金購車") {
-    return [
-      { value: "現金", label: "現金" },
-      { value: "刷卡", label: "刷卡" },
-      { value: "分期付款", label: "分期付款" },
-    ];
-  } else {
-    return [{ value: "分期付款", label: "分期付款" }];
-  }
+  return [
+    { label: "全額", value: 14261001 },
+    { label: "分期", value: 14261002 },
+  ];
 });
 
 // 條約
