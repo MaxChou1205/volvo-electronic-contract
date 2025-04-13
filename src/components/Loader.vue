@@ -12,6 +12,12 @@
 import { useLoading } from "@/composables/loading";
 
 const { loading } = useLoading();
+
+if (loading.value) {
+  document.body.style.overflow = "hidden";
+} else {
+  document.body.style.overflow = "auto";
+}
 </script>
 
 <style scoped>
