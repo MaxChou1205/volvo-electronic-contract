@@ -109,6 +109,7 @@ const login = async () => {
 
 const handleReset = () => {
   submitted.value = false;
+  loginFailed.value = false;
   form.value.account = "";
   form.value.password = "";
 };
