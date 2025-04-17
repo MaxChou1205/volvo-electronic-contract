@@ -5,7 +5,7 @@ export type Contract = {
   contractNo: string;
   pdfUrl: string;
   email: string;
-  contractDate: string;
+  contractDate: Date | null;
   payModeName: string;
   loanRate: number;
   interestSubsidy: number;

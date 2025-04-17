@@ -23,31 +23,45 @@
       <div class="mb-6 space-y-3">
         <div class="flex items-end text-xs font-light">
           買方：訂購人
-          <span class="mx-2 text-base font-medium text-blue-500">孫大批</span>
+          <span class="mx-2 text-base font-medium text-blue-500">{{
+            form.order.customerName
+          }}</span>
           / 約定掛牌名稱
-          <span class="mx-2 text-base font-medium text-blue-500">孫大批</span>
+          <span class="mx-2 text-base font-medium text-blue-500">{{
+            form.order.drawerName
+          }}</span>
           ，於西元
-          <span class="mx-2 text-base font-medium text-blue-500">2023</span>
+          <span class="mx-2 text-base font-medium text-blue-500">{{
+            form.contractDate?.getFullYear() ?? "--"
+          }}</span>
           年
-          <span class="mx-2 text-base font-medium text-blue-500">01</span>
+          <span class="mx-2 text-base font-medium text-blue-500">{{
+            form.contractDate ? form.contractDate.getMonth() + 1 : "--"
+          }}</span>
           月
-          <span class="mx-2 text-base font-medium text-blue-500">31</span>
+          <span class="mx-2 text-base font-medium text-blue-500">{{
+            form.contractDate?.getDate() ?? "--"
+          }}</span>
           日
         </div>
         <div>
           <div class="flex flex-1 gap-4">
             <div class="min-w-39 bg-gray-200 px-4 py-3">
               <div class="text-xs font-light">訂購人身分證字號</div>
-              <div class="text-black-400 text-base font-medium">23456789</div>
+              <div class="text-black-400 text-base font-medium">
+                {{ form.order.customerCertificateNo }}
+              </div>
             </div>
             <div class="min-w-39 bg-gray-200 px-4 py-3">
               <div class="text-xs font-light">主要聯絡電話（手機）</div>
-              <div class="text-black-400 text-base font-medium">0912345678</div>
+              <div class="text-black-400 text-base font-medium">
+                {{ form.order.drawerTel }}
+              </div>
             </div>
             <div class="min-w-39 flex-1 bg-gray-200 px-4 py-3">
               <div class="text-xs font-light">常用聯絡 E-mail</div>
               <div class="text-black-400 text-base font-medium">
-                assdfewwd@gmail.com
+                {{ form.email }}
               </div>
             </div>
           </div>
@@ -55,7 +69,9 @@
             <div class="min-w-39 bg-gray-200 px-4 py-3">
               <div class="text-xs font-light">掛牌戶籍地址</div>
               <div class="text-black-400 text-base font-medium">
-                新北市永和區信義路100號5樓
+                {{ form.order.cityName }}
+                {{ form.order.districtName }}
+                {{ form.order.customerAddress }}
               </div>
             </div>
           </div>
@@ -82,68 +98,86 @@
           <div class="col-span-1 grid grid-cols-2 gap-4">
             <div>
               <div class="text-xs font-light">車型樣式</div>
-              <div class="text-base font-medium text-blue-500">XC90</div>
+              <div class="text-base font-medium text-blue-500">
+                {{ form.order.modelName }}
+              </div>
             </div>
             <div>
               <div class="text-xs font-light">年式</div>
-              <div class="text-base font-medium text-blue-500">2023</div>
+              <div class="text-base font-medium text-blue-500">
+                {{ form.order.modelYearName }}
+              </div>
             </div>
             <div>
-              <div class="text-xs font-light">級別</div>
-              <div class="text-base font-medium text-blue-500">Ultimate</div>
+              <div class="text-xs font-light">車款動力</div>
+              <div class="text-base font-medium text-blue-500">
+                {{ form.order.modelConfigName }}
+              </div>
+            </div>
+            <div>
+              <div class="text-xs font-light">車色</div>
+              <div class="text-base font-medium">
+                {{ form.order.modelColorName }}
+              </div>
+            </div>
+            <div>
+              <div class="text-xs font-light">內裝</div>
+              <div class="text-base font-medium">
+                {{ form.order.modelTrimName }}
+              </div>
             </div>
             <div>
               <div class="text-xs font-light">出廠年份</div>
-              <div class="text-base font-medium text-blue-500">2023/02</div>
+              <div class="text-base font-medium text-blue-500">
+                {{ form.factoryYear }}
+              </div>
             </div>
             <div>
               <div class="text-xs font-light">CC數</div>
-              <div class="text-base font-medium text-blue-500">1999</div>
-            </div>
-            <div>
-              <div class="text-xs font-light">車色及代碼</div>
-              <div class="text-base font-medium">rw765j8</div>
+              <div class="text-base font-medium text-blue-500">
+                {{ form.cc }}
+              </div>
             </div>
             <div>
               <div class="text-xs font-light">產地</div>
-              <div class="text-base font-medium">泰國</div>
-            </div>
-            <div>
-              <div class="text-xs font-light">內裝代碼</div>
-              <div class="text-base font-medium">A04</div>
+              <div class="text-base font-medium">{{ form.origin }}</div>
             </div>
             <div>
               <div class="text-xs font-light">訂購類型</div>
-              <div class="text-base font-medium text-blue-500">特訂</div>
-            </div>
-            <div>
-              <div class="text-xs font-light">中控飾板</div>
-              <div class="text-base font-medium">87r3ew</div>
+              <div class="text-base font-medium text-blue-500">
+                {{ form.isSpecific ? "特訂" : "標配" }}
+              </div>
             </div>
           </div>
         </div>
         <div class="mb-3 flex gap-4">
           <div class="min-w-23 flex-1 bg-gray-200 px-4 py-3">
             <div class="text-xs font-light">門座</div>
-            <div class="text-base font-medium">五門四人座</div>
+            <div class="text-base font-medium">
+              {{ form.door ?? 0 }} 門 {{ form.seat ?? 0 }} 人座
+            </div>
           </div>
           <div class="min-w-23 flex-1 bg-gray-200 px-4 py-3">
             <div class="text-xs font-light">天窗</div>
-            <div class="text-base font-medium">全景天窗</div>
+            <div class="text-base font-medium">{{ form.sunroof }}</div>
           </div>
           <div class="min-w-23 flex-1 bg-gray-200 px-4 py-3">
             <div class="text-xs font-light">排檔</div>
-            <div class="text-base font-medium">自排</div>
+            <div class="text-base font-medium">{{ form.gearShift }}</div>
           </div>
           <div class="min-w-23 flex-1 bg-gray-200 px-4 py-3">
             <div class="text-xs font-light">傳動</div>
-            <div class="text-base font-medium">2WD</div>
+            <div class="text-base font-medium">
+              {{ form.transmission }}
+            </div>
           </div>
         </div>
 
         <div class="mb-4 bg-gray-200 px-4 py-3">
           <div class="text-xs font-light">其他</div>
-          <div class="text-base font-medium">空力套件、車頂置物架</div>
+          <div class="text-base font-medium">
+            {{ form.order.modelOptionNames?.join(",") }}
+          </div>
         </div>
         <div class="bg-gray-200 px-4 py-3">
           <div class="text-xs font-light">備註</div>
@@ -166,7 +200,7 @@
         </div>
         <div>
           <div class="text-xs font-light">付款方式</div>
-          <div class="text-base font-medium">票據</div>
+          <div class="text-base font-medium">{{ form.order.payMode }}</div>
         </div>
         <div class="align-self-end text-end">
           <div class="text-xs font-light">車輛成交價格(含營業稅)</div>
@@ -176,16 +210,20 @@
         </div>
         <div>
           <div class="text-xs font-light">票號</div>
-          <div class="text-base font-medium">XY653789564</div>
+          <div class="text-base font-medium">{{ form.cashCheckNo }}</div>
         </div>
         <div class="align-self-end text-end">
           <div class="text-xs font-light">實收定金</div>
-          <div class="text-base font-medium">新台幣 389,600 元</div>
+          <div class="text-base font-medium">
+            新台幣 {{ form.order.contractEarnest?.toLocaleString() }} 元
+          </div>
         </div>
         <div>
           <div class="text-xs font-light">付款行庫｜分行｜帳號</div>
           <div class="text-base font-medium">
-            華南銀行 永和分行 143245678960
+            {{
+              `${form.order.paymentBankName} ${form.order.transferBankName} ${form.order.lastFiveBankAccount}`
+            }}
           </div>
         </div>
         <div class="align-self-end text-end">
@@ -201,7 +239,7 @@
         <p class="text-sm font-light">
           買方委辦貸款<span class="mx-2 text-base font-medium text-blue-500"
             >100</span
-          >萬
+          >元
           <span class="mx-2 text-base font-medium text-blue-500">84</span
           >期，年利率
           <span class="mx-2 text-base font-medium text-blue-500">3.5</span>％
@@ -210,7 +248,7 @@
           若銀行核貸時總貼息費用超過責方承諾利息補貼金額新台幣<span
             class="mx-2 text-base font-medium text-blue-500"
             >4</span
-          >萬元（已計入交易車價內）時，
+          >元（已計入交易車價內）時，
         </p>
         <p class="text-sm font-light">
           則由買方自付差額或改現金購車，因個人信用條件不一，賣方不負擔銀行核貸通過與否的責任。
@@ -220,11 +258,18 @@
       <div class="grid grid-cols-2">
         <div>
           <div class="text-xs font-light">約定掛牌日期</div>
-          <div class="text-base font-medium">2023/02/23</div>
+          <div class="text-base font-medium">
+            {{ form.order.deliveringDate }}
+          </div>
         </div>
         <div>
           <div class="text-xs font-light">交車地點</div>
-          <div class="text-base font-medium">新凱汽車士林展示暨服務中心</div>
+          <div class="text-base font-medium">
+            {{
+              form.showroom ||
+              `${form.deliveryCityName} ${form.deliveryDistrictName} ${form.deliveryAddress}`
+            }}
+          </div>
         </div>
       </div>
 
@@ -233,7 +278,7 @@
       <div class="grid grid-cols-[188px_268px_144px] gap-x-6 gap-y-3">
         <div class="flex items-center justify-between">
           <span>買方簽名</span>
-          <span class="text-blue-500">孫大批</span>
+          <span class="text-blue-500">{{ form.order.drawerName }}</span>
         </div>
         <div class="flex items-center justify-between">
           <span>賣方用印</span>
@@ -241,7 +286,7 @@
         </div>
         <div class="flex items-center justify-between">
           <span>銷售顧問</span>
-          <span class="text-blue-500">陳富豪</span>
+          <span class="text-blue-500">{{ form.order.consultant }}</span>
         </div>
         <div class="border-black-400 relative h-35 rounded-[4px] border-1 p-3">
           <img
@@ -282,10 +327,15 @@
 </template>
 
 <script setup lang="ts">
+import { storeToRefs } from "pinia";
 import Stepper from "@/components/Stepper.vue";
+import { useContractStore } from "@/stores/contractStore";
 import { useSignatureStore } from "@/stores/signature";
 
 const signatureStore = useSignatureStore();
+const contractStore = useContractStore();
+
+const { contract: form } = storeToRefs(contractStore);
 </script>
 
 <style scoped></style>

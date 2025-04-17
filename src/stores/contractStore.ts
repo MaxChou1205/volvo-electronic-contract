@@ -24,7 +24,7 @@ export const useContractStore = defineStore("contract", {
         contractNo: "",
         pdfUrl: "",
         email: "",
-        contractDate: "",
+        contractDate: null,
         payModeName: "",
         loanRate: 0,
         interestSubsidy: 0,
