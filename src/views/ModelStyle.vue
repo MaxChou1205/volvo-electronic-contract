@@ -574,14 +574,16 @@ const yearOfManufacture = computed(() => {
 //     salesPrice: 2330000,
 //   },
 // ]);
-
 // ---交車地點---
-const handleDeliveryLocationChange = () => {
-  if (form.value.deliveryLocation === 0) {
-    form.value.showroom = "";
-  }
-};
 
+const handleDeliveryLocationChange = () => {
+  form.value.showroom = "";
+  form.value.deliveryCityId = null;
+  form.value.deliveryCityName = "";
+  form.value.deliveryDistrictId = null;
+  form.value.deliveryDistrictName = "";
+  form.value.deliveryAddress = "";
+};
 // 展示中心
 const exhibitionCenterOptions = exhibitionCenter;
 
