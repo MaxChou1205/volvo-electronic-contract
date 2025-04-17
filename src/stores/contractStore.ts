@@ -49,6 +49,8 @@ export const useContractStore = defineStore("contract", {
         deliveryDistrictName: "",
         deliveryAddress: "",
         order: order!,
+        customerSignature: null,
+        consultantSignature: null,
       };
     },
     async createContract(payload: Partial<Contract>) {

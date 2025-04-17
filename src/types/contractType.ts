@@ -29,4 +29,6 @@ export type Contract = {
   deliveryDistrictId: number | null;
   deliveryDistrictName: string;
   deliveryAddress: string;
+  customerSignature: File | null;
+  consultantSignature: File | null;
 };

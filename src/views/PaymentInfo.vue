@@ -241,7 +241,7 @@
         <div class="grid grid-cols-[144px_1fr_144px] gap-x-6 gap-y-3">
           <div class="flex items-center justify-between">
             <span>買方簽名</span>
-            <span class="text-blue-500">孫大批</span>
+            <span class="text-blue-500">{{ form.order.drawerName }}</span>
           </div>
           <div class="flex items-center justify-between">
             <span>賣方用印</span>
@@ -249,7 +249,7 @@
           </div>
           <div class="flex items-center justify-between">
             <span>銷售顧問</span>
-            <span class="text-blue-500">陳富豪</span>
+            <span class="text-blue-500">{{ form.order.consultant }}</span>
           </div>
           <div
             class="border-black-400 relative h-35 cursor-pointer rounded-[4px] border-1 p-3"
@@ -668,16 +668,22 @@ const openSignatureModal = (type: "buyer" | "seller") => {
 const clearSignature = () => {
   signaturePad?.clear();
 };
-const confirmSignature = () => {
+const confirmSignature = async () => {
   signatureModalRef.value?.close();
-  const data = signaturePad?.toDataURL("image/png");
+  const dataUrl = signaturePad?.toDataURL("image/png");
+
+  const res: Response = await fetch(dataUrl);
+  const blob: Blob = await res.blob();
+  const file = new File([blob], currentSignatureType, { type: "image/png" });
 
   if (currentSignatureType === "buyer") {
-    signatureStore.setBuyerSignatureImageSrc(data!);
-    buyerSignatureImageRef.value!.src = data!;
+    signatureStore.setBuyerSignatureImageSrc(dataUrl!);
+    buyerSignatureImageRef.value!.src = dataUrl!;
+    form.value.customerSignature = file;
   } else {
-    signatureStore.setSellerSignatureImageSrc(data!);
-    sellerSignatureImageRef.value!.src = data!;
+    signatureStore.setSellerSignatureImageSrc(dataUrl!);
+    sellerSignatureImageRef.value!.src = dataUrl!;
+    form.value.consultantSignature = file;
   }
 };
 </script>
