@@ -288,20 +288,33 @@ import SingleChoiceButton from "@/components/SingleChoiceButton.vue";
 import Stepper from "@/components/Stepper.vue";
 import { useCarService } from "@/composables/carService";
 import { useContractStore } from "@/stores/contractStore";
+import { useOptionStore } from "@/stores/optionStore";
 import county from "../assets/county.json";
 import exhibitionCenter from "../assets/exhibitionCenter.json";
 
 const contractStore = useContractStore();
+const optionStore = useOptionStore();
 const carService = useCarService();
 
 const carInfoMap = new Map([
-  ["modelId", { optionsKey: "", callbackKey: "", nextKey: "modelYearId" }],
+  [
+    "modelId",
+    {
+      optionsKey: "",
+      callbackKey: "",
+      nextKey: "modelYearId",
+      labelKey: "modelName",
+      codeKey: "modelCode",
+    },
+  ],
   [
     "modelYearId",
     {
       optionsKey: "yearOptions",
       callbackKey: "getYearOptions",
       nextKey: "modelConfigId",
+      labelKey: "modelYearName",
+      codeKey: "modelYearCode",
     },
   ],
   [
@@ -310,6 +323,8 @@ const carInfoMap = new Map([
       optionsKey: "configOptions",
       callbackKey: "getConfigOptions",
       nextKey: "modelColorId",
+      labelKey: "modelConfigName",
+      codeKey: "modelConfigCode",
     },
   ],
   [
@@ -318,6 +333,8 @@ const carInfoMap = new Map([
       optionsKey: "colorOptions",
       callbackKey: "getColorOptions",
       nextKey: "modelTrimId",
+      labelKey: "modelColorName",
+      codeKey: "modelColorCode",
     },
   ],
   [
@@ -326,6 +343,8 @@ const carInfoMap = new Map([
       optionsKey: "trimOptions",
       callbackKey: "getTrimOptions",
       nextKey: "modelOptionNames",
+      labelKey: "modelTrimName",
+      codeKey: "modelTrimCode",
     },
   ],
   [
@@ -345,6 +364,7 @@ const formOptions = ref({
 });
 
 onMounted(async () => {
+  optionStore.fetchPayModes();
   const carList = await carService.getCarList();
   carList.forEach((car) => {
     const matchData = carTypeList.value.find(
@@ -395,6 +415,17 @@ const handleChangeCarInfo = async (formKey: string, value?: string) => {
 
   if (value) {
     form.value.order[formKey] = value;
+  }
+
+  if (info.codeKey && info.labelKey) {
+    const id = form.value.order[formKey];
+    const option = formOptions.value[info.optionsKey]?.find(
+      (item) => item.value === id,
+    );
+    if (option) {
+      form.value.order[info.codeKey] = option.code;
+      form.value.order[info.labelKey] = option.label;
+    }
   }
 
   if (info.nextKey && carInfoMap.get(info.nextKey)) {
@@ -476,20 +507,20 @@ const carTypeList = ref([
     mainCategory: "雙能電動",
     type: "旅行車",
   },
-  {
-    id: "6",
-    name: "XC90",
-    img: new URL("@/assets/img/XC90.png", import.meta.url).href,
-    mainCategory: "高效輕油電",
-    type: "休旅車",
-  },
-  {
-    id: "7",
-    name: "XC60",
-    img: new URL("@/assets/img/XC60.png", import.meta.url).href,
-    mainCategory: "高效輕油電",
-    type: "休旅車",
-  },
+  // {
+  //   id: "6",
+  //   name: "XC90",
+  //   img: new URL("@/assets/img/XC90.png", import.meta.url).href,
+  //   mainCategory: "高效輕油電",
+  //   type: "休旅車",
+  // },
+  // {
+  //   id: "7",
+  //   name: "XC60",
+  //   img: new URL("@/assets/img/XC60.png", import.meta.url).href,
+  //   mainCategory: "高效輕油電",
+  //   type: "休旅車",
+  // },
   {
     id: "8",
     name: "XC40",
@@ -497,13 +528,13 @@ const carTypeList = ref([
     mainCategory: "高效輕油電",
     type: "休旅車",
   },
-  {
-    id: "9",
-    name: "V60",
-    img: new URL("@/assets/img/V60.png", import.meta.url).href,
-    mainCategory: "高效輕油電",
-    type: "旅行車",
-  },
+  // {
+  //   id: "9",
+  //   name: "V60",
+  //   img: new URL("@/assets/img/V60.png", import.meta.url).href,
+  //   mainCategory: "高效輕油電",
+  //   type: "旅行車",
+  // },
 ]);
 const processedCarList = computed(() => {
   // const filteredCarList = carTypeList.value.filter(

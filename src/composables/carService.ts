@@ -11,7 +11,8 @@ export const useCarService = () => {
     if (!form.modelId) return;
     const response = await carApi.getCarYears(form.modelId);
     return response.map((item) => ({
-      value: item.modelYearCode,
+      value: item.modelYearId,
+      code: item.modelYearCode,
       label: item.modelYearName,
     }));
   };
@@ -20,49 +21,53 @@ export const useCarService = () => {
     if (!form.modelId || !form.modelYearId) return;
     const response = await carApi.getCarConfigs(form.modelId, form.modelYearId);
     return response.map((item) => ({
-      value: item.modelConfigCode,
+      value: item.modelConfigId,
+      code: item.modelConfigCode,
       label: item.modelConfigName,
     }));
   };
 
   const getColorOptions = async (form: Partial<OrderDetail>) => {
-    if (!form.modelYearId || !form.modelConfigId) return;
+    if (!form.modelYearCode || !form.modelConfigCode) return;
     const response = await carApi.getCarColors(
-      form.modelYearId,
-      form.modelConfigId,
+      form.modelYearCode,
+      form.modelConfigCode,
     );
     return response.map((item) => ({
-      value: item.modelColorCode,
+      value: item.modelColorId,
+      code: item.modelColorCode,
       label: item.modelColorName,
     }));
   };
 
   const getTrimOptions = async (form: Partial<OrderDetail>) => {
-    if (!form.modelYearId || !form.modelConfigId || !form.modelColorId) return;
+    if (!form.modelYearCode || !form.modelConfigCode || !form.modelColorCode)
+      return;
     const response = await carApi.getCarTrims(
-      form.modelYearId,
-      form.modelConfigId,
-      form.modelColorId,
+      form.modelYearCode,
+      form.modelConfigCode,
+      form.modelColorCode,
     );
     return response.map((item) => ({
-      value: item.modelTrimCode,
+      value: item.modelTrimId,
+      code: item.modelTrimCode,
       label: item.modelTrimName,
     }));
   };
 
   const getOptionOptions = async (form: Partial<OrderDetail>) => {
     if (
-      !form.modelYearId ||
-      !form.modelConfigId ||
-      !form.modelColorId ||
-      !form.modelTrimId
+      !form.modelYearCode ||
+      !form.modelConfigCode ||
+      !form.modelColorCode ||
+      !form.modelTrimCode
     )
       return;
     const response = await carApi.getCarOptions(
-      form.modelYearId,
-      form.modelConfigId,
-      form.modelColorId,
-      form.modelTrimId,
+      form.modelYearCode,
+      form.modelConfigCode,
+      form.modelColorCode,
+      form.modelTrimCode,
     );
     return response.map((item) => ({
       value: item.modelOptionName,

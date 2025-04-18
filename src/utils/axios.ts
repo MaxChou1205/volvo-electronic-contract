@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useLoading } from "@/composables/loading";
+import router from "@/router/index";
 
 let requestCount = 0;
 const loadingTimers: Record<string, number> = {};
@@ -58,6 +59,9 @@ axiosInstance.interceptors.response.use(
       useLoading().close();
     }
 
+    if (error.response?.data?.includes("Unauthorized")) {
+      router.push({ name: "login" });
+    }
     return Promise.reject(error);
   },
 );

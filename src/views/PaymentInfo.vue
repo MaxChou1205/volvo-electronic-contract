@@ -607,7 +607,6 @@ const accessories = ref([
 ]);
 
 const contractStore = useContractStore();
-
 const { contract: form } = storeToRefs(contractStore);
 
 const localeValue = ref("零");

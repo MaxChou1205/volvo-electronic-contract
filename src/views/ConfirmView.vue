@@ -69,9 +69,9 @@
             <div class="min-w-39 bg-gray-200 px-4 py-3">
               <div class="text-xs font-light">掛牌戶籍地址</div>
               <div class="text-black-400 text-base font-medium">
-                {{ form.order.cityName }}
-                {{ form.order.districtName }}
-                {{ form.order.customerAddress }}
+                {{
+                  `${form.order.cityName}${form.order.districtName}${form.order.customerAddress}`
+                }}
               </div>
             </div>
           </div>
@@ -159,7 +159,9 @@
           </div>
           <div class="min-w-23 flex-1 bg-gray-200 px-4 py-3">
             <div class="text-xs font-light">天窗</div>
-            <div class="text-base font-medium">{{ form.sunroof }}</div>
+            <div class="text-base font-medium">
+              {{ form.sunroof ? "有" : "無" }}
+            </div>
           </div>
           <div class="min-w-23 flex-1 bg-gray-200 px-4 py-3">
             <div class="text-xs font-light">排檔</div>
@@ -200,7 +202,9 @@
         </div>
         <div>
           <div class="text-xs font-light">付款方式</div>
-          <div class="text-base font-medium">{{ form.order.payMode }}</div>
+          <div class="text-base font-medium">
+            {{ payMode }}
+          </div>
         </div>
         <div class="align-self-end text-end">
           <div class="text-xs font-light">車輛成交價格(含營業稅)</div>
@@ -259,7 +263,7 @@
         <div>
           <div class="text-xs font-light">約定掛牌日期</div>
           <div class="text-base font-medium">
-            {{ form.order.deliveringDate }}
+            {{ format(form.order.deliveringDate, "yyyy/MM/dd") }}
           </div>
         </div>
         <div>
@@ -327,15 +331,26 @@
 </template>
 
 <script setup lang="ts">
+import { format } from "date-fns";
 import { storeToRefs } from "pinia";
+import { computed, onMounted } from "vue";
 import Stepper from "@/components/Stepper.vue";
 import { useContractStore } from "@/stores/contractStore";
+import { useOptionStore } from "@/stores/optionStore";
 import { useSignatureStore } from "@/stores/signature";
 
 const signatureStore = useSignatureStore();
 const contractStore = useContractStore();
-
 const { contract: form } = storeToRefs(contractStore);
+
+const optionStore = useOptionStore();
+const { payModes } = storeToRefs(optionStore);
+
+onMounted(async () => {
+  await optionStore.fetchPayModes();
+});
+
+const payMode = computed(() => payModes.value[form.value.order.payMode]);
 </script>
 
 <style scoped></style>
