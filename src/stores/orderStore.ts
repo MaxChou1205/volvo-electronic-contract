@@ -23,7 +23,9 @@ export const useOrderStore = defineStore("order", {
     },
     paginationInfo: {
       page: 1,
-      pageSize: 100,
+      pageSize: 5,
+      totalPage: 0,
+      totalItems: 0,
     },
     orderList: [] as OrderListItem[],
     orderDetail: null as OrderDetail | null,
@@ -71,6 +73,8 @@ export const useOrderStore = defineStore("order", {
           gender: item.gender,
           genderLabel: item.gender === 10021001 ? "先生" : "小姐",
         }));
+        this.paginationInfo.totalItems = response.totalCount;
+        this.paginationInfo.totalPage = response.totalPage;
       } catch (err) {
         if (err instanceof AxiosError && err.response?.status === 500) {
           authStore.logout();

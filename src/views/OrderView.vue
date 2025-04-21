@@ -6,7 +6,7 @@
       <div class="grid grid-cols-2 gap-[30px] p-[30px]">
         <div
           class="rounded-[4px] bg-white px-4 py-5 text-sm"
-          v-for="order in orderStore.orderList"
+          v-for="order in orderList"
           :key="order.orderNo"
         >
           <div class="mb-3 flex items-center justify-between">
@@ -30,16 +30,32 @@
           </RouterLink>
         </div>
       </div>
+      <Pagination
+        :currentPage="paginationInfo.page"
+        :totalPages="paginationInfo.totalPage"
+        @update:page="onPageChange"
+      ></Pagination>
     </main>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue";
+import { storeToRefs } from "pinia";
+import { onMounted, ref } from "vue";
+import Pagination from "@/components/Pagination.vue";
 import OrderHeader from "@/components/order/OrderHeader.vue";
 import { useOrderStore } from "@/stores/orderStore";
 
 const orderStore = useOrderStore();
+const { paginationInfo, orderList } = storeToRefs(orderStore);
+const loading = ref(false);
+
+const onPageChange = (page: number) => {
+  paginationInfo.value.page = page;
+  loading.value = true;
+  orderStore.getOrders();
+  loading.value = false;
+};
 
 onMounted(() => {
   orderStore.getOrders();
