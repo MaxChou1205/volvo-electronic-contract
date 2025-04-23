@@ -41,7 +41,7 @@
             元
           </div>
           <div class="text-end">
-            新台幣 <span class="text-blue-500">{{ localeValue }}</span> 元整
+            新台幣 <span class="text-blue-500">{{ toZhDigit(form.order.orderAllAmount) }}</span> 元整
           </div>
         </div>
       </div>

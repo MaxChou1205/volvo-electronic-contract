@@ -57,14 +57,14 @@ export const useCarService = () => {
 
   const getOptionOptions = async (form: Partial<OrderDetail>) => {
     if (
-      !form.modelYearCode ||
+      !form.modelYearId ||
       !form.modelConfigCode ||
       !form.modelColorCode ||
       !form.modelTrimCode
     )
       return;
     const response = await carApi.getCarOptions(
-      form.modelYearCode,
+      form.modelYearId,
       form.modelConfigCode,
       form.modelColorCode,
       form.modelTrimCode,
