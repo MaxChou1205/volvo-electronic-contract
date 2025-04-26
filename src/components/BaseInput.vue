@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="mb-3" v-if="title">
+    <div class="mb-3" v-if="title" :class="{ 'required-asterisk': required }">
       {{ title }}
     </div>
     <input
@@ -27,6 +27,7 @@ const {
   type = "primary",
   inputType = "text",
   warning = false,
+  required = false,
 } = defineProps<{
   title?: string;
   disabled?: boolean;
@@ -34,6 +35,7 @@ const {
   type?: "primary" | "secondary";
   inputType?: string;
   warning?: boolean;
+  required?: boolean;
 }>();
 </script>
 

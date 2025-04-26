@@ -7,8 +7,9 @@
     />
     <div class="min-w-[328px]" v-if="!loginFailed">
       <div class="mb-3">
-        <label class="mb-2 block text-sm font-bold text-gray-700"
-          >帳號<span class="text-red-waring">*</span></label
+        <label
+          class="required-asterisk mb-2 block text-sm font-bold text-gray-700"
+          >帳號</label
         >
         <BaseInput
           class="mb-2"
@@ -24,8 +25,9 @@
         > -->
       </div>
       <div>
-        <label class="mb-2 block text-sm font-bold text-gray-700"
-          >密碼<span class="text-red-waring">*</span></label
+        <label
+          class="required-asterisk mb-2 block text-sm font-bold text-gray-700"
+          >密碼</label
         >
         <BaseInput
           class="mb-2"

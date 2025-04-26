@@ -1,7 +1,9 @@
 <template>
   <OnClickOutside @trigger="() => (isOpen = false)">
     <div class="relative w-full" ref="multiSelectRef">
-      <div class="mb-3" v-if="title">{{ title }}</div>
+      <div class="mb-3" v-if="title" :class="{ 'required-asterisk': required }">
+        {{ title }}
+      </div>
 
       <div
         class="flex min-h-11 w-full flex-wrap items-center gap-1 rounded border border-black px-3 py-1 text-sm focus-within:ring-1"
@@ -66,6 +68,7 @@ const props = defineProps<{
   }[];
   placeholder?: string;
   disabled?: boolean;
+  required?: boolean;
 }>();
 
 const multiSelectRef = useTemplateRef<HTMLElement>("multiSelect");

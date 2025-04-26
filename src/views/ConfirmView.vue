@@ -176,13 +176,13 @@
         </div>
 
         <div class="mb-4 bg-gray-200 px-4 py-3">
-          <div class="text-xs font-light">其他</div>
+          <div class="text-xs font-light">配件</div>
           <div class="text-base font-medium">
             {{ form.order.modelOptionNames?.join(",") }}
           </div>
         </div>
         <div class="bg-gray-200 px-4 py-3">
-          <div class="text-xs font-light">備註</div>
+          <div class="text-xs font-light">自費項目</div>
           <div class="text-base font-medium"></div>
         </div>
       </div>

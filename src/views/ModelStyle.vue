@@ -13,7 +13,9 @@
     <Stepper :currentStep="1" />
 
     <div class="mt-8 px-15 pb-15" v-if="form">
-      <div class="text-black-400 mb-5 leading-6">車型樣式</div>
+      <div class="text-black-400 required-asterisk mb-5 leading-6">
+        車型樣式
+      </div>
 
       <!-- <Tabs class="px-15" v-model="currentTabIndex" :tabs="tabs" /> -->
 
@@ -59,6 +61,7 @@
             label: form.order.modelYearName,
             value: form.order.modelYearId,
           }"
+          :required="true"
           @change="handleChangeCarInfo('modelYearId')"
         />
         <Select
@@ -70,6 +73,7 @@
             label: form.order.modelConfigName ?? '',
             value: form.order.modelConfigId,
           }"
+          :required="true"
           @change="handleChangeCarInfo('modelConfigId')"
         />
         <Select
@@ -81,6 +85,7 @@
             label: form.order.modelColorName ?? '',
             value: form.order.modelColorId,
           }"
+          :required="true"
           @change="handleChangeCarInfo('modelColorId')"
         />
         <Select
@@ -92,6 +97,7 @@
             label: form.order.modelTrimName ?? '',
             value: form.order.modelTrimId,
           }"
+          :required="true"
           @change="handleChangeCarInfo('modelTrimId')"
         />
         <MultiSelect
@@ -100,6 +106,7 @@
           placeholder="請選擇選配"
           :options="formOptions.optionOptions"
           :disabled="formOptions.optionOptions.length === 0"
+          :required="true"
           @change="handleChangeCarInfo('modelOptionId')"
         />
         <BaseInput v-model="form.cc" title="CC 數" placeholder="請填寫CC數" />
@@ -195,7 +202,7 @@
       </div>
 
       <div class="mt-8">
-        <div class="mb-3">約定掛牌日期</div>
+        <div class="required-asterisk mb-3">約定掛牌日期</div>
         <div class="flex items-start">
           <SingleChoiceButton
             v-model="form.isImported"
@@ -225,6 +232,7 @@
             { label: '預設展示中心', value: 0 },
             { label: '自訂交車地點', value: 1 },
           ]"
+          :required="true"
           @change="handleDeliveryLocationChange"
         />
         <Select

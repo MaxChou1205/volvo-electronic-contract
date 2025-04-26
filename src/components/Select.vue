@@ -1,6 +1,8 @@
 <template>
   <label class="inline-block">
-    <div class="mb-3" v-if="title">{{ title }}</div>
+    <div class="mb-3" v-if="title" :class="{ 'required-asterisk': required }">
+      {{ title }}
+    </div>
     <div class="select">
       <select
         class="h-11 w-full appearance-none rounded-[4px] border-1 border-black px-3 py-2 font-light disabled:cursor-not-allowed disabled:bg-gray-200"
@@ -38,6 +40,7 @@ const props = defineProps<{
   placeholder?: string;
   disabled?: boolean;
   initValue?: { label: string; value: string | number | null };
+  required?: boolean;
 }>();
 const emit = defineEmits(["change"]);
 

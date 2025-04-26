@@ -22,6 +22,7 @@
           { value: 15231002, label: '公司' },
           { value: 15231004, label: '租賃' },
         ]"
+        :required="true"
       />
 
       <div
@@ -45,6 +46,7 @@
             v-model="form.order.drawerName"
             title="約定掛牌名稱"
             placeholder="請輸入約定掛牌名稱"
+            :required="true"
           />
           <Checkbox
             class="mt-3"
@@ -62,6 +64,7 @@
           v-model="form.order.drawerTel"
           title="主要聯絡電話（手機）"
           placeholder="請輸入掛牌人手機號碼"
+          :required="true"
         />
         <BaseInput
           v-model="form.email"
@@ -76,6 +79,7 @@
           disabled
           title="約定掛牌名稱"
           placeholder="請輸入約定掛牌名稱"
+          :required="true"
         />
         <BaseInput
           v-model="form.order.customerCertificateNo"
@@ -96,12 +100,13 @@
           v-model="form.order.drawerTel"
           title="主要聯絡電話（手機）"
           placeholder="請輸入手機號碼"
+          :required="true"
         />
         <BaseInput title="常用聯絡 E-mail" placeholder="請輸入 E-mail" />
       </div>
 
       <div class="mt-8">
-        <div class="mb-3">掛牌戶籍地址</div>
+        <div class="required-asterisk mb-3">掛牌戶籍地址</div>
         <div class="flex w-full items-center gap-2">
           <Select
             class="w-30 flex-shrink-0"

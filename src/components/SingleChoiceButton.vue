@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div class="mb-3" v-if="title">{{ title }}</div>
+    <div class="mb-3" v-if="title" :class="{ 'required-asterisk': required }">
+      {{ title }}
+    </div>
     <div class="flex items-center gap-4">
       <label
         class="flex h-11 items-center justify-center rounded-[4px] border-1 p-3 font-normal"
@@ -36,9 +38,14 @@ type Option = {
   disabled?: boolean;
 };
 
-const { title, options } = defineProps<{
+const {
+  title,
+  options,
+  required = false,
+} = defineProps<{
   title?: string;
   options: Option[];
+  required?: boolean;
 }>();
 
 const emit = defineEmits(["change"]);
