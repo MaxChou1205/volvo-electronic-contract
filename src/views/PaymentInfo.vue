@@ -13,25 +13,70 @@
     <Stepper :currentStep="3" />
 
     <div class="text-black-400 mt-8 px-15 pb-15">
-      <div class="mb-8 grid grid-cols-2 justify-between gap-y-4">
+      <div class="mb-4 grid grid-cols-2 justify-between gap-y-4">
         <div>建議售價(含營業稅)</div>
         <div class="justify-self-end">
           新台幣 {{ form.order.vehicleRetailAllAmount?.toLocaleString() }} 元
         </div>
-        <template v-for="(accessory, index) in accessories" :key="index">
-          <div class="pl-4">配件 {{ accessory.name }}</div>
-          <div class="justify-self-end">
-            新台幣 {{ accessory.price?.toLocaleString() }} 元
+        <template
+          v-for="(accessory, index) in form.order.modelOptionNames"
+          :key="index"
+        >
+          <div class="flex items-baseline pl-4">
+            <span class="mr-2 min-w-8 shrink-0">配件</span>
+            <div class="">{{ accessory }}</div>
+          </div>
+          <div class="flex items-baseline justify-self-end">
+            新台幣
+            <CurrencyInput class="mx-2 w-55" />
+            元
+            <!-- 新台幣 {{ accessory.price?.toLocaleString() }} 元 -->
           </div>
         </template>
-        <div>特殊車色加價</div>
-        <div class="justify-self-end">新台幣 30,000 元</div>
+        <!-- <div>特殊車色加價</div>
+        <div class="justify-self-end">新台幣 30,000 元</div> -->
+      </div>
+
+      <button
+        class="button-blue mx-auto mb-4 block"
+        type="button"
+        @click="addAddtionalOption"
+      >
+        加選項目
+      </button>
+      <div
+        class="mb-2 flex items-center justify-between"
+        v-for="(option, index) in addtionalOptions"
+        :key="index"
+      >
+        <div class="min-w-55">
+          <BaseInput v-model="option.name" />
+        </div>
+        <div class="flex items-center justify-between">
+          <div class="flex items-baseline justify-self-end">
+            新台幣 <CurrencyInput class="mx-2 w-55" v-model="option.price" /> 元
+          </div>
+          <Icon
+            class="ml-2 cursor-pointer"
+            iconName="delete"
+            @click="removeOption(index)"
+          />
+        </div>
+      </div>
+
+      <div class="my-4 flex items-baseline justify-between">
+        <div>總計(含營業稅)</div>
+        <div class="text-end">
+          新台幣
+          <span class="text-blue-500">{{ totalPrice?.toLocaleString() }}</span>
+          元整
+        </div>
       </div>
 
       <div class="flex items-baseline justify-between">
         <div>車輛成交價格(含營業稅)</div>
         <div>
-          <div class="mb-3 flex items-center">
+          <div class="mb-3 flex items-center justify-self-end">
             新台幣
             <CurrencyInput
               class="mx-2 w-55"
@@ -47,6 +92,45 @@
             }}</span>
             元整
           </div>
+        </div>
+      </div>
+
+      <div class="mt-8">自費項目</div>
+      <button
+        class="button-blue mx-auto my-4 block"
+        type="button"
+        @click="addSelfPaidOption"
+      >
+        加選項目
+      </button>
+      <div
+        class="mb-2 flex items-center justify-between"
+        v-for="(option, index) in selfPaidOptions"
+        :key="index"
+      >
+        <div class="min-w-55">
+          <BaseInput v-model="option.name" />
+        </div>
+        <div class="flex items-center justify-between">
+          <div class="flex items-baseline justify-self-end">
+            新台幣 <CurrencyInput class="mx-2 w-55" v-model="option.price" /> 元
+          </div>
+          <Icon
+            class="ml-2 cursor-pointer"
+            iconName="delete"
+            @click="removeSelfPaidOption(index)"
+          />
+        </div>
+      </div>
+
+      <div class="my-4 flex items-baseline justify-between">
+        <div>自費項目總計(含營業稅)</div>
+        <div class="text-end">
+          新台幣
+          <span class="text-blue-500">{{
+            selfPaidTotalPrice?.toLocaleString()
+          }}</span>
+          元整
         </div>
       </div>
 
@@ -971,21 +1055,6 @@ import { useContractStore } from "@/stores/contractStore";
 import { useSignatureStore } from "@/stores/signature";
 import { toZhDigit } from "@/utils/number";
 
-const accessories = ref([
-  {
-    name: "空力套件",
-    price: 609000,
-  },
-  {
-    name: "全景天窗",
-    price: 291000,
-  },
-  {
-    name: "車頂置物架",
-    price: 932800,
-  },
-]);
-
 const contractStore = useContractStore();
 const { contract: form } = storeToRefs(contractStore);
 
@@ -993,6 +1062,45 @@ const localeValue = ref("零");
 const handleFinalPriceChange = (value: number) => {
   localeValue.value = toZhDigit(value);
 };
+
+// 加選項目
+const addtionalOptions = ref<{ name: string; price: number }[]>([]);
+const addAddtionalOption = () => {
+  addtionalOptions.value.push({
+    name: "",
+    price: 0,
+  });
+};
+const removeOption = (index: number) => {
+  addtionalOptions.value.splice(index, 1);
+};
+const totalPrice = computed(() => {
+  return (
+    form.value.order.orderAllAmount +
+      addtionalOptions.value.reduce(
+        (total, option) => total + option.price,
+        0,
+      ) || 0
+  );
+});
+
+// 自費項目
+const selfPaidOptions = ref<{ name: string; price: number }[]>([]);
+const addSelfPaidOption = () => {
+  selfPaidOptions.value.push({
+    name: "",
+    price: 0,
+  });
+};
+const removeSelfPaidOption = (index: number) => {
+  selfPaidOptions.value.splice(index, 1);
+};
+const selfPaidTotalPrice = computed(() => {
+  return (
+    selfPaidOptions.value.reduce((total, option) => total + option.price, 0) ||
+    0
+  );
+});
 
 // 尾款
 const finalPrice = computed(

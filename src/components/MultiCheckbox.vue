@@ -1,14 +1,12 @@
 <template>
-  <div>
-    <label class="flex cursor-pointer items-center text-sm"
-      ><input
-        class="border-blue-brand text-blue-brand checked:bg-blue-brand mr-2 h-5 w-5 appearance-none rounded border-2 checked:text-white"
-        v-model="modelValue"
-        type="checkbox"
-        :value="option"
-      />{{ label }}</label
-    >
-  </div>
+  <label class="flex cursor-pointer items-center text-sm"
+    ><input
+      class="border-blue-brand text-blue-brand checked:bg-blue-brand mr-2 h-5 w-5 appearance-none rounded border-2 checked:text-white"
+      v-model="modelValue"
+      type="checkbox"
+      :value="option"
+    />{{ label }}</label
+  >
 </template>
 
 <script setup lang="ts">

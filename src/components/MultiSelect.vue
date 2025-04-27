@@ -44,13 +44,13 @@
         v-show="isOpen"
       >
         <div
-          class="flex items-center px-3 py-2 text-sm hover:bg-gray-300"
+          class="flex items-center px-3 text-sm hover:bg-gray-300"
           v-for="option in props.options"
           :key="option.value"
           :class="{ 'bg-gray-100': isSelected(option) }"
         >
           <MultiCheckbox
-            class="w-full cursor-pointer"
+            class="h-full w-full cursor-pointer py-2"
             v-model="modelValue"
             :option="option.value"
             :label="option.label"
