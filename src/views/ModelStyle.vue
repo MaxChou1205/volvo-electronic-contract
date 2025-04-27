@@ -62,6 +62,7 @@
             value: form.order.modelYearId,
           }"
           :required="true"
+          :rules="['required']"
           @change="handleChangeCarInfo('modelYearId')"
         />
         <Select
@@ -74,6 +75,7 @@
             value: form.order.modelConfigId,
           }"
           :required="true"
+          :rules="['required']"
           @change="handleChangeCarInfo('modelConfigId')"
         />
         <Select
@@ -86,6 +88,7 @@
             value: form.order.modelColorId,
           }"
           :required="true"
+          :rules="['required']"
           @change="handleChangeCarInfo('modelColorId')"
         />
         <Select
@@ -98,17 +101,24 @@
             value: form.order.modelTrimId,
           }"
           :required="true"
+          :rules="['required']"
           @change="handleChangeCarInfo('modelTrimId')"
         />
-        <MultiSelect
-          v-model="form.order.modelOptionNames"
-          title="選配"
-          placeholder="請選擇選配"
-          :options="formOptions.optionOptions"
-          :disabled="formOptions.optionOptions.length === 0"
-          :required="true"
-          @change="handleChangeCarInfo('modelOptionId')"
-        />
+        <div>
+          <MultiSelect
+            v-model="form.order.modelOptionNames"
+            title="選配"
+            placeholder="請選擇選配"
+            :options="formOptions.optionOptions"
+            :disabled="formOptions.optionOptions.length === 0"
+            :required="true"
+            :rules="['required']"
+            @change="handleChangeCarInfo('modelOptionId')"
+          />
+          <!-- <span v-if=".modelOptionNames">{{
+            errors.modelOptionNames
+          }}</span> -->
+        </div>
         <BaseInput v-model="form.cc" title="CC 數" placeholder="請填寫CC數" />
         <SingleChoiceButton
           v-model="form.powerSystem"
@@ -210,6 +220,7 @@
               { label: '已進口車輛', value: true },
               { label: '尚未進口車輛', value: false },
             ]"
+            :required="true"
           />
           <div class="ml-6 flex-1">
             <DatePicker
@@ -240,6 +251,7 @@
           v-if="form.deliveryLocation === 0"
           v-model="form.showroom"
           :options="exhibitionCenterOptions"
+          :required="true"
           placeholder="請選擇預設展示中心"
         ></Select>
         <div class="flex items-center gap-2" v-else>
@@ -252,6 +264,7 @@
               label: form.order.cityName,
               value: form.order.cityId,
             }"
+            :required="true"
             @change="handleAreaChange"
           />
           <Select
@@ -263,22 +276,25 @@
               value: form.order.districtId,
             }"
             placeholder="鄉鎮市區"
+            :required="true"
             @change="handleDistrictChange"
           />
           <BaseInput
             class="w-full"
             v-model="form.deliveryAddress"
             placeholder="地址"
+            :required="true"
           />
         </div>
       </div>
 
-      <router-link
+      <button
         class="button-blue mt-12 w-full"
-        :to="{ name: 'memberInfo' }"
+        type="submit"
+        @click="handleNext"
       >
         下一步
-      </router-link>
+      </button>
     </div>
   </div>
 </template>
@@ -286,6 +302,9 @@
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
 import { computed, onMounted, ref, watch } from "vue";
+import { useRouter } from "vue-router";
+import { useVuelidate } from "@vuelidate/core";
+import { required, minLength, helpers } from "@vuelidate/validators";
 import BaseInput from "@/components/BaseInput.vue";
 import CurrencyInput from "@/components/CurrencyInput.vue";
 import DatePicker from "@/components/DatePicker.vue";
@@ -295,14 +314,17 @@ import Select from "@/components/Select.vue";
 import SingleChoiceButton from "@/components/SingleChoiceButton.vue";
 import Stepper from "@/components/Stepper.vue";
 import { useCarService } from "@/composables/carService";
+import { useErrorHint } from "@/composables/useErrorHint";
 import { useContractStore } from "@/stores/contractStore";
 import { useOptionStore } from "@/stores/optionStore";
 import county from "../assets/county.json";
 import exhibitionCenter from "../assets/exhibitionCenter.json";
 
+const router = useRouter();
 const contractStore = useContractStore();
 const optionStore = useOptionStore();
 const carService = useCarService();
+const { scrollToError } = useErrorHint();
 
 const carInfoMap = new Map([
   [
@@ -466,6 +488,17 @@ const resetOptions = (currentKey: string) => {
       }
     });
   }
+};
+
+const v$ = useVuelidate();
+
+const handleNext = async () => {
+  v$.value.$touch();
+  if (v$.value.$invalid) {
+    scrollToError();
+    return;
+  }
+  router.push({ name: "memberInfo" });
 };
 
 // ---車型樣式---

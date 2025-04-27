@@ -7,6 +7,7 @@
       <select
         class="h-11 w-full appearance-none rounded-[4px] border-1 border-black px-3 py-2 font-light disabled:cursor-not-allowed disabled:bg-gray-200"
         v-model="modelValue"
+        :class="v$?.$error && 'border-red-waring'"
         :placeholder="placeholder"
         :disabled="disabled"
         @change="
@@ -22,11 +23,16 @@
         </option>
       </select>
     </div>
+    <div class="error" v-if="v$?.$dirty && v$?.$errors.length > 0">
+      {{ v$?.$errors[0]!.$message }}
+    </div>
   </label>
 </template>
 
 <script setup lang="ts">
 import { computed, onMounted } from "vue";
+import useVuelidate, { type ValidationRule } from "@vuelidate/core";
+import { helpers, required } from "@vuelidate/validators";
 
 const modelValue = defineModel<string | number | null>({ default: null });
 
@@ -65,6 +71,18 @@ function getLabel(
 ): string | number {
   return typeof item === "object" ? item.label : item;
 }
+
+const validations = {
+  required: () => helpers.withMessage("此欄位為必填", required),
+};
+
+const validationRules = computed(() => {
+  const ruleSet: Record<string, ValidationRule> = {};
+  if (props.required) ruleSet.required = validations.required();
+  return { modelValue: ruleSet };
+});
+
+const v$ = useVuelidate(validationRules, { modelValue }, { $lazy: true });
 
 onMounted(() => {
   if (props.initValue) {

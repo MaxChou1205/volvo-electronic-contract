@@ -10,7 +10,11 @@
         @click="openDropdown"
         :tabindex="disabled ? -1 : 0"
         @keydown.esc="isOpen = false"
-        :class="{ 'bg-gray-200': disabled, 'cursor-not-allowed': disabled }"
+        :class="{
+          'bg-gray-200': disabled,
+          'cursor-not-allowed': disabled,
+          'border-red-waring': v$?.$error,
+        }"
       >
         <!-- Selected tags -->
         <span
@@ -28,6 +32,10 @@
         >
           {{ placeholder }}
         </span>
+      </div>
+
+      <div class="error" v-if="v$?.$dirty && v$?.$errors.length > 0">
+        {{ v$?.$errors[0]!.$message }}
       </div>
 
       <!-- Dropdown menu -->
@@ -55,6 +63,8 @@
 
 <script setup lang="ts">
 import { ref, computed, watch, onMounted, useTemplateRef } from "vue";
+import useVuelidate, { type ValidationRule } from "@vuelidate/core";
+import { helpers, maxLength, minLength, required } from "@vuelidate/validators";
 import { OnClickOutside } from "@vueuse/components";
 import MultiCheckbox from "./MultiCheckbox.vue";
 
@@ -69,6 +79,8 @@ const props = defineProps<{
   placeholder?: string;
   disabled?: boolean;
   required?: boolean;
+  min?: number;
+  max?: number;
 }>();
 
 const multiSelectRef = useTemplateRef<HTMLElement>("multiSelect");
@@ -92,4 +104,20 @@ const openDropdown = () => {
     inputRef.value?.focus();
   }
 };
+
+const validations = {
+  required: () => helpers.withMessage("此欄位為必填", required),
+  min: (n: number) => helpers.withMessage(`至少選擇 ${n} 項`, minLength(n)),
+  max: (n: number) => helpers.withMessage(`最多選擇 ${n} 項`, maxLength(n)),
+};
+
+const validationRules = computed(() => {
+  const ruleSet: Record<string, ValidationRule> = {};
+  if (props.required) ruleSet.required = validations.required();
+  if (props.min != null) ruleSet.min = validations.min(props.min);
+  if (props.max != null) ruleSet.max = validations.max(props.max);
+  return { modelValue: ruleSet };
+});
+
+const v$ = useVuelidate(validationRules, { modelValue });
 </script>

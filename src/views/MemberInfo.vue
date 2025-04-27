@@ -76,7 +76,6 @@
       <div class="grid grid-cols-2 gap-x-6 gap-y-8" v-else>
         <BaseInput
           v-model="form.order.customerName"
-          disabled
           title="約定掛牌名稱"
           placeholder="請輸入約定掛牌名稱"
           :required="true"
@@ -107,7 +106,7 @@
 
       <div class="mt-8">
         <div class="required-asterisk mb-3">掛牌戶籍地址</div>
-        <div class="flex w-full items-center gap-2">
+        <div class="flex w-full items-baseline gap-2">
           <Select
             class="w-30 flex-shrink-0"
             v-model="form.order.cityId"
@@ -117,6 +116,7 @@
               label: form.order.cityName ?? '',
               value: form.order.cityId,
             }"
+            :required="true"
             @change="handleAreaChange"
           />
           <Select
@@ -128,12 +128,14 @@
               label: form.order.districtName ?? '',
               value: form.order.districtId,
             }"
+            :required="true"
             @change="handleDistrictChange"
           />
           <BaseInput
             class="w-full"
             v-model="form.order.customerAddress"
             placeholder="請輸入地址"
+            :required="true"
           />
         </div>
       </div>
@@ -142,9 +144,7 @@
         <router-link class="button-gray w-full" :to="{ name: 'modelStyle' }">
           上一步
         </router-link>
-        <router-link class="button-blue w-full" :to="{ name: 'paymentInfo' }">
-          下一步
-        </router-link>
+        <button class="button-blue w-full" @click="handleNext">下一步</button>
       </div>
     </div>
   </div>
@@ -153,17 +153,21 @@
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
 import { computed } from "vue";
+import { useRouter } from "vue-router";
+import useVuelidate from "@vuelidate/core";
 import county from "@/assets/county.json";
 import BaseInput from "@/components/BaseInput.vue";
 import Checkbox from "@/components/Checkbox.vue";
 import Select from "@/components/Select.vue";
 import SingleChoiceButton from "@/components/SingleChoiceButton.vue";
 import Stepper from "@/components/Stepper.vue";
+import { useErrorHint } from "@/composables/useErrorHint";
 import { useContractStore } from "@/stores/contractStore";
 
+const router = useRouter();
 const contractStore = useContractStore();
-
 const { contract: form } = storeToRefs(contractStore);
+const { scrollToError } = useErrorHint();
 
 const handleSameBuyer = (value: boolean) => {
   if (value) {
@@ -212,6 +216,17 @@ const handleDistrictChange = ({
 }) => {
   form.value.order.districtId = value;
   form.value.order.districtName = label;
+};
+
+const v$ = useVuelidate();
+
+const handleNext = async () => {
+  v$.value.$touch();
+  if (v$.value.$invalid) {
+    scrollToError();
+    return;
+  }
+  router.push({ name: "paymentInfo" });
 };
 </script>
 
