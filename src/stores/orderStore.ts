@@ -23,7 +23,7 @@ export const useOrderStore = defineStore("order", {
     },
     paginationInfo: {
       page: 1,
-      pageSize: 5,
+      pageSize: 8,
       totalPage: 0,
       totalItems: 0,
     },
