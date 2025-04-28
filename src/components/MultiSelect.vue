@@ -1,7 +1,7 @@
 <template>
   <OnClickOutside @trigger="() => (isOpen = false)">
     <div class="relative w-full" ref="multiSelectRef">
-      <div class="mb-3" v-if="title" :class="{ 'required-asterisk': required }">
+      <div class="mb-3" v-if="title" :class="{ 'required-asterisk': props.required }">
         {{ title }}
       </div>
 

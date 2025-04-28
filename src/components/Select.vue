@@ -1,6 +1,6 @@
 <template>
   <label class="inline-block">
-    <div class="mb-3" v-if="title" :class="{ 'required-asterisk': required }">
+    <div class="mb-3" v-if="title" :class="{ 'required-asterisk': props.required }">
       {{ title }}
     </div>
     <div class="select">

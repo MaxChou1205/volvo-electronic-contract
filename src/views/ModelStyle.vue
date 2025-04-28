@@ -111,8 +111,6 @@
             placeholder="請選擇選配"
             :options="formOptions.optionOptions"
             :disabled="formOptions.optionOptions.length === 0"
-            :required="true"
-            :rules="['required']"
             @change="handleChangeCarInfo('modelOptionId')"
           />
           <!-- <span v-if=".modelOptionNames">{{

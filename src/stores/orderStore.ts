@@ -88,7 +88,9 @@ export const useOrderStore = defineStore("order", {
         const response = await orderApi.getDetail(id);
         this.orderDetail = {
           ...response,
-          modelOptionNames: response.modelOptionNames.split("/"),
+          modelOptionNames: response.modelOptionNames
+            .split("/")
+            .filter((name) => name),
           deliveringDate: new Date(response.deliveringDate),
           checkDate: response.checkDate ? new Date(response.checkDate) : null,
           drawerAddress: response.drawerAddress ?? "",
