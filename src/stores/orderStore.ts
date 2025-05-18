@@ -83,14 +83,13 @@ export const useOrderStore = defineStore("order", {
     },
     async getOrderDetail(id: string) {
       const authStore = useAuthStore();
-
       try {
         const response = await orderApi.getDetail(id);
         this.orderDetail = {
           ...response,
           modelOptionNames: response.modelOptionNames
-            .split("/")
-            .filter((name) => name),
+            ?.split("/")
+            ?.filter((name) => name) || [],
           deliveringDate: new Date(response.deliveringDate),
           checkDate: response.checkDate ? new Date(response.checkDate) : null,
           drawerAddress: response.drawerAddress ?? "",
