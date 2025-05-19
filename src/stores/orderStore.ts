@@ -2,6 +2,7 @@ import { AxiosError } from "axios";
 import { format } from "date-fns";
 import { defineStore, acceptHMRUpdate } from "pinia";
 import { orderApi } from "@/api/orderApi";
+import router from "@/router";
 import { useAuthStore } from "@/stores/authStore";
 import type {
   OrderDetail,
@@ -102,7 +103,9 @@ export const useOrderStore = defineStore("order", {
         return this.orderDetail;
       } catch (err) {
         if (err instanceof AxiosError && err.response?.status === 500) {
-          authStore.logout();
+          alert("取得該訂單發生錯誤，請確認DMS內容");
+          this.orderDetail = null;
+          router.push({ name: "order" });
         }
       }
     },
