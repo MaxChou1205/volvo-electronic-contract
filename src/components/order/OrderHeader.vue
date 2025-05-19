@@ -100,10 +100,6 @@ const sortList = [
     value: "createdAt",
   },
   {
-    label: "訂單提交日",
-    value: "submitTime",
-  },
-  {
     label: "訂單編號",
     value: "soNo",
   },

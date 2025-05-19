@@ -22,7 +22,7 @@
           </div>
           <RouterLink
             class="flex cursor-pointer items-center justify-end"
-            :to="{ name: 'finishView' }"
+            to=""
           >
             <span class="text-blue-brand text-xs">查看更多</span>
             <Icon class="ml-1" icon-name="right-arrow" :size="24" />
