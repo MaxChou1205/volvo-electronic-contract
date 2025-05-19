@@ -191,8 +191,8 @@
 
       <div class="mb-6 grid grid-cols-2 gap-4">
         <div>
-          <div class="text-xs font-light">購買方式</div>
-          <div class="text-base font-medium">現金購車</div>
+          <div class="text-xs font-light">定金支付方式</div>
+          <div class="text-base font-medium">現金</div>
         </div>
         <div class="align-self-end text-end">
           <div class="text-xs font-light">建議售價(含營業稅)</div>
@@ -201,10 +201,8 @@
           </div>
         </div>
         <div>
-          <div class="text-xs font-light">付款方式</div>
-          <div class="text-base font-medium">
-            {{ payMode }}
-          </div>
+          <div class="text-xs font-light">票號</div>
+          <div class="text-base font-medium">{{ form.cashCheckNo }}</div>
         </div>
         <div class="align-self-end text-end">
           <div class="text-xs font-light">車輛成交價格(含營業稅)</div>
@@ -213,8 +211,12 @@
           </div>
         </div>
         <div>
-          <div class="text-xs font-light">票號</div>
-          <div class="text-base font-medium">{{ form.cashCheckNo }}</div>
+          <div class="text-xs font-light">付款行庫｜分行｜帳號</div>
+          <div class="text-base font-medium">
+            {{
+              `${form.order.paymentBankName} ${form.order.transferBankName} ${form.order.lastFiveBankAccount}`
+            }}
+          </div>
         </div>
         <div class="align-self-end text-end">
           <div class="text-xs font-light">實收定金</div>
@@ -223,11 +225,9 @@
           </div>
         </div>
         <div>
-          <div class="text-xs font-light">付款行庫｜分行｜帳號</div>
+          <div class="text-xs font-light">尾款付款方式</div>
           <div class="text-base font-medium">
-            {{
-              `${form.order.paymentBankName} ${form.order.transferBankName} ${form.order.lastFiveBankAccount}`
-            }}
+            {{ payMode }}
           </div>
         </div>
         <div class="align-self-end text-end">
