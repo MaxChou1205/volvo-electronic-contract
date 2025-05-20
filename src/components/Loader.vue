@@ -9,15 +9,18 @@
 </template>
 
 <script setup lang="ts">
+import { watchEffect } from "vue";
 import { useLoading } from "@/composables/loading";
 
 const { loading } = useLoading();
 
-if (loading.value) {
-  document.body.style.overflow = "hidden";
-} else {
-  document.body.style.overflow = "auto";
-}
+watchEffect(() => {
+  if (loading.value) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "auto";
+  }
+});
 </script>
 
 <style scoped>
