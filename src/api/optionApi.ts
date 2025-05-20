@@ -2,7 +2,7 @@ import { axiosInstance } from "@/utils/axios";
 
 export const optionApi = {
   getPayModes: async () => {
-    const response = await axiosInstance.get<Record<string, string>>(
+    const response = await axiosInstance.get<Record<number, string>>(
       "/api/Option/DmsPayModes",
     );
     return response.data;

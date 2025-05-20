@@ -178,7 +178,11 @@
         <div class="mb-4 bg-gray-200 px-4 py-3">
           <div class="text-xs font-light">配件</div>
           <div class="text-base font-medium">
-            {{ form.order.modelOptionNames?.join(",") }}
+            {{
+              form.order.personalityOptionVOList
+                .map((item) => item.optionName)
+                .join(",")
+            }}
           </div>
         </div>
         <div class="bg-gray-200 px-4 py-3">
@@ -349,7 +353,7 @@ const { payModes } = storeToRefs(optionStore);
 const payMode = computed(
   () =>
     payModes.value.find(
-      (item) => item.value === form.value.order?.payMode?.toString(),
+      (item) => item.value === Number(form.value.order?.payMode),
     )?.label,
 );
 </script>

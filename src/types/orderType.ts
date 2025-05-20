@@ -50,11 +50,17 @@ export type ApiOrderDetail = {
   modelTrimId: string;
   modelTrimCode: string;
   modelTrimName: string;
-  modelOptionNames: string;
+  personalityOptionVOList: {
+    optionId: string;
+    optionCode: string;
+    optionName: string;
+    optionPrice: number;
+  }[];
   isChargingPile: boolean;
   salesUnitPrice: number;
   orderAllAmount: number;
   vehicleRetailAllAmount: number;
+  vehicleDealAllAmount: number;
   vin: string | null;
   contractEarnest: number;
   depositPayWay: number;
@@ -81,11 +87,18 @@ export type ApiOrderDetail = {
 
 export type OrderDetail = Omit<
   ApiOrderDetail,
-  "deliveringDate" | "checkDate" | "modelOptionNames"
+  "deliveringDate" | "checkDate" | "personalityOptionVOList"
 > & {
-  modelOptionNames: string[];
   deliveringDate: Date;
   checkDate: Date | null;
+  personalityOptionVOList: {
+    optionId: string;
+    optionCode: string;
+    optionName: string;
+    optionPrice: number;
+    label: string;
+    value: string;
+  }[];
 };
 
 export type OrderDetailView = OrderDetail & {

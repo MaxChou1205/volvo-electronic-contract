@@ -51,13 +51,12 @@ export const useOrderStore = defineStore("order", {
             : "",
           payModeLabel:
             optionStore.payModes.find(
-              (payMode) =>
-                payMode.value === state.orderDetail?.payMode?.toString(),
+              (payMode) => payMode.value === Number(state.orderDetail?.payMode),
             )?.label ?? "",
           loanTermLabel:
             optionStore.loanTermsOptions.find(
               (loanTerm) =>
-                loanTerm.value === state.orderDetail?.loanTerm?.toString(),
+                loanTerm.value === String(state.orderDetail?.loanTerm),
             )?.label ?? "",
           depositPayWayLabel:
             optionStore.depositPayWaysOptions.find(
@@ -107,8 +106,15 @@ export const useOrderStore = defineStore("order", {
         const response = await orderApi.getDetail(id);
         this.orderDetail = {
           ...response,
-          modelOptionNames:
-            response.modelOptionNames?.split("/")?.filter((name) => name) || [],
+          personalityOptionVOList:
+            response.personalityOptionVOList?.map((item) => ({
+              optionId: item.optionId,
+              optionCode: item.optionCode,
+              optionName: item.optionName,
+              optionPrice: item.optionPrice,
+              label: item.optionName,
+              value: item.optionId,
+            })) || [],
           deliveringDate: new Date(response.deliveringDate),
           checkDate: response.checkDate ? new Date(response.checkDate) : null,
           drawerAddress: response.drawerAddress ?? "",

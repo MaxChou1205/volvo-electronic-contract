@@ -87,8 +87,12 @@
                 :content="orderDetail.modelTrimName"
               ></Field>
               <Field
-                :label="'選裝包'"
-                :content="orderDetail.modelOptionNames.join('')"
+                :label="'選裝'"
+                :content="
+                  orderDetail.personalityOptionVOList
+                    .map((item) => item.optionName)
+                    .join(',')
+                "
               ></Field>
               <Field
                 :label="'是否需安裝充電樁'"
@@ -138,7 +142,10 @@
               付款資訊
             </div>
             <div class="grid grid-cols-3 gap-x-[10%] gap-y-4">
-              <Field :label="'付款方式'" :content="orderDetail.payModeLabel"></Field>
+              <Field
+                :label="'付款方式'"
+                :content="orderDetail.payModeLabel"
+              ></Field>
               <Field
                 :label="'首付金額'"
                 :content="orderDetail.initialPayment"

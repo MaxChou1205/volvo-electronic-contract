@@ -70,8 +70,12 @@ export const useCarService = () => {
       form.modelTrimCode,
     );
     return response.map((item) => ({
-      value: item.modelOptionName,
+      optionId: item.modelOptionId,
+      optionCode: item.modelOptionCode,
+      optionName: item.modelOptionName,
+      optionPrice: item.price,
       label: item.modelOptionName,
+      value: item.modelOptionId,
     }));
   };
 

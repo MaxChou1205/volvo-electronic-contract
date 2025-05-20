@@ -1,7 +1,11 @@
 <template>
   <OnClickOutside @trigger="() => (isOpen = false)">
     <div class="relative w-full" ref="multiSelectRef">
-      <div class="mb-3" v-if="title" :class="{ 'required-asterisk': props.required }">
+      <div
+        class="mb-3"
+        v-if="title"
+        :class="{ 'required-asterisk': props.required }"
+      >
         {{ title }}
       </div>
 
@@ -51,9 +55,10 @@
         >
           <MultiCheckbox
             class="h-full w-full cursor-pointer py-2"
-            v-model="modelValue"
+            v-model="ids"
             :option="option.value"
             :label="option.label"
+            @change="handleChange"
           />
         </div>
       </div>
@@ -61,21 +66,23 @@
   </OnClickOutside>
 </template>
 
-<script setup lang="ts">
-import { ref, computed, watch, onMounted, useTemplateRef } from "vue";
+<script
+  setup
+  lang="ts"
+  generic="T extends { value: string | number; label: string }"
+>
+import { ref, computed, useTemplateRef } from "vue";
 import useVuelidate, { type ValidationRule } from "@vuelidate/core";
 import { helpers, maxLength, minLength, required } from "@vuelidate/validators";
 import { OnClickOutside } from "@vueuse/components";
 import MultiCheckbox from "./MultiCheckbox.vue";
 
-const modelValue = defineModel<(string | number)[]>({ default: [] });
+const modelValue = defineModel<T[]>({ default: [] });
+const ids = ref<(string | number)[]>([]);
 
 const props = defineProps<{
   title?: string;
-  options: {
-    value: string | number;
-    label: string;
-  }[];
+  options: T[];
   placeholder?: string;
   disabled?: boolean;
   required?: boolean;
@@ -83,19 +90,26 @@ const props = defineProps<{
   max?: number;
 }>();
 
+const emit = defineEmits(["change"]);
+
 const multiSelectRef = useTemplateRef<HTMLElement>("multiSelect");
 const isOpen = ref(false);
 const inputRef = ref<HTMLElement | null>(null);
 
 const selectedItems = computed(() => {
-  return props.options.filter((option) =>
-    modelValue.value.includes(option.value),
-  );
+  return props.options.filter((option) => ids.value.includes(option.value));
 });
 
 // Check if an option is selected
-const isSelected = (option: { value: string | number; label: string }) => {
+const isSelected = (option: T) => {
   return selectedItems.value.some((item) => item.value === option.value);
+};
+
+const handleChange = (value: string | number) => {
+  const option = props.options.find((option) => option.value === value);
+  if (!option) return;
+  modelValue.value.push(option);
+  emit("change", option);
 };
 
 const openDropdown = () => {

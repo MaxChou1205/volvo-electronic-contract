@@ -3,7 +3,7 @@ import { optionApi } from "@/api/optionApi";
 
 export const useOptionStore = defineStore("option", {
   state: () => ({
-    payModes: [] as { label: string; value: string }[],
+    payModes: [] as { label: string; value: number }[],
     customerTypes: [] as { label: string; value: string }[],
     contractStatusOptions: [] as { label: string; value: string }[],
     orderStatusOptions: [] as { label: string; value: string }[],
@@ -16,7 +16,7 @@ export const useOptionStore = defineStore("option", {
       const response = await optionApi.getPayModes();
       this.payModes = Object.entries(response).map(([key, value]) => ({
         label: value,
-        value: key,
+        value: Number(key),
       }));
       return response;
     },

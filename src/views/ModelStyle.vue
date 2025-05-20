@@ -106,12 +106,11 @@
         />
         <div>
           <MultiSelect
-            v-model="form.order.modelOptionNames"
+            v-model="form.order.personalityOptionVOList"
             title="選配"
             placeholder="請選擇選配"
             :options="formOptions.optionOptions"
             :disabled="formOptions.optionOptions.length === 0"
-            @change="handleChangeCarInfo('modelOptionId')"
           />
           <!-- <span v-if=".modelOptionNames">{{
             errors.modelOptionNames
@@ -314,13 +313,11 @@ import Stepper from "@/components/Stepper.vue";
 import { useCarService } from "@/composables/carService";
 import { useErrorHint } from "@/composables/useErrorHint";
 import { useContractStore } from "@/stores/contractStore";
-import { useOptionStore } from "@/stores/optionStore";
 import county from "../assets/county.json";
 import exhibitionCenter from "../assets/exhibitionCenter.json";
 
 const router = useRouter();
 const contractStore = useContractStore();
-const optionStore = useOptionStore();
 const carService = useCarService();
 const { scrollToError } = useErrorHint();
 
@@ -377,7 +374,10 @@ const carInfoMap = new Map([
   ],
   [
     "modelOptionNames",
-    { optionsKey: "optionOptions", callbackKey: "getOptionOptions" },
+    {
+      optionsKey: "optionOptions",
+      callbackKey: "getOptionOptions",
+    },
   ],
 ]);
 const carInfoMapKeys = Array.from(carInfoMap.keys());

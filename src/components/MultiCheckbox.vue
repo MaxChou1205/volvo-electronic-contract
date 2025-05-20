@@ -5,6 +5,7 @@
       v-model="modelValue"
       type="checkbox"
       :value="option"
+      @change="$emit('change', option)"
     />{{ label }}</label
   >
 </template>
@@ -15,6 +16,7 @@ const { option, label } = defineProps<{
   option: string | number;
   label: string;
 }>();
+const emit = defineEmits(["change"]);
 </script>
 
 <style scoped lang="scss">

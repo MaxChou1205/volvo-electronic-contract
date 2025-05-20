@@ -19,16 +19,16 @@
           新台幣 {{ form.order.vehicleRetailAllAmount?.toLocaleString() }} 元
         </div>
         <template
-          v-for="(accessory, index) in form.order.modelOptionNames"
+          v-for="(accessory, index) in form.order.personalityOptionVOList"
           :key="index"
         >
           <div class="flex items-baseline pl-4">
             <span class="mr-2 min-w-8 shrink-0">配件</span>
-            <div class="">{{ accessory }}</div>
+            <div class="">{{ accessory.optionName }}</div>
           </div>
           <div class="flex items-baseline justify-self-end">
             新台幣
-            <CurrencyInput class="mx-2 w-55" />
+            <CurrencyInput class="mx-2 w-55" v-model="accessory.optionPrice" />
             元
             <!-- 新台幣 {{ accessory.price?.toLocaleString() }} 元 -->
           </div>
