@@ -333,7 +333,7 @@
 <script setup lang="ts">
 import { format } from "date-fns";
 import { storeToRefs } from "pinia";
-import { computed, onMounted } from "vue";
+import { computed } from "vue";
 import Stepper from "@/components/Stepper.vue";
 import { useContractStore } from "@/stores/contractStore";
 import { useOptionStore } from "@/stores/optionStore";
@@ -346,11 +346,12 @@ const { contract: form } = storeToRefs(contractStore);
 const optionStore = useOptionStore();
 const { payModes } = storeToRefs(optionStore);
 
-onMounted(async () => {
-  await optionStore.fetchPayModes();
-});
-
-const payMode = computed(() => payModes.value[form.value.order.payMode]);
+const payMode = computed(
+  () =>
+    payModes.value.find(
+      (item) => item.value === form.value.order?.payMode?.toString(),
+    )?.label,
+);
 </script>
 
 <style scoped></style>

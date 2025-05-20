@@ -9,12 +9,7 @@ import type {
   OrderDetailView,
   OrderListItem,
 } from "@/types/orderType";
-
-export const customerTypeMap = {
-  15231001: "個人",
-  15231002: "公司",
-  15231003: "租賃",
-};
+import { useOptionStore } from "./optionStore";
 
 export const useOrderStore = defineStore("order", {
   state: () => ({
@@ -33,13 +28,18 @@ export const useOrderStore = defineStore("order", {
   }),
   getters: {
     orderDetailView: (state): OrderDetailView | null => {
+      const optionStore = useOptionStore();
       if (!state.orderDetail) {
         return null;
       } else {
         return {
           ...state.orderDetail,
           customerTypeLabel:
-            customerTypeMap[state.orderDetail?.customerType ?? 15231001],
+            optionStore.customerTypes.find(
+              (customerType) =>
+                customerType.value ===
+                state.orderDetail?.customerType?.toString(),
+            )?.label ?? "",
           deliveringDate: new Date(state.orderDetail?.deliveringDate ?? ""),
           deliveringDateLabel: state.orderDetail?.deliveringDate
             ? format(state.orderDetail.deliveringDate, "yyyy-MM-dd HH:mm:ss")
@@ -49,6 +49,22 @@ export const useOrderStore = defineStore("order", {
           checkDateLabel: state.orderDetail?.checkDate
             ? format(state.orderDetail.checkDate, "yyyy-MM-dd")
             : "",
+          payModeLabel:
+            optionStore.payModes.find(
+              (payMode) =>
+                payMode.value === state.orderDetail?.payMode?.toString(),
+            )?.label ?? "",
+          loanTermLabel:
+            optionStore.loanTermsOptions.find(
+              (loanTerm) =>
+                loanTerm.value === state.orderDetail?.loanTerm?.toString(),
+            )?.label ?? "",
+          depositPayWayLabel:
+            optionStore.depositPayWaysOptions.find(
+              (depositPayWay) =>
+                depositPayWay.value ===
+                state.orderDetail?.depositPayWay?.toString(),
+            )?.label ?? "",
         };
       }
     },
@@ -61,6 +77,7 @@ export const useOrderStore = defineStore("order", {
     },
     async getOrders() {
       const authStore = useAuthStore();
+      const optionStore = useOptionStore();
       try {
         const response = await orderApi.getList({
           page: this.paginationInfo.page,
@@ -72,7 +89,10 @@ export const useOrderStore = defineStore("order", {
           orderNo: item.orderNo,
           customerName: item.customerName,
           gender: item.gender,
-          genderLabel: item.gender === 10021001 ? "先生" : "小姐",
+          genderLabel:
+            optionStore.genderOptions.find((gender) => {
+              return gender.value === item.gender?.toString();
+            })?.label ?? "先生",
         }));
         this.paginationInfo.totalItems = response.totalCount;
         this.paginationInfo.totalPage = response.totalPage;
@@ -83,7 +103,6 @@ export const useOrderStore = defineStore("order", {
       }
     },
     async getOrderDetail(id: string) {
-      const authStore = useAuthStore();
       try {
         const response = await orderApi.getDetail(id);
         this.orderDetail = {

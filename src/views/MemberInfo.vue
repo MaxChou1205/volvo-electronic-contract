@@ -25,6 +25,7 @@
         :required="true"
       />
 
+      <!-- 個人 -->
       <div
         class="grid grid-cols-2 gap-x-6 gap-y-8"
         v-if="form.order.drawerCtCode === 15231001"
@@ -73,6 +74,7 @@
         />
       </div>
 
+      <!-- 公司 -->
       <div class="grid grid-cols-2 gap-x-6 gap-y-8" v-else>
         <BaseInput
           v-model="form.order.customerName"
@@ -101,7 +103,11 @@
           placeholder="請輸入手機號碼"
           :required="true"
         />
-        <BaseInput title="常用聯絡 E-mail" placeholder="請輸入 E-mail" />
+        <BaseInput
+          v-model="form.email"
+          title="常用聯絡 E-mail"
+          placeholder="請輸入 E-mail"
+        />
       </div>
 
       <div class="mt-8">

@@ -392,7 +392,6 @@ const formOptions = ref({
 });
 
 onMounted(async () => {
-  optionStore.fetchPayModes();
   const carList = await carService.getCarList();
   carList.forEach((car) => {
     const matchData = carTypeList.value.find(

@@ -94,4 +94,7 @@ export type OrderDetailView = OrderDetail & {
   isChargingPileLabel?: string;
   isCashCheckLabel?: string;
   checkDateLabel?: string;
+  payModeLabel?: string;
+  loanTermLabel?: string;
+  depositPayWayLabel?: string;
 };

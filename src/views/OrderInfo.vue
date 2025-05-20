@@ -138,7 +138,7 @@
               付款資訊
             </div>
             <div class="grid grid-cols-3 gap-x-[10%] gap-y-4">
-              <Field :label="'付款方式'" :content="orderDetail.payMode"></Field>
+              <Field :label="'付款方式'" :content="orderDetail.payModeLabel"></Field>
               <Field
                 :label="'首付金額'"
                 :content="orderDetail.initialPayment"
@@ -148,12 +148,12 @@
                 :content="orderDetail.loanAmounts"
               ></Field>
               <Field
-                :label="'貸款期限'"
-                :content="orderDetail.loanTerm"
+                :label="'貸款期數'"
+                :content="orderDetail.loanTermLabel"
               ></Field>
               <Field
                 :label="'定金支付方式'"
-                :content="orderDetail.depositPayWay"
+                :content="orderDetail.depositPayWayLabel"
               ></Field>
               <Field
                 :label="'是否現金支票'"
