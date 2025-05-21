@@ -298,10 +298,9 @@
 
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
-import { computed, onMounted, ref, watch } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useVuelidate } from "@vuelidate/core";
-import { required, minLength, helpers } from "@vuelidate/validators";
 import BaseInput from "@/components/BaseInput.vue";
 import CurrencyInput from "@/components/CurrencyInput.vue";
 import DatePicker from "@/components/DatePicker.vue";
