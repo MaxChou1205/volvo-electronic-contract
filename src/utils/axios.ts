@@ -59,7 +59,10 @@ axiosInstance.interceptors.response.use(
       useLoading().close();
     }
 
-    if (error.response?.data?.includes("Unauthorized")) {
+    if (
+      error.code === "ERR_NETWORK" ||
+      error.response?.data?.includes("Unauthorized")
+    ) {
       router.push({ name: "login" });
     }
     return Promise.reject(error);

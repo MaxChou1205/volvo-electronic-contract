@@ -18,6 +18,7 @@ const routes = [
     name: "home",
     path: "/",
     component: HomeView,
+    redirect: "/order",
     children: [
       { name: "order", path: "/order", component: OrderView },
       { name: "orderinfo", path: "/order/:id", component: OrderInfo },
