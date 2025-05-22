@@ -36,7 +36,7 @@
           </div>
         </div>
 
-        <h2 class="mt-8 mb-3 text-center text-sm font-bold">領牌篩選</h2>
+        <!-- <h2 class="mt-8 mb-3 text-center text-sm font-bold">領牌篩選</h2>
 
         <div class="mb-3">
           <label class="mb-2 block text-sm text-gray-800">VIN</label>
@@ -84,7 +84,7 @@
         <div class="mb-3">
           <label class="mb-2 block text-sm text-gray-800">車牌號碼</label>
           <BaseInput v-model="searchFilter.licenseNumber" placeholder="請輸入" />
-        </div>
+        </div> -->
 
         <div class="flex gap-4">
           <button
