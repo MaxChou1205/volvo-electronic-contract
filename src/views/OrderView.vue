@@ -3,7 +3,10 @@
     <OrderHeader />
 
     <main class="overflow-auto">
-      <div class="grid grid-cols-2 gap-[30px] p-[30px]">
+      <div
+        class="grid grid-cols-2 gap-[30px] p-[30px]"
+        v-if="orderList.length > 0"
+      >
         <div
           class="rounded-[4px] bg-white px-4 py-5 text-sm"
           v-for="order in orderList"
@@ -30,7 +33,11 @@
           </RouterLink>
         </div>
       </div>
+      <div v-else>
+        <p class="text-center text-gray-500 pt-20">無相符資料</p>
+      </div>
       <Pagination
+        v-if="paginationInfo.totalPage > 1"
         :currentPage="paginationInfo.page"
         :totalPages="paginationInfo.totalPage"
         @update:page="onPageChange"

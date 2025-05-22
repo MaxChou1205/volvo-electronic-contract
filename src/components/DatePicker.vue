@@ -2,7 +2,7 @@
   <div>
     <VueDatePicker
       v-model="modelValue"
-      auto-position="top"
+      :auto-position="autoPosition"
       :clearable="false"
       :auto-apply="true"
       :enable-time-picker="false"
@@ -117,8 +117,9 @@ const modelValue = defineModel<string | Date | null>({
   default: null,
 });
 
-const { disabled = false } = defineProps<{
+const { disabled = false, autoPosition = "top" } = defineProps<{
   disabled?: boolean;
+  autoPosition?: "top" | "bottom";
 }>();
 
 watch(

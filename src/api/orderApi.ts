@@ -4,19 +4,48 @@ import { axiosInstance } from "@/utils/axios";
 
 export const orderApi = {
   getList: async (params: {
-    sortBy: string;
-    sortAscending: boolean;
     page: number;
     pageSize: number;
+    sort: {
+      sortBy: string;
+      sortAscending: boolean;
+    };
+    filter: {
+      customerNameOrPhone?: string | null;
+      orderNo?: string | null;
+      orderStatus?: string | null;
+      createDateStart?: Date | null;
+      createDateEnd?: Date | null;
+      vin?: string | null;
+      licenseDateStart?: Date | null;
+      licenseDateEnd?: Date | null;
+      dispatchedDateStart?: Date | null;
+      dispatchedDateEnd?: Date | null;
+      licenseNumber?: string | null;
+    };
   }) => {
+    const transformedSort = {
+      OrderBy: params.sort.sortBy,
+      Ascending: params.sort.sortAscending,
+    };
+    const transformedFilter = Object.entries(params.filter).reduce(
+      (acc, [key, value]) => {
+        if (value) {
+          acc[`filter.${key}`] = value;
+        }
+        return acc;
+      },
+      {},
+    );
+
     const response = await axiosInstance.get<
       ApiPaginationResponse<ApiOrderListItem>
     >("/api/order", {
       params: {
         PageNumber: params.page,
         PageSize: params.pageSize,
-        sortBy: params.sortBy,
-        sortAscending: params.sortAscending,
+        ...transformedSort,
+        ...transformedFilter,
       },
     });
     return response.data;

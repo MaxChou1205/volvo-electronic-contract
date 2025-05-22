@@ -23,6 +23,19 @@ export const useOrderStore = defineStore("order", {
       totalPage: 0,
       totalItems: 0,
     },
+    searchFilter: {
+      customerNameOrPhone: "",
+      orderNo: "",
+      orderStatus: "",
+      createDateStart: null,
+      createDateEnd: null,
+      vin: "",
+      licenseDateStart: null,
+      licenseDateEnd: null,
+      dispatchedDateStart: null,
+      dispatchedDateEnd: null,
+      licenseNumber: "",
+    },
     orderList: [] as OrderListItem[],
     orderDetail: null as OrderDetail | null,
   }),
@@ -74,6 +87,21 @@ export const useOrderStore = defineStore("order", {
       this.sortInfo.sortAscending = ascending;
       this.getOrders();
     },
+    async resetFilter() {
+      this.searchFilter = {
+        customerNameOrPhone: "",
+        orderNo: "",
+        orderStatus: "",
+        createDateStart: null,
+        createDateEnd: null,
+        vin: "",
+        licenseDateStart: null,
+        licenseDateEnd: null,
+        dispatchedDateStart: null,
+        dispatchedDateEnd: null,
+        licenseNumber: "",
+      };
+    },
     async getOrders() {
       const authStore = useAuthStore();
       const optionStore = useOptionStore();
@@ -81,8 +109,23 @@ export const useOrderStore = defineStore("order", {
         const response = await orderApi.getList({
           page: this.paginationInfo.page,
           pageSize: this.paginationInfo.pageSize,
-          sortBy: this.sortInfo.sortBy,
-          sortAscending: this.sortInfo.sortAscending,
+          sort: {
+            sortBy: this.sortInfo.sortBy,
+            sortAscending: this.sortInfo.sortAscending,
+          },
+          filter: {
+            customerNameOrPhone: this.searchFilter.customerNameOrPhone,
+            orderNo: this.searchFilter.orderNo,
+            orderStatus: this.searchFilter.orderStatus,
+            createDateStart: this.searchFilter.createDateStart,
+            createDateEnd: this.searchFilter.createDateEnd,
+            vin: this.searchFilter.vin,
+            licenseDateStart: this.searchFilter.licenseDateStart,
+            licenseDateEnd: this.searchFilter.licenseDateEnd,
+            dispatchedDateStart: this.searchFilter.dispatchedDateStart,
+            dispatchedDateEnd: this.searchFilter.dispatchedDateEnd,
+            licenseNumber: this.searchFilter.licenseNumber,
+          },
         });
         this.orderList = response.items.map((item) => ({
           orderNo: item.orderNo,

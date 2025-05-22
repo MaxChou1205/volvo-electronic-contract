@@ -9,13 +9,16 @@
           <Icon class="mr-2" iconName="magnifier" :size="24" />
           <input
             class="appearance-none outline-none"
+            v-model="orderStore.searchFilter.customerNameOrPhone"
             type="text"
             placeholder="搜尋客戶姓名/手機"
+            @keyup.enter="handleMenuConfirm()"
           />
         </div>
         <button
           class="bg-blue-brand flex cursor-pointer items-center rounded-tr-xl rounded-br-xl px-4 py-3"
           type="button"
+          @click="handleMenuConfirm()"
         >
           <Icon iconName="magnifier-white" :size="24" />
         </button>
@@ -82,7 +85,7 @@
       ]"
     >
       <div class="p-4">
-        <FilterMenu />
+        <FilterMenu @reset="handleMenuReset" @confirm="handleMenuConfirm" />
       </div>
     </div>
   </div>
@@ -114,6 +117,16 @@ const toggleFilterMenu = () => {
   } else {
     document.body.style.overflow = "";
   }
+};
+
+const handleMenuReset = () => {
+  orderStore.resetFilter();
+};
+
+const handleMenuConfirm = () => {
+  orderStore.paginationInfo.page = 1;
+  orderStore.getOrders();
+  isFilterMenuOpen.value = false;
 };
 </script>
 
