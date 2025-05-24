@@ -29,6 +29,33 @@
           <Icon icon-name="contractManagement" :size="20" />
           <span class="ml-3">合約管理</span>
         </RouterLink>
+        <RouterLink
+          class="flex w-full cursor-pointer items-center border-b border-gray-100 px-6 py-4 hover:bg-blue-200"
+          :class="[$route.path.startsWith('/model-style-maintain') ? 'bg-blue-200' : '']"
+          activeClass="bg-blue-200"
+          :to="{ name: 'modelStyleMaintain' }"
+        >
+          <Icon icon-name="car" :size="20" />
+          <span class="ml-3">車款維護</span>
+        </RouterLink>
+        <RouterLink
+          class="flex w-full cursor-pointer items-center border-b border-gray-100 px-6 py-4 hover:bg-blue-200"
+          :class="[$route.path.startsWith('/set-maintain') ? 'bg-blue-200' : '']"
+          activeClass="bg-blue-200"
+          :to="{ name: 'setMaintain' }"
+        >
+          <Icon icon-name="set" :size="20" />
+          <span class="ml-3">優惠套組維護</span>
+        </RouterLink>
+        <RouterLink
+          class="flex w-full cursor-pointer items-center border-b border-gray-100 px-6 py-4 hover:bg-blue-200"
+          :class="[$route.path.startsWith('/company-maintain') ? 'bg-blue-200' : '']"
+          activeClass="bg-blue-200"
+          :to="{ name: 'companyMaintain' }"
+        >
+          <Icon icon-name="company" :size="20" />
+          <span class="ml-3">經銷商維護</span>
+        </RouterLink>
       </div>
     </aside>
 
