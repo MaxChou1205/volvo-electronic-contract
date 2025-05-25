@@ -32,6 +32,12 @@
               v-for="(car, carIndex) in cars"
               :key="carIndex"
               @click="handleChangeCarInfo('modelId', car.id)"
+              :ref="
+                (el) => {
+                  if (form.order.modelId === car.id && el)
+                    selectedCarRef = el as HTMLButtonElement;
+                }
+              "
             >
               <div
                 class="mb-1 flex h-24 w-24 items-center justify-center rounded-[4px] bg-gray-200"
@@ -289,20 +295,21 @@
         </div>
       </div>
 
-      <button
-        class="button-blue mt-12 w-full"
-        type="submit"
-        @click="handleNext"
-      >
-        下一步
-      </button>
+      <div class="mt-12 flex w-full items-center gap-7">
+        <router-link class="button-gray w-full" :to="{ name: 'order' }">
+          回到訂單列表
+        </router-link>
+        <button class="button-blue w-full" type="submit" @click="handleNext">
+          下一步
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
-import { computed, onMounted, ref } from "vue";
+import { computed, nextTick, onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useVuelidate } from "@vuelidate/core";
 import BaseInput from "@/components/BaseInput.vue";
@@ -385,6 +392,8 @@ const carInfoMap = new Map([
 ]);
 const carInfoMapKeys = Array.from(carInfoMap.keys());
 
+const selectedCarRef = ref<HTMLButtonElement | null>(null);
+
 const { contract: form } = storeToRefs(contractStore);
 const formOptions = ref({
   yearOptions: [],
@@ -419,6 +428,16 @@ onMounted(async () => {
       setOptions(carInfo.optionsKey, carInfo.callbackKey);
     }
   }
+
+  nextTick(() => {
+    if (selectedCarRef.value) {
+      selectedCarRef.value.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "center",
+      });
+    }
+  });
 });
 
 const findRestMapKeys = (currentKey: string) => {
