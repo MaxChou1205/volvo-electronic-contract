@@ -99,6 +99,10 @@ export type OrderDetail = Omit<
     label: string;
     value: string;
   }[];
+  selfPayOptionList: {
+    optionName: string;
+    optionPrice: number;
+  }[];
 };
 
 export type OrderDetailView = OrderDetail & {

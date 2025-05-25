@@ -1,3 +1,4 @@
+import { AxiosError } from "axios";
 import { defineStore } from "pinia";
 import { contractApi } from "@/api/contractApi";
 import type { Contract } from "@/types/contractType";
@@ -33,7 +34,7 @@ export const useContractStore = defineStore("contract", {
         powerSystem: "",
         factoryYear: null,
         origin: "",
-        isSpecific: null,
+        isSpecific: false,
         door: 0,
         seat: 0,
         sunroof: null,
@@ -54,8 +55,14 @@ export const useContractStore = defineStore("contract", {
       };
     },
     async createContract(payload: Partial<Contract>) {
-      const response = await contractApi.createContract(payload);
-      this.contract = response.data;
+      try {
+        const response = await contractApi.createContract(payload);
+        this.contract = response.data;
+      } catch (err) {
+        if (err instanceof AxiosError) {
+          alert(err.response?.data);
+        }
+      }
     },
   },
 });

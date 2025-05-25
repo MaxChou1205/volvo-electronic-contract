@@ -17,7 +17,7 @@ export type Contract = {
   isSpecific: boolean | null;
   door: number;
   seat: number;
-  sunroof: boolean | null;
+  sunroof: string | null;
   gearShift: string;
   transmission: string;
   scheduledLicenseDate: Date | null;

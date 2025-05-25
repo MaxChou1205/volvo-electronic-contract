@@ -131,6 +131,7 @@
         <Select
           v-model="form.factoryYear"
           title="出廠年份"
+          required
           :options="yearOfManufacture"
         />
         <BaseInput
@@ -160,6 +161,7 @@
           <div class="mb-8">
             <SingleChoiceButton
               v-model="form.isSpecific"
+              required
               :options="[
                 { label: '標配', value: false },
                 { label: '特訂', value: true },
@@ -182,9 +184,10 @@
             <SingleChoiceButton
               v-model="form.sunroof"
               title="天窗"
+              required
               :options="[
-                { label: '有', value: true },
-                { label: '無', value: false },
+                { label: '有', value: '有' },
+                { label: '無', value: '無' },
               ]"
             />
             <SingleChoiceButton
@@ -222,6 +225,7 @@
           <div class="ml-6 flex-1">
             <DatePicker
               v-model="form.scheduledLicenseDate"
+              :required="form.isImported ?? false"
               :disabled="!form.isImported"
             />
             <span class="text-red text-xs font-light" v-if="!form.isImported"
@@ -585,7 +589,7 @@ const yearOfManufacture = computed(() => {
   const date = new Date();
   const currentYear = date.getFullYear();
   return [...Array(currentYear - 2023 + 1).keys()]
-    .map((i) => 2023 + i)
+    .map((i) => String(2023 + i))
     .reverse();
 });
 

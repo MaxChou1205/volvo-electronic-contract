@@ -9,7 +9,7 @@
         v-for="(option, index) in options"
         :key="index"
         :class="[
-          modelValue === option.value
+          modelValue == option.value
             ? 'border-blue-500 text-blue-500'
             : 'border-gray-600 text-gray-600',
           option.disabled

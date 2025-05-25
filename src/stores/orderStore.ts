@@ -166,6 +166,7 @@ export const useOrderStore = defineStore("order", {
           lastFiveBankAccount: response.lastFiveBankAccount ?? "",
           paymentBankName: response.paymentBankName ?? "",
           loanAmounts: response.loanAmounts ?? 0,
+          selfPayOptionList: [],
         };
         return this.orderDetail;
       } catch (err) {

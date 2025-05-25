@@ -104,11 +104,21 @@
         </div>
       </template>
     </VueDatePicker>
+    <div class="error" v-if="v$?.$dirty && v$?.$errors.length > 0">
+      {{ v$?.$errors[0]!.$message }}
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { watch } from "vue";
+import { computed, watch } from "vue";
+import useVuelidate, { type ValidationRule } from "@vuelidate/core";
+import {
+  helpers,
+  maxLength,
+  minLength,
+  required as requiredValidator,
+} from "@vuelidate/validators";
 import VueDatePicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
 
@@ -117,10 +127,27 @@ const modelValue = defineModel<string | Date | null>({
   default: null,
 });
 
-const { disabled = false, autoPosition = "top" } = defineProps<{
+const {
+  disabled = false,
+  autoPosition = "top",
+  required = false,
+} = defineProps<{
   disabled?: boolean;
   autoPosition?: "top" | "bottom";
+  required?: boolean;
 }>();
+
+const validations = {
+  required: () => helpers.withMessage("此欄位為必填", requiredValidator),
+};
+
+const validationRules = computed(() => {
+  const ruleSet: Record<string, ValidationRule> = {};
+  if (required) ruleSet.required = validations.required();
+  return { modelValue: ruleSet };
+});
+
+const v$ = useVuelidate(validationRules, { modelValue });
 
 watch(
   () => disabled,

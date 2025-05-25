@@ -40,13 +40,13 @@
       <button
         class="button-blue mx-auto mb-4 block"
         type="button"
-        @click="addAddtionalOption"
+        @click="addAdditionalOption"
       >
         加選項目
       </button>
       <div
         class="mb-2 flex items-center justify-between"
-        v-for="(option, index) in addtionalOptions"
+        v-for="(option, index) in additionalOptions"
         :key="index"
       >
         <div class="min-w-55">
@@ -59,7 +59,7 @@
           <Icon
             class="ml-2 cursor-pointer"
             iconName="delete"
-            @click="removeOption(index)"
+            @click="removeAdditionalOption(index)"
           />
         </div>
       </div>
@@ -104,7 +104,7 @@
       </button>
       <div
         class="mb-2 flex items-center justify-between"
-        v-for="(option, index) in selfPayOptionList"
+        v-for="(option, index) in form.order.selfPayOptionList"
         :key="index"
       >
         <div class="min-w-55">
@@ -153,17 +153,12 @@
           <div>定金付款方式</div>
           <SingleChoiceButton
             v-model.number="form.order.depositPayWay"
-            :options="[
-              { value: 88031003, label: '現金' },
-              { value: 88031001, label: '刷卡' },
-              { value: 88031004, label: '支票' },
-              { value: 88031005, label: '轉帳匯款' },
-            ]"
+            :options="optionStore.depositPayWaysOptions"
           />
         </div>
 
         <!-- 支票 -->
-        <div v-if="form.order.depositPayWay === 88031004">
+        <div v-if="String(form.order.depositPayWay) === '88031004'">
           <SingleChoiceButton
             class="mb-4"
             v-model.number="form.order.isCashCheck"
@@ -178,6 +173,7 @@
             v-model="form.cashCheckNo"
             title="票號"
             placeholder="請輸入票號"
+            :required="String(form.order.depositPayWay) === '88031004'"
           ></BaseInput>
           <div>
             <div class="mb-4">支票日期</div>
@@ -1143,15 +1139,15 @@ const v$ = useVuelidate(validationRules, form);
 const { scrollToError } = useErrorHint();
 
 // 加選項目
-const addtionalOptions = ref<{ name: string; price: number }[]>([]);
-const addAddtionalOption = () => {
-  addtionalOptions.value.push({
+const additionalOptions = ref<{ name: string; price: number }[]>([]);
+const addAdditionalOption = () => {
+  additionalOptions.value.push({
     name: "",
     price: 0,
   });
 };
-const removeOption = (index: number) => {
-  addtionalOptions.value.splice(index, 1);
+const removeAdditionalOption = (index: number) => {
+  additionalOptions.value.splice(index, 1);
 };
 const totalPrice = computed(() => {
   return (
@@ -1160,7 +1156,7 @@ const totalPrice = computed(() => {
       (total, option) => total + Number(option.optionPrice),
       0,
     ) +
-    addtionalOptions.value.reduce(
+    additionalOptions.value.reduce(
       (total, option) => total + Number(option.price),
       0,
     )
@@ -1168,21 +1164,18 @@ const totalPrice = computed(() => {
 });
 
 // 自費項目
-const selfPayOptionList = ref<{ optionName: string; optionPrice: number }[]>(
-  [],
-);
 const addSelfPaidOption = () => {
-  selfPayOptionList.value.push({
+  form.value.order.selfPayOptionList.push({
     optionName: "",
     optionPrice: 0,
   });
 };
 const removeSelfPaidOption = (index: number) => {
-  selfPayOptionList.value.splice(index, 1);
+  form.value.order.selfPayOptionList.splice(index, 1);
 };
 const selfPaidTotalPrice = computed(() => {
   return (
-    selfPayOptionList.value.reduce(
+    form.value.order.selfPayOptionList.reduce(
       (total, option) => total + option.optionPrice,
       0,
     ) || 0
@@ -1191,7 +1184,8 @@ const selfPaidTotalPrice = computed(() => {
 
 // 尾款
 const finalPrice = computed(
-  () => form.value.order.vehicleDealAllAmount - form.value.order.orderAllAmount,
+  () =>
+    form.value.order.vehicleDealAllAmount - form.value.order.contractEarnest,
 );
 const finalPriceTypeOptions = computed(() =>
   optionStore.payModes.filter(
@@ -1300,6 +1294,16 @@ const postContract = async () => {
     scrollToError();
     return;
   }
+  form.value.order.personalityOptionVOList.push(
+    ...additionalOptions.value.map((item) => ({
+      optionId: "",
+      optionCode: "",
+      optionName: item.name,
+      optionPrice: item.price,
+      label: item.name,
+      value: item.name,
+    })),
+  );
   await contractStore.createContract(form.value);
 };
 </script>
