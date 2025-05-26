@@ -15,6 +15,7 @@ import OrderInfo from "@/views/OrderInfo.vue";
 import OrderView from "@/views/OrderView.vue";
 import PaymentInfo from "@/views/PaymentInfo.vue";
 import SetMaintain from "@/views/SetMaintain.vue";
+import SetMaintainList from "@/views/SetMaintainList.vue";
 
 const routes = [
   { name: "login", path: "/login", component: LoginView },
@@ -45,6 +46,16 @@ const routes = [
       {
         name: "setMaintain",
         path: "/set-maintain",
+        component: SetMaintainList,
+      },
+      {
+        name: "setMaintainAdd",
+        path: "/set-maintain/add",
+        component: SetMaintain,
+      },
+      {
+        name: "setMaintainEdit",
+        path: "/set-maintain/:id",
         component: SetMaintain,
       },
       {
