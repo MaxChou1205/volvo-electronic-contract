@@ -10,7 +10,7 @@ import LoginView from "@/views/LoginView.vue";
 import MemberInfo from "@/views/MemberInfo.vue";
 import Model from "@/views/ModelStyle.vue";
 import ModelStyleMaintain from "@/views/ModelStyleMaintain.vue";
-import ModelStyleMaintainDetail from "@/views/ModelStyleMaintainDetail.vue";
+import ModelStyleMaintainList from "@/views/ModelStyleMaintainList.vue";
 import OrderInfo from "@/views/OrderInfo.vue";
 import OrderView from "@/views/OrderView.vue";
 import PaymentInfo from "@/views/PaymentInfo.vue";
@@ -30,17 +30,17 @@ const routes = [
       {
         name: "modelStyleMaintain",
         path: "/model-style-maintain",
-        component: ModelStyleMaintain,
+        component: ModelStyleMaintainList,
       },
       {
         name: "modelStyleMaintainAdd",
         path: "/model-style-maintain/add",
-        component: ModelStyleMaintainDetail,
+        component: ModelStyleMaintain,
       },
       {
         name: "modelStyleMaintainEdit",
         path: "/model-style-maintain/:id",
-        component: ModelStyleMaintainDetail,
+        component: ModelStyleMaintain,
       },
       {
         name: "setMaintain",
