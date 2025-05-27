@@ -15,7 +15,7 @@
     <div class="text-black-400 mt-8 px-15 pb-15">
       <div class="flex items-end justify-between">
         <h1 class="text-2xl tracking-[4px]">汽車訂購合約書</h1>
-        <div class="text-sm font-light">合約編號：20230223458</div>
+        <div class="text-sm font-light">合約編號：</div>
       </div>
 
       <hr class="divider" />
@@ -187,7 +187,14 @@
         </div>
         <div class="bg-gray-200 px-4 py-3">
           <div class="text-xs font-light">自費項目</div>
-          <div class="text-base font-medium"></div>
+          <div class="text-base font-medium">
+            {{
+              form.order.selfPayOptionList
+                .filter((item) => item.optionName)
+                .map((item) => item.optionName)
+                .join(",")
+            }}
+          </div>
         </div>
       </div>
 
@@ -211,7 +218,7 @@
         <div class="align-self-end text-end">
           <div class="text-xs font-light">車輛成交價格(含營業稅)</div>
           <div class="text-base font-medium text-blue-500">
-            新台幣 1,389,600 元
+            新台幣 {{ form.order.vehicleDealAllAmount?.toLocaleString() }} 元
           </div>
         </div>
         <div>
@@ -237,7 +244,7 @@
         <div class="align-self-end text-end">
           <div class="text-xs font-light">尾款金額</div>
           <div class="text-base font-medium text-blue-500">
-            新台幣 1,000,000 元
+            新台幣 {{ finalPrice?.toLocaleString() }} 元
           </div>
         </div>
       </div>
@@ -245,17 +252,23 @@
       <div class="mb-6 space-y-2 bg-gray-200 px-4 py-3">
         <div class="text-base font-medium">貸款約定事項</div>
         <p class="text-sm font-light">
-          買方委辦貸款<span class="mx-2 text-base font-medium text-blue-500"
-            >100</span
+          買方委辦貸款<span class="mx-2 text-base font-medium text-blue-500">{{
+            form.order.loanAmounts?.toLocaleString()
+          }}</span
           >元
-          <span class="mx-2 text-base font-medium text-blue-500">84</span
+          <span class="mx-2 text-base font-medium text-blue-500">{{
+            loanTermLabel
+          }}</span
           >期，年利率
-          <span class="mx-2 text-base font-medium text-blue-500">3.5</span>％
+          <span class="mx-2 text-base font-medium text-blue-500">{{
+            form.loanRate
+          }}</span
+          >％
         </p>
         <p class="text-sm font-light">
           若銀行核貸時總貼息費用超過責方承諾利息補貼金額新台幣<span
             class="mx-2 text-base font-medium text-blue-500"
-            >4</span
+            >{{ form.interestSubsidy }}</span
           >元（已計入交易車價內）時，
         </p>
         <p class="text-sm font-light">
@@ -267,7 +280,11 @@
         <div>
           <div class="text-xs font-light">約定掛牌日期</div>
           <div class="text-base font-medium">
-            {{ format(form.order.deliveringDate, "yyyy/MM/dd") }}
+            {{
+              form.scheduledLicenseDate
+                ? format(form.scheduledLicenseDate!, "yyyy/MM/dd")
+                : "--"
+            }}
           </div>
         </div>
         <div>
@@ -325,10 +342,10 @@
       </div>
 
       <div class="mt-12 flex w-full items-center gap-7">
-        <button class="button-white w-full" type="button">列印</button>
-        <router-link class="button-blue w-full" :to="{ name: 'contract' }"
-          >完成</router-link
+        <router-link class="button-white w-full" :to="{ name: 'paymentInfo' }"
+          >返回</router-link
         >
+        <button class="button-blue w-full" @click="postContract">完成</button>
       </div>
     </div>
   </div>
@@ -348,7 +365,7 @@ const contractStore = useContractStore();
 const { contract: form } = storeToRefs(contractStore);
 
 const optionStore = useOptionStore();
-const { payModes } = storeToRefs(optionStore);
+const { payModes, loanTermsOptions } = storeToRefs(optionStore);
 
 const payMode = computed(
   () =>
@@ -356,6 +373,24 @@ const payMode = computed(
       (item) => item.value === Number(form.value.order?.payMode),
     )?.label,
 );
+
+// 尾款
+const finalPrice = computed(
+  () =>
+    form.value.order.vehicleDealAllAmount - form.value.order.contractEarnest,
+);
+
+// 分期數
+const loanTermLabel = computed(() => {
+  const option = loanTermsOptions.value.find(
+    (item) => item.value === String(form.value.order?.loanTerm),
+  );
+  return option?.label;
+});
+
+const postContract = async () => {
+  await contractStore.createContract(form.value);
+};
 </script>
 
 <style scoped></style>

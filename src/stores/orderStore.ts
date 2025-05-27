@@ -151,7 +151,7 @@ export const useOrderStore = defineStore("order", {
           ...response,
           personalityOptionVOList:
             response.personalityOptionVOList?.map((item) => ({
-              optionId: item.optionId,
+              optionId: String(item.optionId),
               optionCode: item.optionCode,
               optionName: item.optionName,
               optionPrice: item.optionPrice,

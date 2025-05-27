@@ -71,7 +71,7 @@
   lang="ts"
   generic="T extends { value: string | number; label: string }"
 >
-import { ref, computed, useTemplateRef } from "vue";
+import { ref, computed, useTemplateRef, onMounted } from "vue";
 import useVuelidate, { type ValidationRule } from "@vuelidate/core";
 import { helpers, maxLength, minLength, required } from "@vuelidate/validators";
 import { OnClickOutside } from "@vueuse/components";
@@ -95,6 +95,12 @@ const emit = defineEmits(["change"]);
 const multiSelectRef = useTemplateRef<HTMLElement>("multiSelect");
 const isOpen = ref(false);
 const inputRef = ref<HTMLElement | null>(null);
+
+onMounted(() => {
+  if (modelValue.value.length > 0) {
+    ids.value = modelValue.value.map((item) => item.value);
+  }
+});
 
 const selectedItems = computed(() => {
   return props.options.filter((option) => ids.value.includes(option.value));

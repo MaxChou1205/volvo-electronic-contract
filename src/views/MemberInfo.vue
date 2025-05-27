@@ -158,7 +158,7 @@
 
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
-import { computed } from "vue";
+import { computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import useVuelidate from "@vuelidate/core";
 import county from "@/assets/county.json";
@@ -174,6 +174,25 @@ const router = useRouter();
 const contractStore = useContractStore();
 const { contract: form } = storeToRefs(contractStore);
 const { scrollToError } = useErrorHint();
+
+onMounted(() => {
+  if (form.value.order.cityId) {
+    const city = county.find(
+      (item) => item.countyCode === Number(form.value.order.cityId),
+    );
+    if (city) {
+      form.value.order.cityName = city.countyName;
+    }
+  }
+  if (form.value.order.districtId) {
+    const district = county.find(
+      (item) => item.countyCode === Number(form.value.order.districtId),
+    );
+    if (district) {
+      form.value.order.districtName = district.countyName;
+    }
+  }
+});
 
 const handleSameBuyer = (value: boolean) => {
   if (value) {

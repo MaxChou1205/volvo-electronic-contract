@@ -382,6 +382,11 @@
           <div>
             <div class="mt-2">合約日期</div>
             <DatePicker v-model="form.contractDate" />
+            <div v-if="v$.contractDate.$dirty && v$.contractDate.$invalid">
+              <span class="error">{{
+                v$.contractDate.$errors[0]!.$message
+              }}</span>
+            </div>
           </div>
         </div>
         <div>
@@ -1095,7 +1100,7 @@
         <router-link class="button-gray w-full" :to="{ name: 'memberInfo' }">
           上一步
         </router-link>
-        <button class="button-blue w-full" @click="postContract">預覽</button>
+        <button class="button-blue w-full" @click="nextStep">預覽</button>
       </div>
     </div>
   </div>
@@ -1105,6 +1110,7 @@
 import { storeToRefs } from "pinia";
 import SignaturePad from "signature_pad";
 import { computed, nextTick, ref } from "vue";
+import { useRouter } from "vue-router";
 import useVuelidate from "@vuelidate/core";
 import { helpers, required as requiredValidator } from "@vuelidate/validators";
 import BaseInput from "@/components/BaseInput.vue";
@@ -1121,12 +1127,16 @@ import { useOptionStore } from "@/stores/optionStore";
 import { useSignatureStore } from "@/stores/signature";
 import { toZhDigit } from "@/utils/number";
 
+const router = useRouter();
 const optionStore = useOptionStore();
 const contractStore = useContractStore();
 const { contract: form } = storeToRefs(contractStore);
 
 const validationRules = computed(() => {
   return {
+    contractDate: {
+      required: helpers.withMessage("請選擇日期", requiredValidator),
+    },
     customerSignatureBase64: {
       required: helpers.withMessage("請簽名", requiredValidator),
     },
@@ -1287,7 +1297,7 @@ const confirmSignature = async () => {
   }
 };
 
-const postContract = async () => {
+const nextStep = async () => {
   v$.value.$touch();
   v$Checkbox.value.$touch();
   if (v$.value.$invalid || v$Checkbox.value.$invalid) {
@@ -1304,7 +1314,10 @@ const postContract = async () => {
       value: item.name,
     })),
   );
-  await contractStore.createContract(form.value);
+  form.value.order.selfPayOptionList =
+    form.value.order.selfPayOptionList.filter((item) => item.optionName);
+
+  router.push({ name: "confirmView" });
 };
 </script>
 
