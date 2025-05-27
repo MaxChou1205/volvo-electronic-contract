@@ -49,7 +49,7 @@
         ></div>
       </li>
       <li class="flex cursor-pointer items-center pb-2 text-center">
-        <Icon class="mr-1" iconName="sort" :size="20" />
+        <Icon class="mr-1" :iconName="sort === 'createDate' ? 'sort_asc' : 'sort_desc'" :size="20" />
         排序
       </li>
     </ul>
@@ -79,19 +79,19 @@
 import { ref } from "vue";
 import FilterMenu from "@/components/contract/FilterMenu.vue";
 
-const sortList = ref([
-  {
-    label: "合約創建日",
-    value: "createDate",
-  },
-  {
-    label: "合約提交日",
-    value: "submitDate",
-  },
-  {
-    label: "合約編號",
-    value: "id",
-  },
+const sortList = ref<{ label: string; value: string }[]>([
+  // {
+  //   label: "合約創建日",
+  //   value: "createDate",
+  // },
+  // {
+  //   label: "合約提交日",
+  //   value: "submitDate",
+  // },
+  // {
+  //   label: "合約編號",
+  //   value: "id",
+  // },
 ]);
 const sort = ref("createDate");
 

@@ -37,7 +37,7 @@ export const useContractStore = defineStore("contract", {
         isSpecific: false,
         door: 0,
         seat: 0,
-        sunroof: null,
+        sunroof: "無",
         gearShift: "",
         transmission: "",
         scheduledLicenseDate: null,
@@ -62,6 +62,7 @@ export const useContractStore = defineStore("contract", {
         if (err instanceof AxiosError) {
           alert(err.response?.data);
         }
+        throw err;
       }
     },
   },

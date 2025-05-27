@@ -114,4 +114,5 @@ export type OrderDetailView = OrderDetail & {
   payModeLabel?: string;
   loanTermLabel?: string;
   depositPayWayLabel?: string;
+  orderStatusLabel?: string;
 };

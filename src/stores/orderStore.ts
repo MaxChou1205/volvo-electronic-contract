@@ -15,7 +15,7 @@ export const useOrderStore = defineStore("order", {
   state: () => ({
     sortInfo: {
       sortBy: "createdAt",
-      sortAscending: true,
+      sortAscending: false,
     },
     paginationInfo: {
       page: 1,
@@ -76,6 +76,12 @@ export const useOrderStore = defineStore("order", {
               (depositPayWay) =>
                 depositPayWay.value ===
                 state.orderDetail?.depositPayWay?.toString(),
+            )?.label ?? "",
+          orderStatusLabel:
+            optionStore.orderStatusOptions.find(
+              (orderStatus) =>
+                orderStatus.value ===
+                state.orderDetail?.orderStatus?.toString(),
             )?.label ?? "",
         };
       }
@@ -167,6 +173,7 @@ export const useOrderStore = defineStore("order", {
           paymentBankName: response.paymentBankName ?? "",
           loanAmounts: response.loanAmounts ?? 0,
           selfPayOptionList: [],
+          vehicleDealAllAmount: response.vehicleDealAllAmount ?? 0,
         };
         return this.orderDetail;
       } catch (err) {

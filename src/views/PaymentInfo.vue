@@ -84,6 +84,15 @@
             />
             元
           </div>
+          <div
+            class="error pr-6 text-right"
+            v-if="
+              v$.order.vehicleDealAllAmount.$dirty &&
+              v$.order.vehicleDealAllAmount.$invalid
+            "
+          >
+            {{ v$.order.vehicleDealAllAmount.$errors[0].$message }}
+          </div>
           <div class="text-end">
             新台幣
             <span class="text-blue-500">{{
@@ -645,15 +654,16 @@
                 </li>
               </ol>
             </li>
-          </ul>
-          <div class="flex items-center justify-between">
+
             <Checkbox
               v-model="agreementForm.contractAgreement"
               label="本人已詳讀並同意"
               :value="true"
             />
+          </ul>
+          <div class="flex items-center justify-between">
             <button
-              class="button-blue"
+              class="button-blue ml-auto"
               type="button"
               @click="closeContractModal"
             >
@@ -1051,14 +1061,19 @@
               </p>
               <p>上次修改日期: 2024/08</p>
             </section>
-          </div>
-          <div class="flex items-center justify-between">
             <Checkbox
+              class="mt-4"
               v-model="agreementForm.vipAgreement"
               label="本人已詳讀並同意"
               :value="true"
             />
-            <button class="button-blue" type="button" @click="closeVipModal">
+          </div>
+          <div class="flex items-center justify-between">
+            <button
+              class="button-blue ml-auto"
+              type="button"
+              @click="closeVipModal"
+            >
               關閉
             </button>
           </div>
@@ -1100,7 +1115,7 @@
         <router-link class="button-gray w-full" :to="{ name: 'memberInfo' }">
           上一步
         </router-link>
-        <button class="button-blue w-full" @click="nextStep">預覽</button>
+        <button class="button-blue w-full" @click="postContract">完成</button>
       </div>
     </div>
   </div>
@@ -1136,6 +1151,14 @@ const validationRules = computed(() => {
   return {
     contractDate: {
       required: helpers.withMessage("請選擇日期", requiredValidator),
+    },
+    order: {
+      vehicleDealAllAmount: {
+        required: helpers.withMessage(
+          "請輸入金額",
+          (value) => Number(value) > 0,
+        ),
+      },
     },
     customerSignatureBase64: {
       required: helpers.withMessage("請簽名", requiredValidator),
@@ -1297,7 +1320,7 @@ const confirmSignature = async () => {
   }
 };
 
-const nextStep = async () => {
+const postContract = async () => {
   v$.value.$touch();
   v$Checkbox.value.$touch();
   if (v$.value.$invalid || v$Checkbox.value.$invalid) {
@@ -1317,7 +1340,8 @@ const nextStep = async () => {
   form.value.order.selfPayOptionList =
     form.value.order.selfPayOptionList.filter((item) => item.optionName);
 
-  router.push({ name: "confirmView" });
+  await contractStore.createContract(form.value);
+  router.push({ name: "contract" });
 };
 </script>
 

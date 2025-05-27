@@ -10,7 +10,7 @@
           :key="i"
         >
           <div class="mb-3 flex items-center justify-between">
-            <div class="text-gray-900">訂單編號</div>
+            <div class="text-gray-900">合約編號</div>
             <div class="text-gray-800">20250107A001</div>
           </div>
           <div class="text-black-400 mb-2">

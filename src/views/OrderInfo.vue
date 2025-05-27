@@ -63,11 +63,7 @@
               ></Field>
               <Field
                 :label="'訂單狀態'"
-                :content="orderDetail.orderStatus"
-              ></Field>
-              <Field
-                :label="'行銷活動'"
-                :content="orderDetail.activityName"
+                :content="orderDetail.orderStatusLabel"
               ></Field>
               <Field :label="'車型'" :content="orderDetail.modelName"></Field>
               <Field

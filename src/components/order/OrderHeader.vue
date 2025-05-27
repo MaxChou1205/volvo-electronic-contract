@@ -65,7 +65,7 @@
           )
         "
       >
-        <Icon class="mr-1" iconName="sort" :size="20" />
+        <Icon class="mr-1" :iconName="orderStore.sortInfo.sortAscending ? 'sort_asc' : 'sort_desc'" :size="20" />
         排序
       </li>
     </ul>
@@ -97,16 +97,16 @@ import FilterMenu from "@/components/order/FilterMenu.vue";
 import { useOrderStore } from "@/stores/orderStore";
 
 const orderStore = useOrderStore();
-const sortList = [
-  {
-    label: "訂單創建日",
-    value: "createdAt",
-  },
-  {
-    label: "訂單編號",
-    value: "soNo",
-  },
-];
+const sortList = ref<{ label: string; value: string }[]>([
+  // {
+  //   label: "訂單創建日",
+  //   value: "createdAt",
+  // },
+  // {
+  //   label: "訂單編號",
+  //   value: "soNo",
+  // },
+]);
 
 const isFilterMenuOpen = ref(false);
 const toggleFilterMenu = () => {

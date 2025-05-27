@@ -190,7 +190,6 @@
             <SingleChoiceButton
               v-model="form.sunroof"
               title="天窗"
-              required
               :options="[
                 { label: '有', value: '有' },
                 { label: '無', value: '無' },

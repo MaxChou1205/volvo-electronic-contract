@@ -1,67 +1,68 @@
 import { createWebHistory, createRouter } from "vue-router";
 import { authMiddleware } from "@/middlewares/authMiddleware";
 import { contractMiddleware } from "@/middlewares/contractMiddleware";
-import CompanyMaintain from "@/views/CompanyMaintain.vue";
-import ConfirmView from "@/views/ConfirmView.vue";
-import ContractView from "@/views/ContractView.vue";
-import FinishView from "@/views/FinishView.vue";
-import HomeView from "@/views/HomeView.vue";
-import LoginView from "@/views/LoginView.vue";
-import MemberInfo from "@/views/MemberInfo.vue";
-import Model from "@/views/ModelStyle.vue";
-import ModelStyleMaintain from "@/views/ModelStyleMaintain.vue";
-import ModelStyleMaintainList from "@/views/ModelStyleMaintainList.vue";
-import OrderInfo from "@/views/OrderInfo.vue";
-import OrderView from "@/views/OrderView.vue";
-import PaymentInfo from "@/views/PaymentInfo.vue";
-import SetMaintain from "@/views/SetMaintain.vue";
-import SetMaintainList from "@/views/SetMaintainList.vue";
 
 const routes = [
-  { name: "login", path: "/login", component: LoginView },
+  {
+    name: "login",
+    path: "/login",
+    component: () => import("@/views/LoginView.vue"),
+  },
   {
     name: "home",
     path: "/",
-    component: HomeView,
+    component: () => import("@/views/HomeView.vue"),
     redirect: "/order",
     children: [
-      { name: "order", path: "/order", component: OrderView },
-      { name: "orderinfo", path: "/order/:id", component: OrderInfo },
-      { name: "contract", path: "/contract", component: ContractView },
+      {
+        name: "order",
+        path: "/order",
+        component: () => import("@/views/OrderView.vue"),
+      },
+      {
+        name: "orderinfo",
+        path: "/order/:id",
+        component: () => import("@/views/OrderInfo.vue"),
+      },
+      {
+        name: "contract",
+        path: "/contract",
+        component: () => import("@/views/ContractView.vue"),
+      },
       {
         name: "modelStyleMaintain",
         path: "/model-style-maintain",
-        component: ModelStyleMaintainList,
+        component: () => import("@/views/ModelStyleMaintainList.vue"),
       },
       {
         name: "modelStyleMaintainAdd",
         path: "/model-style-maintain/add",
-        component: ModelStyleMaintain,
+        component: () => import("@/views/ModelStyleMaintain.vue"),
       },
       {
         name: "modelStyleMaintainEdit",
         path: "/model-style-maintain/:id",
-        component: ModelStyleMaintain,
+        component: () => import("@/views/ModelStyleMaintain.vue"),
       },
       {
         name: "setMaintain",
         path: "/set-maintain",
-        component: SetMaintainList,
+        component: () => import("@/views/SetMaintainList.vue"),
       },
       {
         name: "setMaintainAdd",
         path: "/set-maintain/add",
-        component: SetMaintain,
+        component: () => import("@/views/SetMaintain.vue"),
       },
       {
         name: "setMaintainEdit",
         path: "/set-maintain/:id",
-        component: SetMaintain,
+        component: () => import("@/views/SetMaintain.vue"),
       },
       {
         name: "companyMaintain",
         path: "/company-maintain",
-        component: CompanyMaintain,
+        component: () => import("@/views/CompanyMaintain.vue"),
       },
     ],
     beforeEnter: [authMiddleware],
@@ -69,31 +70,31 @@ const routes = [
   {
     name: "modelStyle",
     path: "/model-style/:orderId",
-    component: Model,
+    component: () => import("@/views/ModelStyle.vue"),
     beforeEnter: [authMiddleware, contractMiddleware],
   },
   {
     name: "memberInfo",
     path: "/member-info/:orderId",
-    component: MemberInfo,
+    component: () => import("@/views/MemberInfo.vue"),
     beforeEnter: [authMiddleware, contractMiddleware],
   },
   {
     name: "paymentInfo",
     path: "/payment-info/:orderId",
-    component: PaymentInfo,
+    component: () => import("@/views/PaymentInfo.vue"),
     beforeEnter: [authMiddleware, contractMiddleware],
   },
   {
     name: "confirmView",
     path: "/contract-confirm/:orderId",
-    component: ConfirmView,
+    component: () => import("@/views/ConfirmView.vue"),
     beforeEnter: [authMiddleware, contractMiddleware],
   },
   {
     name: "finishView",
     path: "/contract-finish/:orderId",
-    component: FinishView,
+    component: () => import("@/views/FinishView.vue"),
     beforeEnter: [authMiddleware, contractMiddleware],
   },
 ];
