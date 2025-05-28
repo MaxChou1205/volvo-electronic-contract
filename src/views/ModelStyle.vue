@@ -423,11 +423,13 @@ onMounted(async () => {
     };
   });
 
-  const currentCarInfo = carTypeList.value.find(
+  const currentCarInfo = formOptions.value.modelOptions.find(
     (car) => car.id === form.value.order.modelId,
   );
   if (currentCarInfo) {
     currentTabIndex.value = tabs.indexOf(currentCarInfo.mainCategory);
+    form.value.order.modelCode = currentCarInfo.code ?? "";
+    form.value.order.modelName = currentCarInfo.name ?? "";
   }
 
   const keys = findRestMapKeys("modelId");

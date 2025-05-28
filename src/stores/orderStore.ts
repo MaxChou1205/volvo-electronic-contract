@@ -174,6 +174,9 @@ export const useOrderStore = defineStore("order", {
           loanAmounts: response.loanAmounts ?? 0,
           selfPayOptionList: [],
           vehicleDealAllAmount: response.vehicleDealAllAmount ?? 0,
+          vehicleRetailAllAmount: response.vehicleRetailAllAmount ?? 0,
+          customerCertificateNo: response.customerCertificateNo ?? "",
+          drawerCertificateNo: response.drawerCertificateNo ?? "",
         };
         return this.orderDetail;
       } catch (err) {

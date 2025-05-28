@@ -16,7 +16,7 @@
       <div class="mb-4 grid grid-cols-2 justify-between gap-y-4">
         <div>建議售價(含營業稅)</div>
         <div class="justify-self-end">
-          新台幣 {{ form.order.vehicleRetailAllAmount?.toLocaleString() }} 元
+          新台幣 {{ form.order.vehicleRetailAllAmount?.toLocaleString() || 0 }} 元
         </div>
         <template
           v-for="(accessory, index) in form.order.personalityOptionVOList"
