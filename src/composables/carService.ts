@@ -4,7 +4,11 @@ import { OrderDetail } from "@/types/orderType";
 export const useCarService = () => {
   const getCarList = async () => {
     const response = await carApi.getCarList();
-    return response;
+    return response.map((item) => ({
+      value: item.modelId,
+      code: item.modelCode,
+      label: item.modelName,
+    }));
   };
 
   const getYearOptions = async (form: Partial<OrderDetail>) => {
@@ -34,7 +38,7 @@ export const useCarService = () => {
       form.modelConfigCode,
     );
     return response.map((item) => ({
-      value: item.modelColorId,
+      value: String(item.modelColorId),
       code: item.modelColorCode,
       label: item.modelColorName,
     }));
@@ -49,7 +53,7 @@ export const useCarService = () => {
       form.modelColorCode,
     );
     return response.map((item) => ({
-      value: item.modelTrimId,
+      value: String(item.modelTrimId),
       code: item.modelTrimCode,
       label: item.modelTrimName,
     }));

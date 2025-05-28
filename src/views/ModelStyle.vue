@@ -334,7 +334,7 @@ const carInfoMap = new Map([
   [
     "modelId",
     {
-      optionsKey: "",
+      optionsKey: "modelOptions",
       callbackKey: "",
       nextKey: "modelYearId",
       labelKey: "modelName",
@@ -395,6 +395,16 @@ const selectedCarRef = ref<HTMLButtonElement | null>(null);
 
 const { contract: form } = storeToRefs(contractStore);
 const formOptions = ref({
+  modelOptions: [] as {
+    id: string;
+    name: string;
+    img: string;
+    mainCategory: string;
+    type: string;
+    value?: string;
+    label?: string;
+    code?: string;
+  }[],
   yearOptions: [],
   configOptions: [],
   colorOptions: [],
@@ -404,13 +414,13 @@ const formOptions = ref({
 
 onMounted(async () => {
   const carList = await carService.getCarList();
-  carList.forEach((car) => {
-    const matchData = carTypeList.value.find(
-      (item) => item.name === car.modelName,
-    );
-    if (matchData) {
-      matchData.id = car.modelId;
-    }
+  formOptions.value.modelOptions = carTypeList.value.map((carType) => {
+    const matchedCar = carList.find((car) => car.label === carType.name);
+    return {
+      ...carType,
+      ...matchedCar,
+      id: matchedCar?.value ?? "",
+    };
   });
 
   const currentCarInfo = carTypeList.value.find(
@@ -530,6 +540,9 @@ const carTypeList = ref([
     img: new URL("@/assets/img/EX40.png", import.meta.url).href,
     mainCategory: "電動",
     type: "休旅車",
+    modelId: "",
+    modelCode: "",
+    modelName: "",
   },
   {
     id: "1",
@@ -537,6 +550,9 @@ const carTypeList = ref([
     img: new URL("@/assets/img/EX30.png", import.meta.url).href,
     mainCategory: "電動",
     type: "休旅車",
+    modelId: "",
+    modelCode: "",
+    modelName: "",
   },
   {
     id: "2",
@@ -544,6 +560,9 @@ const carTypeList = ref([
     img: new URL("@/assets/img/EC40.png", import.meta.url).href,
     mainCategory: "電動",
     type: "跨界跑旅",
+    modelId: "",
+    modelCode: "",
+    modelName: "",
   },
   {
     id: "3",
@@ -551,6 +570,9 @@ const carTypeList = ref([
     img: new URL("@/assets/img/XC90.png", import.meta.url).href,
     mainCategory: "雙能電動",
     type: "休旅車",
+    modelId: "",
+    modelCode: "",
+    modelName: "",
   },
   {
     id: "4",
@@ -558,6 +580,9 @@ const carTypeList = ref([
     img: new URL("@/assets/img/XC60.png", import.meta.url).href,
     mainCategory: "雙能電動",
     type: "休旅車",
+    modelId: "",
+    modelCode: "",
+    modelName: "",
   },
   {
     id: "5",
@@ -565,6 +590,9 @@ const carTypeList = ref([
     img: new URL("@/assets/img/V60.png", import.meta.url).href,
     mainCategory: "雙能電動",
     type: "旅行車",
+    modelId: "",
+    modelCode: "",
+    modelName: "",
   },
   // {
   //   id: "6",
@@ -586,6 +614,9 @@ const carTypeList = ref([
     img: new URL("@/assets/img/XC40.png", import.meta.url).href,
     mainCategory: "高效輕油電",
     type: "休旅車",
+    modelId: "",
+    modelCode: "",
+    modelName: "",
   },
   // {
   //   id: "9",
@@ -599,7 +630,7 @@ const processedCarList = computed(() => {
   // const filteredCarList = carTypeList.value.filter(
   //   (item) => item.mainCategory === tabs[currentTabIndex.value],
   // );
-  return Object.groupBy(carTypeList.value, (item) => item.type);
+  return Object.groupBy(formOptions.value.modelOptions, (item) => item.type);
 });
 
 // 出廠年份
