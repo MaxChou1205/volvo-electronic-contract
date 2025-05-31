@@ -8,8 +8,8 @@
           <Icon iconName="user" :size="55" />
         </div>
         <div class="ml-4">
-          <div class="mb-1">KT001</div>
-          <div>林愛酷</div>
+          <div class="mb-1">{{ userInfo?.employeeNo || "- -" }}</div>
+          <div>{{ userInfo?.employeeName || "- -" }}</div>
         </div>
       </div>
       <div class="mt-15 flex-1 overflow-y-auto">
@@ -32,6 +32,7 @@
           <span class="ml-3">合約管理</span>
         </RouterLink>
         <RouterLink
+          v-if="isAdmin"
           class="flex w-full cursor-pointer items-center border-b border-gray-100 px-6 py-4 hover:bg-blue-200"
           :class="[
             $route.path.startsWith('/model-style-maintain')
@@ -45,6 +46,7 @@
           <span class="ml-3">車款維護</span>
         </RouterLink>
         <RouterLink
+          v-if="isAdmin"
           class="flex w-full cursor-pointer items-center border-b border-gray-100 px-6 py-4 hover:bg-blue-200"
           :class="[
             $route.path.startsWith('/set-maintain') ? 'bg-blue-200' : '',
@@ -56,6 +58,7 @@
           <span class="ml-3">優惠套組維護</span>
         </RouterLink>
         <RouterLink
+          v-if="isAdmin"
           class="flex w-full cursor-pointer items-center border-b border-gray-100 px-6 py-4 hover:bg-blue-200"
           :class="[
             $route.path.startsWith('/company-maintain') ? 'bg-blue-200' : '',
@@ -82,6 +85,7 @@
 </template>
 
 <script setup lang="ts">
+import { storeToRefs } from "pinia";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import Icon from "@/components/Icon.vue";
@@ -90,6 +94,8 @@ import { useAuthStore } from "@/stores/authStore";
 const router = useRouter();
 const authStore = useAuthStore();
 const menu = ref<string>("");
+
+const { userInfo, isAdmin } = storeToRefs(authStore);
 
 const changeMenu = (param: string) => {
   menu.value = param;
