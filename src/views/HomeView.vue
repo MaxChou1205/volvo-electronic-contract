@@ -8,8 +8,8 @@
           <Icon iconName="user" :size="55" />
         </div>
         <div class="ml-4">
-          <div class="mb-1">KT001</div>
-          <div>林愛酷</div>
+          <div class="mb-1">{{ userInfo?.employeeNo || "- -" }}</div>
+          <div>{{ userInfo?.employeeName || "- -" }}</div>
         </div>
       </div>
       <div class="mt-15 flex-1 overflow-y-auto">
@@ -82,6 +82,7 @@
 </template>
 
 <script setup lang="ts">
+import { storeToRefs } from "pinia";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import Icon from "@/components/Icon.vue";
@@ -90,6 +91,8 @@ import { useAuthStore } from "@/stores/authStore";
 const router = useRouter();
 const authStore = useAuthStore();
 const menu = ref<string>("");
+
+const { userInfo } = storeToRefs(authStore);
 
 const changeMenu = (param: string) => {
   menu.value = param;

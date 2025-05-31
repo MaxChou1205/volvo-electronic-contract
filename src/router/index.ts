@@ -1,6 +1,7 @@
 import { createWebHistory, createRouter } from "vue-router";
 import { authMiddleware } from "@/middlewares/authMiddleware";
 import { contractMiddleware } from "@/middlewares/contractMiddleware";
+import { roleMiddleware } from "@/middlewares/roleMiddleware";
 
 const routes = [
   {
@@ -33,36 +34,64 @@ const routes = [
         name: "modelStyleMaintain",
         path: "/model-style-maintain",
         component: () => import("@/views/ModelStyleMaintainList.vue"),
+        beforeEnter: [roleMiddleware],
+        meta: {
+          role: "VCTL-ADMIN",
+        },
       },
       {
         name: "modelStyleMaintainAdd",
         path: "/model-style-maintain/add",
         component: () => import("@/views/ModelStyleMaintain.vue"),
+        beforeEnter: [roleMiddleware],
+        meta: {
+          role: "VCTL-ADMIN",
+        },
       },
       {
         name: "modelStyleMaintainEdit",
         path: "/model-style-maintain/:id",
         component: () => import("@/views/ModelStyleMaintain.vue"),
+        beforeEnter: [roleMiddleware],
+        meta: {
+          role: "VCTL-ADMIN",
+        },
       },
       {
         name: "setMaintain",
         path: "/set-maintain",
         component: () => import("@/views/SetMaintainList.vue"),
+        beforeEnter: [roleMiddleware],
+        meta: {
+          role: "VCTL-ADMIN",
+        },
       },
       {
         name: "setMaintainAdd",
         path: "/set-maintain/add",
         component: () => import("@/views/SetMaintain.vue"),
+        beforeEnter: [roleMiddleware],
+        meta: {
+          role: "VCTL-ADMIN",
+        },
       },
       {
         name: "setMaintainEdit",
         path: "/set-maintain/:id",
         component: () => import("@/views/SetMaintain.vue"),
+        beforeEnter: [roleMiddleware],
+        meta: {
+          role: "VCTL-ADMIN",
+        },
       },
       {
         name: "companyMaintain",
         path: "/company-maintain",
         component: () => import("@/views/CompanyMaintain.vue"),
+        beforeEnter: [roleMiddleware],
+        meta: {
+          role: "VCTL-ADMIN",
+        },
       },
     ],
     beforeEnter: [authMiddleware],

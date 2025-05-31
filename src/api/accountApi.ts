@@ -12,4 +12,8 @@ export const accountApi = {
     const response = await axiosInstance.post("/api/account/logout");
     return response.data;
   },
+  getInfo: async () => {
+    const response = await axiosInstance.get("/api/account/userInfo");
+    return response.data;
+  },
 };
