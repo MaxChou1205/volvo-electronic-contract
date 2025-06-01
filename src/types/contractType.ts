@@ -32,3 +32,10 @@ export type Contract = {
   customerSignatureBase64: string | null;
   consultantSignatureBase64: string | null;
 };
+
+export type ApiContractListItem = {
+  contractNo: string;
+  contractStatus: number;
+  customerName: string;
+  modelName: string;
+};

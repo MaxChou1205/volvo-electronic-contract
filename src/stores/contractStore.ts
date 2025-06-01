@@ -1,7 +1,7 @@
 import { AxiosError } from "axios";
 import { defineStore } from "pinia";
 import { contractApi } from "@/api/contractApi";
-import type { Contract } from "@/types/contractType";
+import type { Contract, ApiContractListItem } from "@/types/contractType";
 import { useOrderStore } from "./orderStore";
 
 export const useContractStore = defineStore("contract", {
@@ -9,6 +9,24 @@ export const useContractStore = defineStore("contract", {
     contract: {
       order: {},
     } as Contract,
+    sortInfo: {
+      sortBy: "createdAt",
+      sortAscending: false,
+    },
+    paginationInfo: {
+      page: 1,
+      pageSize: 8,
+      totalPage: 0,
+      totalItems: 0,
+    },
+    searchFilter: {
+      customerNameOrPhone: "",
+      contractNo: "",
+      contractStatus: "",
+      createDateStart: null,
+      createDateEnd: null,
+    },
+    contractList: [] as ApiContractListItem[],
   }),
   actions: {
     async initContract(orderId: string) {
@@ -73,6 +91,42 @@ export const useContractStore = defineStore("contract", {
         }
         throw err;
       }
+    },
+    async changeSort(sort: string, ascending: boolean) {
+      this.sortInfo.sortBy = sort;
+      this.sortInfo.sortAscending = ascending;
+      this.getContractList();
+    },
+    async resetFilter() {
+      this.searchFilter = {
+        customerNameOrPhone: "",
+        contractNo: "",
+        contractStatus: "",
+        createDateStart: null,
+        createDateEnd: null,
+      };
+    },
+    async getContractList() {
+      const response = await contractApi.getList({
+        page: this.paginationInfo.page,
+        pageSize: this.paginationInfo.pageSize,
+        sort: {
+          sortBy: this.sortInfo.sortBy,
+          sortAscending: this.sortInfo.sortAscending,
+        },
+        filter: {
+          customerNameOrPhone: this.searchFilter.customerNameOrPhone,
+          contractNo: this.searchFilter.contractNo,
+          contractStatus: this.searchFilter.contractStatus,
+          createDateStart: this.searchFilter.createDateStart,
+          createDateEnd: this.searchFilter.createDateEnd,
+        },
+      });
+      this.contractList = response.items;
+    },
+    async getContractDetail(id: string) {
+      const response = await contractApi.getDetail(id);
+      this.contract = response.data;
     },
   },
 });

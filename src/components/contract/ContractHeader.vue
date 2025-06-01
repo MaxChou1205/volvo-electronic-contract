@@ -9,6 +9,7 @@
           <Icon class="mr-2" iconName="magnifier" :size="24" />
           <input
             class="appearance-none outline-none"
+            v-model="searchFilter.customerNameOrPhone"
             type="text"
             placeholder="搜尋客戶姓名/手機"
           />
@@ -35,21 +36,35 @@
         class="group relative min-w-[130px] cursor-pointer pb-2 text-center"
         v-for="item in sortList"
         :key="item.value"
-        :class="{ 'font-medium text-blue-500': item.value === sort }"
-        @click="changeSort(item.value)"
+        :class="{ 'font-medium text-blue-500': item.value === sortInfo.sortBy }"
+        @click="contractStore.changeSort(item.value, sortInfo.sortAscending)"
       >
         {{ item.label }}
         <div
           class="absolute bottom-0 left-0 h-0.5 w-full transform-gpu transition-all duration-300 ease-out"
           :class="
-            item.value === sort
+            item.value === sortInfo.sortBy
               ? 'scale-x-100 bg-blue-500'
               : 'scale-x-0 bg-transparent group-hover:scale-x-100 group-hover:bg-gray-300'
           "
         ></div>
       </li>
-      <li class="flex cursor-pointer items-center pb-2 text-center">
-        <Icon class="mr-1" :iconName="sort === 'createDate' ? 'sort_asc' : 'sort_desc'" :size="20" />
+      <li
+        class="flex cursor-pointer items-center pb-2 text-center"
+        @click="
+          contractStore.changeSort(
+            contractStore.sortInfo.sortBy,
+            !contractStore.sortInfo.sortAscending,
+          )
+        "
+      >
+        <Icon
+          class="mr-1"
+          :iconName="
+            sortInfo.sortBy === 'createDate' ? 'sort_asc' : 'sort_desc'
+          "
+          :size="20"
+        />
         排序
       </li>
     </ul>
@@ -69,15 +84,20 @@
       ]"
     >
       <div class="h-full p-4">
-        <FilterMenu @reset="toggleFilterMenu" @confirm="toggleFilterMenu" />
+        <FilterMenu @reset="handleMenuReset" @confirm="handleMenuConfirm" />
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { storeToRefs } from "pinia";
 import { ref } from "vue";
 import FilterMenu from "@/components/contract/FilterMenu.vue";
+import { useContractStore } from "@/stores/contractStore";
+
+const contractStore = useContractStore();
+const { searchFilter, sortInfo } = storeToRefs(contractStore);
 
 const sortList = ref<{ label: string; value: string }[]>([
   // {
@@ -93,12 +113,6 @@ const sortList = ref<{ label: string; value: string }[]>([
   //   value: "id",
   // },
 ]);
-const sort = ref("createDate");
-
-const changeSort = (param: string) => {
-  sort.value = param;
-};
-
 const isFilterMenuOpen = ref(false);
 const toggleFilterMenu = () => {
   isFilterMenuOpen.value = !isFilterMenuOpen.value;
@@ -108,6 +122,16 @@ const toggleFilterMenu = () => {
   } else {
     document.body.style.overflow = "";
   }
+};
+
+const handleMenuReset = () => {
+  contractStore.resetFilter();
+};
+
+const handleMenuConfirm = () => {
+  contractStore.paginationInfo.page = 1;
+  contractStore.getContractList();
+  isFilterMenuOpen.value = false;
 };
 </script>
 

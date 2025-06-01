@@ -7,14 +7,32 @@
         <div class="mb-3">
           <label class="mb-2 block text-sm text-gray-800">合約狀態</label>
           <div class="w-full">
-            <Select class="w-full" :options="contractStatusOptions" />
+            <Select
+              class="w-full"
+              v-model="searchFilter.contractStatus"
+              :options="contractStatusOptions"
+            />
           </div>
         </div>
 
         <div class="mb-3">
           <label class="mb-2 block text-sm text-gray-800">合約創建日期</label>
-          <div class="relative">
-            <DatePicker />
+          <div class="flex items-center">
+            <div class="relative flex-grow">
+              <DatePicker
+                v-model="searchFilter.createDateStart"
+                placeholder="yyyy-mm-dd"
+                auto-position="bottom"
+              />
+            </div>
+            <span class="mx-3 text-black">～</span>
+            <div class="relative flex-grow">
+              <DatePicker
+                v-model="searchFilter.createDateEnd"
+                placeholder="yyyy-mm-dd"
+                auto-position="bottom"
+              />
+            </div>
           </div>
         </div>
 
@@ -44,11 +62,13 @@
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
 import { onMounted } from "vue";
+import { useContractStore } from "@/stores/contractStore";
 import { useOptionStore } from "@/stores/optionStore";
 import DatePicker from "../DatePicker.vue";
 import Select from "../Select.vue";
 
 const optionStore = useOptionStore();
+const contractStore = useContractStore();
 const { contractStatusOptions } = storeToRefs(optionStore);
 
 onMounted(async () => {
@@ -56,4 +76,6 @@ onMounted(async () => {
 });
 
 const emit = defineEmits(["reset", "confirm"]);
+
+const { searchFilter } = storeToRefs(contractStore);
 </script>
