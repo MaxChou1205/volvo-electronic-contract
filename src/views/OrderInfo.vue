@@ -25,16 +25,16 @@
                   :label="'手機號碼'"
                   :content="orderDetail.customerTel"
                 ></Field>
-                <Field :label="'城市'" :content="orderDetail.cityName"></Field>
+                <Field :label="'城市'" :content="orderDetail.drawerCityName"></Field>
                 <Field
                   :label="'區域'"
-                  :content="orderDetail.districtName"
+                  :content="orderDetail.drawerDistrictName"
                 ></Field>
               </div>
               <div class="grid grid-cols-1 gap-y-4">
                 <Field
                   :label="'聯繫地址'"
-                  :content="orderDetail.customerAddress"
+                  :content="orderDetail.drawerAddress"
                 ></Field>
               </div>
             </div>

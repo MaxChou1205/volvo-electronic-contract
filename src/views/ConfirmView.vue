@@ -70,7 +70,7 @@
               <div class="text-xs font-light">掛牌戶籍地址</div>
               <div class="text-black-400 text-base font-medium">
                 {{
-                  `${form.order.cityName}${form.order.districtName}${form.order.customerAddress}`
+                  `${form.order.drawerCityName}${form.order.drawerDistrictName}${form.order.drawerAddress}`
                 }}
               </div>
             </div>

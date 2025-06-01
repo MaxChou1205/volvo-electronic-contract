@@ -267,8 +267,8 @@
             :options="cityOptions"
             placeholder="縣市"
             :initValue="{
-              label: form.order.cityName,
-              value: form.order.cityId,
+              label: form.deliveryCityName,
+              value: form.deliveryCityId,
             }"
             :required="true"
             @change="handleAreaChange"
@@ -278,8 +278,8 @@
             v-model.number="form.deliveryDistrictId"
             :options="districtOptions"
             :initValue="{
-              label: form.order.districtName,
-              value: form.order.districtId,
+              label: form.deliveryDistrictName,
+              value: form.deliveryDistrictId,
             }"
             placeholder="鄉鎮市區"
             :required="true"
