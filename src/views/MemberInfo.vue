@@ -115,31 +115,31 @@
         <div class="flex w-full items-baseline gap-2">
           <Select
             class="w-30 flex-shrink-0"
-            v-model="form.order.cityId"
+            v-model="form.order.drawerCityId"
             placeholder="縣市"
             :options="cityOptions"
             :initValue="{
-              label: form.order.cityName ?? '',
-              value: form.order.cityId,
+              label: form.order.drawerCityName ?? '',
+              value: form.order.drawerCityId,
             }"
             :required="true"
             @change="handleAreaChange"
           />
           <Select
             class="w-30 flex-shrink-0"
-            v-model="form.order.districtId"
+            v-model="form.order.drawerDistrictId"
             placeholder="鄉鎮市區"
             :options="districtOptions"
             :initValue="{
-              label: form.order.districtName ?? '',
-              value: form.order.districtId,
+              label: form.order.drawerDistrictName ?? '',
+              value: form.order.drawerDistrictId,
             }"
             :required="true"
             @change="handleDistrictChange"
           />
           <BaseInput
             class="w-full"
-            v-model="form.order.customerAddress"
+            v-model="form.order.drawerAddress"
             placeholder="請輸入地址"
             :required="true"
           />
@@ -176,20 +176,20 @@ const { contract: form } = storeToRefs(contractStore);
 const { scrollToError } = useErrorHint();
 
 onMounted(() => {
-  if (form.value.order.cityId) {
+  if (form.value.order.drawerCityId) {
     const city = county.find(
-      (item) => item.countyCode === Number(form.value.order.cityId),
+      (item) => item.countyCode === Number(form.value.order.drawerCityId),
     );
     if (city) {
-      form.value.order.cityName = city.countyName;
+      form.value.order.drawerCityName = city.countyName;
     }
   }
-  if (form.value.order.districtId) {
+  if (form.value.order.drawerDistrictId) {
     const district = county.find(
-      (item) => item.countyCode === Number(form.value.order.districtId),
+      (item) => item.countyCode === Number(form.value.order.drawerDistrictId),
     );
     if (district) {
-      form.value.order.districtName = district.countyName;
+      form.value.order.drawerDistrictName = district.countyName;
     }
   }
 });
@@ -216,17 +216,17 @@ const handleAreaChange = ({
   label: string;
   value: string;
 }) => {
-  form.value.order.cityId = value;
-  form.value.order.cityName = label;
-  form.value.order.districtId = "";
-  form.value.order.districtName = "";
+  form.value.order.drawerCityId = value;
+  form.value.order.drawerCityName = label;
+  form.value.order.drawerDistrictId = "";
+  form.value.order.drawerDistrictName = "";
 };
 
 // 鄉鎮市區
 const districtOptions = computed(() => {
-  if (!form.value.order.cityId) return [];
+  if (!form.value.order.drawerCityId) return [];
   return county
-    .filter((item) => item.parentCode === Number(form.value.order.cityId))
+    .filter((item) => item.parentCode === Number(form.value.order.drawerCityId))
     .map((item) => ({
       value: item.countyCode,
       label: item.countyName,
@@ -239,8 +239,8 @@ const handleDistrictChange = ({
   label: string;
   value: string;
 }) => {
-  form.value.order.districtId = value;
-  form.value.order.districtName = label;
+  form.value.order.drawerDistrictId = value;
+  form.value.order.drawerDistrictName = label;
 };
 
 const v$ = useVuelidate();

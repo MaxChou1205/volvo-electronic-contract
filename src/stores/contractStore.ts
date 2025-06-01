@@ -56,11 +56,20 @@ export const useContractStore = defineStore("contract", {
     },
     async createContract(payload: Partial<Contract>) {
       try {
-        const response = await contractApi.createContract(payload);
+        const params = {
+          ...payload,
+          deliveryCityId: payload.deliveryCityId
+            ? String(payload.deliveryCityId)
+            : null,
+          deliveryDistrictId: payload.deliveryDistrictId
+            ? String(payload.deliveryDistrictId)
+            : null,
+        };
+        const response = await contractApi.createContract(params);
         this.contract = response.data;
       } catch (err) {
-        if (err instanceof AxiosError) {
-          alert(err.response?.data);
+        if (err instanceof AxiosError && err.response?.data.errors) {
+          alert(JSON.stringify(err.response?.data.errors));
         }
         throw err;
       }

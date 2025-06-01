@@ -237,7 +237,7 @@
         </div>
 
         <!-- 現金支票 -->
-        <div v-if="String(form.order.payMode) === '14261004'">
+        <div v-if="String(form.order.payMode) === '14261001'">
           <BaseInput
             class="mb-4"
             title="票號"
