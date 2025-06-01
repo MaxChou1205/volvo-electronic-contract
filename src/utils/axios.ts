@@ -61,6 +61,7 @@ axiosInstance.interceptors.response.use(
 
     if (
       error.code === "ERR_NETWORK" ||
+      error.status === 401 ||
       error.response?.data?.includes("Unauthorized")
     ) {
       router.push({ name: "login" });
