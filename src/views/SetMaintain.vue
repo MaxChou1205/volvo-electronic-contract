@@ -10,41 +10,85 @@
     <main class="overflow-auto p-8">
       <div class="space-y-8 rounded-[10px] bg-white p-8">
         <Checkbox value="" label="上架顯示於車型樣式" />
-        <BaseInput title="套組名稱" />
+        <BaseInput
+          v-model="packageInfo.packageName"
+          :required="true"
+          title="套組名稱"
+        />
         <div>
           <div class="mb-3">套組照片</div>
           <ImageUpload class="h-[200px] w-[200px]" />
         </div>
         <div class="grid grid-cols-2 gap-7">
-          <Select title="車型" :required="true" :options="carList" />
           <Select
+            v-model="packageInfo.modelId"
+            title="車型"
+            :options="carList"
+            :required="true"
+            :rules="['required']"
+            @change="handleChangeCarInfo('modelId', packageInfo)"
+          />
+          <Select
+            v-model="packageInfo.modelYearId"
             title="年式"
+            :options="formOptions.yearOptions"
+            :disabled="formOptions.yearOptions.length === 0"
+            :initValue="{
+              label: packageInfo.modelYearName,
+              value: packageInfo.modelYearId,
+            }"
             :required="true"
-            :options="[{ label: '2024', value: 2024 }]"
+            :rules="['required']"
+            @change="handleChangeCarInfo('modelYearId', packageInfo)"
           />
           <Select
+            v-model="packageInfo.modelConfigId"
             title="車款動力"
-            :options="[{ label: '汽油', value: '汽油' }]"
+            :options="formOptions.configOptions"
+            :disabled="formOptions.configOptions.length === 0"
+            :initValue="{
+              label: packageInfo.modelConfigName ?? '',
+              value: packageInfo.modelConfigId,
+            }"
             :required="true"
             :rules="['required']"
+            @change="handleChangeCarInfo('modelConfigId', packageInfo)"
           />
           <Select
+            v-model="packageInfo.modelColorId"
             title="車色"
-            :options="[{ label: '黑色', value: '黑色' }]"
+            :options="formOptions.colorOptions"
+            :disabled="formOptions.colorOptions.length === 0"
+            :initValue="{
+              label: packageInfo.modelColorName ?? '',
+              value: packageInfo.modelColorId,
+            }"
             :required="true"
             :rules="['required']"
+            @change="handleChangeCarInfo('modelColorId', packageInfo)"
           />
           <Select
+            v-model="packageInfo.modelTrimId"
             title="內裝"
-            :options="[{ label: '黑色', value: '黑色' }]"
+            :options="formOptions.trimOptions"
+            :disabled="formOptions.trimOptions.length === 0"
+            :initValue="{
+              label: packageInfo.modelTrimName ?? '',
+              value: packageInfo.modelTrimId,
+            }"
             :required="true"
             :rules="['required']"
+            @change="handleChangeCarInfo('modelTrimId', packageInfo)"
           />
           <div>
-            <MultiSelect title="選配" placeholder="請選擇選配" :options="[]" />
-            <!-- <span v-if=".modelOptionNames">{{
-            errors.modelOptionNames
-          }}</span> -->
+            <MultiSelect
+              v-model="packageInfo.packageOptions"
+              title="選配"
+              placeholder="請選擇選配"
+              :options="formOptions.optionOptions"
+              :disabled="formOptions.optionOptions.length === 0"
+              :required="true"
+            />
           </div>
         </div>
 
@@ -73,12 +117,18 @@
         <div class="grid grid-cols-2 gap-7">
           <div>
             <div class="mb-3">原價</div>
-            <CurrencyInput />
+            <CurrencyInput
+              v-model="packageInfo.vehicleRetailAllAmount"
+              :required="true"
+            />
           </div>
 
           <div>
             <div class="mb-3">優惠價</div>
-            <CurrencyInput />
+            <CurrencyInput
+              v-model="packageInfo.vehicleDealAllAmount"
+              :required="true"
+            />
           </div>
         </div>
 
@@ -86,7 +136,7 @@
           <router-link class="button-gray w-full" :to="{ name: 'setMaintain' }"
             >返回</router-link
           >
-          <button class="button-blue w-full">儲存</button>
+          <button class="button-blue w-full" @click="handleSave">儲存</button>
         </div>
       </div>
     </main>
@@ -94,7 +144,10 @@
 </template>
 
 <script setup lang="ts">
+import { storeToRefs } from "pinia";
 import { onMounted, ref } from "vue";
+import { useRouter } from "vue-router";
+import { useVuelidate } from "@vuelidate/core";
 import BaseInput from "@/components/BaseInput.vue";
 import Checkbox from "@/components/Checkbox.vue";
 import CurrencyInput from "@/components/CurrencyInput.vue";
@@ -103,9 +156,14 @@ import ImageUpload from "@/components/ImageUpload.vue";
 import MultiSelect from "@/components/MultiSelect.vue";
 import Select from "@/components/Select.vue";
 import { useCarService } from "@/composables/carService";
+import { usePackageStore } from "@/stores/packageStore";
+
+const router = useRouter();
+const packageStore = usePackageStore();
+const { packageInfo } = storeToRefs(packageStore);
 
 const carService = useCarService();
-
+const { formOptions, handleChangeCarInfo } = carService;
 const carList = ref<
   {
     value: string;
@@ -117,6 +175,8 @@ const carList = ref<
 onMounted(async () => {
   carList.value = await carService.getCarList();
 });
+
+const v$ = useVuelidate();
 
 const list = ref([
   {
@@ -143,6 +203,15 @@ function handleDeleteItem(index: number) {
     return;
   }
   list.value.splice(index, 1);
+}
+
+async function handleSave() {
+  v$.value.$touch();
+  if (v$.value.$invalid) {
+    return;
+  }
+  await packageStore.createPackage(packageInfo.value);
+  router.push({ name: "setMaintain" });
 }
 </script>
 
