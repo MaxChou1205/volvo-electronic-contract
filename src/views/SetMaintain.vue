@@ -7,8 +7,8 @@
       <h1 class="pl-9 text-2xl">優惠套組維護</h1>
     </header>
 
-    <main class="overflow-auto p-4">
-      <div class="space-y-8">
+    <main class="overflow-auto p-8">
+      <div class="space-y-8 rounded-[10px] bg-white p-8">
         <Checkbox value="" label="上架顯示於車型樣式" />
         <BaseInput title="套組名稱" />
         <div>
@@ -16,7 +16,12 @@
           <ImageUpload class="h-[200px] w-[200px]" />
         </div>
         <div class="grid grid-cols-2 gap-7">
-          <Select title="年式" :options="[{ label: '2024', value: 2024 }]" />
+          <Select title="車型" :required="true" :options="carList" />
+          <Select
+            title="年式"
+            :required="true"
+            :options="[{ label: '2024', value: 2024 }]"
+          />
           <Select
             title="車款動力"
             :options="[{ label: '汽油', value: '汽油' }]"
@@ -89,7 +94,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import BaseInput from "@/components/BaseInput.vue";
 import Checkbox from "@/components/Checkbox.vue";
 import CurrencyInput from "@/components/CurrencyInput.vue";
@@ -97,6 +102,21 @@ import Icon from "@/components/Icon.vue";
 import ImageUpload from "@/components/ImageUpload.vue";
 import MultiSelect from "@/components/MultiSelect.vue";
 import Select from "@/components/Select.vue";
+import { useCarService } from "@/composables/carService";
+
+const carService = useCarService();
+
+const carList = ref<
+  {
+    value: string;
+    code: string;
+    label: string;
+  }[]
+>([]);
+
+onMounted(async () => {
+  carList.value = await carService.getCarList();
+});
 
 const list = ref([
   {
