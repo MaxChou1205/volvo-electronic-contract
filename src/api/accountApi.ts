@@ -9,7 +9,7 @@ export const accountApi = {
     return response.data;
   },
   logout: async () => {
-    const response = await axiosInstance.post("/api/account/logout");
+    const response = await axiosInstance.get("/api/account/logout");
     return response.data;
   },
   getInfo: async () => {

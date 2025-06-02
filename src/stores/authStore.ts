@@ -63,8 +63,10 @@ export const useAuthStore = defineStore("auth", {
       await accountApi.login(params);
       window.sessionStorage.setItem("isLogin", "true");
     },
-    logout() {
+    async logout() {
+      await accountApi.logout();
       window.sessionStorage.removeItem("isLogin");
+      this.userInfo = null;
       router.push({ name: "login" });
     },
     async getInfo() {
