@@ -88,6 +88,8 @@ export const useContractStore = defineStore("contract", {
       } catch (err) {
         if (err instanceof AxiosError && err.response?.data.errors) {
           alert(JSON.stringify(err.response?.data.errors));
+        } else if (err instanceof AxiosError && err.response?.data) {
+          alert(err.response?.data);
         }
         throw err;
       }
