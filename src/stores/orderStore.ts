@@ -163,6 +163,7 @@ export const useOrderStore = defineStore("order", {
               optionPrice: item.optionPrice,
               label: item.optionName,
               value: item.optionId,
+              code: item.optionCode,
             })) || [],
           deliveringDate: new Date(response.deliveringDate),
           checkDate: response.checkDate ? new Date(response.checkDate) : null,

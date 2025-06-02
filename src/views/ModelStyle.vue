@@ -31,7 +31,7 @@
               class="flex cursor-pointer flex-col"
               v-for="(car, carIndex) in cars"
               :key="carIndex"
-              @click="handleChangeCarInfo('modelId', car.id)"
+              @click="handleChangeCarInfo('modelId', form.order, car.id)"
               :ref="
                 (el) => {
                   if (form.order.modelId === car.id && el)
@@ -61,62 +61,62 @@
         <Select
           v-model="form.order.modelYearId"
           title="年式"
-          :options="formOptions.yearOptions"
-          :disabled="formOptions.yearOptions.length === 0"
+          :options="carFormOptions.yearOptions"
+          :disabled="carFormOptions.yearOptions.length === 0"
           :initValue="{
             label: form.order.modelYearName,
             value: form.order.modelYearId,
           }"
           :required="true"
           :rules="['required']"
-          @change="handleChangeCarInfo('modelYearId')"
+          @change="handleChangeCarInfo('modelYearId', form.order)"
         />
         <Select
           v-model="form.order.modelConfigId"
           title="車款動力"
-          :options="formOptions.configOptions"
-          :disabled="formOptions.configOptions.length === 0"
+          :options="carFormOptions.configOptions"
+          :disabled="carFormOptions.configOptions.length === 0"
           :initValue="{
             label: form.order.modelConfigName ?? '',
             value: form.order.modelConfigId,
           }"
           :required="true"
           :rules="['required']"
-          @change="handleChangeCarInfo('modelConfigId')"
+          @change="handleChangeCarInfo('modelConfigId', form.order)"
         />
         <Select
           v-model="form.order.modelColorId"
           title="車色"
-          :options="formOptions.colorOptions"
-          :disabled="formOptions.colorOptions.length === 0"
+          :options="carFormOptions.colorOptions"
+          :disabled="carFormOptions.colorOptions.length === 0"
           :initValue="{
             label: form.order.modelColorName ?? '',
             value: form.order.modelColorId,
           }"
           :required="true"
           :rules="['required']"
-          @change="handleChangeCarInfo('modelColorId')"
+          @change="handleChangeCarInfo('modelColorId', form.order)"
         />
         <Select
           v-model="form.order.modelTrimId"
           title="內裝"
-          :options="formOptions.trimOptions"
-          :disabled="formOptions.trimOptions.length === 0"
+          :options="carFormOptions.trimOptions"
+          :disabled="carFormOptions.trimOptions.length === 0"
           :initValue="{
             label: form.order.modelTrimName ?? '',
             value: form.order.modelTrimId,
           }"
           :required="true"
           :rules="['required']"
-          @change="handleChangeCarInfo('modelTrimId')"
+          @change="handleChangeCarInfo('modelTrimId', form.order)"
         />
         <div>
           <MultiSelect
             v-model="form.order.personalityOptionVOList"
             title="選配"
             placeholder="請選擇選配"
-            :options="formOptions.optionOptions"
-            :disabled="formOptions.optionOptions.length === 0"
+            :options="carFormOptions.optionOptions"
+            :disabled="carFormOptions.optionOptions.length === 0"
           />
           <!-- <span v-if=".modelOptionNames">{{
             errors.modelOptionNames
@@ -328,68 +328,14 @@ import exhibitionCenter from "../assets/exhibitionCenter.json";
 const router = useRouter();
 const contractStore = useContractStore();
 const carService = useCarService();
+const {
+  fieldInfoMap,
+  formOptions: carFormOptions,
+  handleChangeCarInfo,
+  setOptions,
+  findRestFieldKeys,
+} = carService;
 const { scrollToError } = useErrorHint();
-
-const carInfoMap = new Map([
-  [
-    "modelId",
-    {
-      optionsKey: "modelOptions",
-      callbackKey: "",
-      nextKey: "modelYearId",
-      labelKey: "modelName",
-      codeKey: "modelCode",
-    },
-  ],
-  [
-    "modelYearId",
-    {
-      optionsKey: "yearOptions",
-      callbackKey: "getYearOptions",
-      nextKey: "modelConfigId",
-      labelKey: "modelYearName",
-      codeKey: "modelYearCode",
-    },
-  ],
-  [
-    "modelConfigId",
-    {
-      optionsKey: "configOptions",
-      callbackKey: "getConfigOptions",
-      nextKey: "modelColorId",
-      labelKey: "modelConfigName",
-      codeKey: "modelConfigCode",
-    },
-  ],
-  [
-    "modelColorId",
-    {
-      optionsKey: "colorOptions",
-      callbackKey: "getColorOptions",
-      nextKey: "modelTrimId",
-      labelKey: "modelColorName",
-      codeKey: "modelColorCode",
-    },
-  ],
-  [
-    "modelTrimId",
-    {
-      optionsKey: "trimOptions",
-      callbackKey: "getTrimOptions",
-      nextKey: "modelOptionNames",
-      labelKey: "modelTrimName",
-      codeKey: "modelTrimCode",
-    },
-  ],
-  [
-    "modelOptionNames",
-    {
-      optionsKey: "optionOptions",
-      callbackKey: "getOptionOptions",
-    },
-  ],
-]);
-const carInfoMapKeys = Array.from(carInfoMap.keys());
 
 const selectedCarRef = ref<HTMLButtonElement | null>(null);
 
@@ -432,11 +378,15 @@ onMounted(async () => {
     form.value.order.modelName = currentCarInfo.name ?? "";
   }
 
-  const keys = findRestMapKeys("modelId");
+  const keys = findRestFieldKeys("modelId");
   for (const key of keys) {
-    const carInfo = carInfoMap.get(key);
+    const carInfo = fieldInfoMap.get(key);
     if (carInfo) {
-      setOptions(carInfo.optionsKey, carInfo.callbackKey);
+      await setOptions(
+        carInfo.optionsKey,
+        carInfo.callbackKey,
+        form.value.order,
+      );
     }
   }
 
@@ -450,75 +400,6 @@ onMounted(async () => {
     }
   });
 });
-
-const findRestMapKeys = (currentKey: string) => {
-  const currentIndex = carInfoMapKeys.indexOf(currentKey);
-
-  if (currentIndex !== -1) {
-    return carInfoMapKeys.slice(currentIndex + 1);
-  }
-
-  return [];
-};
-
-const setOptions = async (optionsKey: string, callbackKey: string) => {
-  if (callbackKey) {
-    const options = await carService[callbackKey](form.value.order);
-    if (options) formOptions.value[optionsKey] = options;
-  }
-};
-
-const handleChangeCarInfo = async (formKey: string, value?: string) => {
-  resetOptions(formKey);
-  const info = carInfoMap.get(formKey);
-  if (!info) return;
-
-  if (value) {
-    form.value.order[formKey] = value;
-  }
-
-  if (info.codeKey && info.labelKey) {
-    const id = form.value.order[formKey];
-    const option = formOptions.value[info.optionsKey]?.find(
-      (item) => item.value === id,
-    );
-    if (option) {
-      form.value.order[info.codeKey] = option.code;
-      form.value.order[info.labelKey] = option.label;
-    }
-  }
-
-  if (info.nextKey && carInfoMap.get(info.nextKey)) {
-    const nextInfo = carInfoMap.get(info.nextKey)!;
-    if (nextInfo.optionsKey && nextInfo.callbackKey) {
-      setOptions(nextInfo.optionsKey, nextInfo.callbackKey);
-    }
-  }
-};
-
-const resetOptions = (currentKey: string) => {
-  const keys = findRestMapKeys(currentKey);
-
-  if (keys.length > 0) {
-    // Reset form values for those keys
-    keys.forEach((key) => {
-      if (key === "modelOptionNames") {
-        form.value.order[key] = [];
-      } else {
-        form.value.order[key] = "";
-      }
-    });
-
-    // Reset options arrays for those keys
-    keys.forEach((key) => {
-      const optionsName = carInfoMap.get(key);
-      if (optionsName) {
-        // Reset the options array to empty
-        formOptions.value[optionsName.optionsKey] = [];
-      }
-    });
-  }
-};
 
 const v$ = useVuelidate();
 

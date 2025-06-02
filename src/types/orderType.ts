@@ -97,6 +97,7 @@ export type OrderDetail = Omit<
     optionPrice: number;
     label: string;
     value: string;
+    code: string;
   }[];
   selfPayOptionList: {
     optionName: string;

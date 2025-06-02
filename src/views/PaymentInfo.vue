@@ -1335,6 +1335,7 @@ const postContract = async () => {
       optionPrice: item.price,
       label: item.name,
       value: item.name,
+      code: "",
     })),
   );
   form.value.order.selfPayOptionList =

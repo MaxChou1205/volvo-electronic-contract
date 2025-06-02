@@ -262,6 +262,10 @@ export const useCarService = () => {
     getColorOptions,
     getTrimOptions,
     getOptionOptions,
+
+    findRestFieldKeys,
+    setOptions,
     handleChangeCarInfo,
+    resetOptions,
   };
 };
