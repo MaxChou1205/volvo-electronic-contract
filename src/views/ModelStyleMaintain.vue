@@ -7,8 +7,8 @@
       <h1 class="pl-9 text-2xl">車款維護</h1>
     </header>
 
-    <main class="overflow-auto p-4">
-      <div class="space-y-8">
+    <main class="overflow-auto p-8">
+      <div class="space-y-8 rounded-[10px] bg-white p-8">
         <Checkbox value="" label="上架顯示於車型樣式" />
         <BaseInput title="名稱" />
         <Select class="w-full" title="款式" :options="vehicles" />
