@@ -26,6 +26,7 @@
           <RouterLink
             class="flex cursor-pointer items-center justify-end"
             to=""
+            @click="getDetail(contract.contractNo)"
           >
             <span class="text-blue-brand text-xs">查看更多</span>
             <Icon class="ml-1" icon-name="right-arrow" :size="24" />
@@ -48,6 +49,7 @@
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
 import { onMounted, ref } from "vue";
+import Pagination from "@/components/Pagination.vue";
 import ContractHeader from "@/components/contract/ContractHeader.vue";
 import { useContractStore } from "@/stores/contractStore";
 
@@ -64,6 +66,13 @@ const onPageChange = (page: number) => {
   loading.value = true;
   contractStore.getContractList();
   loading.value = false;
+};
+
+const getDetail = async (contractNo: string) => {
+  const res = await contractStore.getContractDetail(contractNo);
+  const pdfUrl = res.attachments?.pop();
+  if (!pdfUrl) return;
+  window.open(pdfUrl);
 };
 </script>
 

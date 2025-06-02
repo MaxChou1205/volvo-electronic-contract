@@ -129,6 +129,7 @@ export const useContractStore = defineStore("contract", {
     async getContractDetail(id: string) {
       const response = await contractApi.getDetail(id);
       this.contract = response.data;
+      return response
     },
   },
 });
