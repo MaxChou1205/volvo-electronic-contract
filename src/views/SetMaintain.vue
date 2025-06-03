@@ -93,7 +93,7 @@
         </div>
 
         <div>
-          <div class="mb-3">套組清單</div>
+          <div class="mb-3">加選項目</div>
           <div>
             <div
               class="mb-3 flex items-center gap-4"
@@ -110,7 +110,7 @@
             </div>
           </div>
           <div class="justify-items mt-3 flex w-full">
-            <button class="button-blue" @click="handleAddItem">新增套組</button>
+            <button class="button-blue" @click="handleAddItem">新增項目</button>
           </div>
         </div>
 
