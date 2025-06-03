@@ -236,29 +236,6 @@
           />
         </div>
 
-        <!-- 現金支票 -->
-        <div v-if="String(form.order.payMode) === '14261001'">
-          <BaseInput
-            class="mb-4"
-            title="票號"
-            placeholder="請輸入票號"
-          ></BaseInput>
-          <div class="mb-3">付款行庫｜分行｜帳號</div>
-          <div class="flex items-center gap-3">
-            <Select
-              class="w-45 flex-shrink-0"
-              :options="[]"
-              placeholder="付款行庫"
-            />
-            <Select
-              class="w-45 flex-shrink-0"
-              :options="[]"
-              placeholder="分行"
-            />
-            <BaseInput class="w-full" placeholder="請輸入帳號" />
-          </div>
-        </div>
-
         <!-- 貸款 -->
         <div
           class="font-light"
