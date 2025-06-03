@@ -9,6 +9,7 @@ export type OrderListItem = ApiOrderListItem & {
 };
 
 export type ApiOrderDetail = {
+  orderId: string;
   customerType: number;
   customerName: string;
   customerSurnames: string | null;

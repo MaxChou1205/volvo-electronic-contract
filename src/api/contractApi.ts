@@ -1,5 +1,6 @@
 import { ApiPaginationResponse } from "@/types/apiType";
 import type { ApiContractListItem, Contract } from "@/types/contractType";
+import type { OrderDetail } from "@/types/orderType";
 import { axiosInstance } from "@/utils/axios";
 
 export const contractApi = {
@@ -50,9 +51,14 @@ export const contractApi = {
   },
   createContract: async (
     payload: Partial<
-      Omit<Contract, "deliveryCityId" | "deliveryDistrictId"> & {
+      Omit<Contract, "deliveryCityId" | "deliveryDistrictId" | "order"> & {
         deliveryCityId: string | null;
         deliveryDistrictId: string | null;
+        order: Partial<
+          Omit<OrderDetail, "checkDate"> & {
+            checkDate: string | null;
+          }
+        >;
       }
     >,
   ) => {

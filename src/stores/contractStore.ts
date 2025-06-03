@@ -1,4 +1,5 @@
 import { AxiosError } from "axios";
+import { format } from "date-fns";
 import { defineStore } from "pinia";
 import { contractApi } from "@/api/contractApi";
 import type { Contract, ApiContractListItem } from "@/types/contractType";
@@ -82,6 +83,12 @@ export const useContractStore = defineStore("contract", {
           deliveryDistrictId: payload.deliveryDistrictId
             ? String(payload.deliveryDistrictId)
             : null,
+          order: {
+            ...payload.order,
+            checkDate: payload.order?.checkDate
+              ? format(payload.order.checkDate, "yyyy-MM-dd")
+              : null,
+          },
         };
         const response = await contractApi.createContract(params);
         this.contract = response.data;
@@ -129,7 +136,7 @@ export const useContractStore = defineStore("contract", {
     async getContractDetail(id: string) {
       const response = await contractApi.getDetail(id);
       this.contract = response.data;
-      return response
+      return response;
     },
   },
 });
