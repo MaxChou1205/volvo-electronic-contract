@@ -111,7 +111,7 @@ export type OrderDetail = Omit<
 };
 
 export type OrderDetailView = OrderDetail & {
-  customerTypeLabel?: string;
+  drawerCtCodeLabel?: string;
   deliveringDateLabel?: string;
   isChargingPileLabel?: string;
   isCashCheckLabel?: string;

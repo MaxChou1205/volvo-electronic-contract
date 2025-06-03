@@ -47,11 +47,11 @@ export const useOrderStore = defineStore("order", {
       } else {
         return {
           ...state.orderDetail,
-          customerTypeLabel:
+          drawerCtCodeLabel:
             optionStore.customerTypes.find(
               (customerType) =>
                 customerType.value ===
-                state.orderDetail?.customerType?.toString(),
+                state.orderDetail?.drawerCtCode?.toString(),
             )?.label ?? "",
           deliveringDate: new Date(state.orderDetail?.deliveringDate ?? ""),
           deliveringDateLabel: state.orderDetail?.deliveringDate

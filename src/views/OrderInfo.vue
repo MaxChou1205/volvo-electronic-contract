@@ -117,7 +117,7 @@
             <div class="grid grid-cols-3 gap-x-[10%] gap-y-4">
               <Field
                 :label="'購買類型'"
-                :content="orderDetail.customerTypeLabel"
+                :content="orderDetail.drawerCtCodeLabel"
               ></Field>
               <Field
                 :label="'買受人'"
