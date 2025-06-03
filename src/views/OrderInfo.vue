@@ -49,7 +49,7 @@
                 :content="orderDetail.consultant"
               ></Field>
               <Field
-                :label="'紙本簽約編號'"
+                :label="'簽約編號'"
                 :content="orderDetail.contractNo"
               ></Field>
               <Field
@@ -79,11 +79,11 @@
                 :content="orderDetail.modelColorName"
               ></Field>
               <Field
-                :label="'內飾'"
+                :label="'內裝'"
                 :content="orderDetail.modelTrimName"
               ></Field>
               <Field
-                :label="'選裝'"
+                :label="'選配'"
                 :content="
                   orderDetail.personalityOptionVOList
                     .map((item) => item.optionName)
