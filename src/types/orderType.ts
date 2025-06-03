@@ -16,6 +16,11 @@ export type ApiOrderDetail = {
   customerCtCode: number;
   customerCertificateNo: string;
   gender: number;
+  cityId: string;
+  cityName: string;
+  districtId: string;
+  districtName: string;
+  customerAddress: string;
   drawerCityId: string;
   drawerCityName: string;
   drawerDistrictId: string;
