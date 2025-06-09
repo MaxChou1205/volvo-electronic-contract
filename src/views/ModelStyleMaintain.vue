@@ -10,7 +10,7 @@
     <main class="overflow-auto p-8">
       <div class="space-y-8 rounded-[10px] bg-white p-8">
         <Checkbox value="" label="上架顯示於車型樣式" />
-        <BaseInput title="名稱" />
+        <Select class="w-full" title="型號" :options="[]" />
         <Select class="w-full" title="款式" :options="vehicles" />
         <div class="grid grid-cols-2 gap-4">
           <div class="">
@@ -22,6 +22,14 @@
             <ImageUpload class="h-[200px] w-[200px]" />
           </div>
         </div>
+        <div class="flex items-center gap-4">
+          <router-link
+            class="button-gray w-full"
+            :to="{ name: 'modelStyleMaintain' }"
+            >取消</router-link
+          >
+          <button class="button-blue w-full">儲存</button>
+        </div>
       </div>
     </main>
   </div>
@@ -29,7 +37,6 @@
 
 <script setup lang="ts">
 import { ref, computed } from "vue";
-import BaseInput from "@/components/BaseInput.vue";
 import Checkbox from "@/components/Checkbox.vue";
 import ImageUpload from "@/components/ImageUpload.vue";
 import Select from "@/components/Select.vue";
