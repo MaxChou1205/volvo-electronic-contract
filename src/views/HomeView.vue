@@ -32,8 +32,8 @@
           <span class="ml-3">合約管理</span>
         </RouterLink>
         <RouterLink
-          v-if="isAdmin"
           class="flex w-full cursor-pointer items-center border-b border-gray-100 px-6 py-4 hover:bg-blue-200"
+          v-if="permissionLevel2 || permissionLevel3 || permissionLevel4"
           :class="[
             $route.path.startsWith('/model-style-maintain')
               ? 'bg-blue-200'
@@ -46,8 +46,8 @@
           <span class="ml-3">車款維護</span>
         </RouterLink>
         <RouterLink
-          v-if="isAdmin"
           class="flex w-full cursor-pointer items-center border-b border-gray-100 px-6 py-4 hover:bg-blue-200"
+          v-if="permissionLevel2 || permissionLevel3 || permissionLevel4"
           :class="[
             $route.path.startsWith('/set-maintain') ? 'bg-blue-200' : '',
           ]"
@@ -58,8 +58,8 @@
           <span class="ml-3">優惠套組維護</span>
         </RouterLink>
         <RouterLink
-          v-if="isAdmin"
           class="flex w-full cursor-pointer items-center border-b border-gray-100 px-6 py-4 hover:bg-blue-200"
+          v-if="permissionLevel3 || permissionLevel4"
           :class="[
             $route.path.startsWith('/company-maintain') ? 'bg-blue-200' : '',
           ]"
@@ -95,7 +95,12 @@ const router = useRouter();
 const authStore = useAuthStore();
 const menu = ref<string>("");
 
-const { userInfo, isAdmin } = storeToRefs(authStore);
+const {
+  userInfo,
+  permissionLevel2,
+  permissionLevel3,
+  permissionLevel4,
+} = storeToRefs(authStore);
 
 const changeMenu = (param: string) => {
   menu.value = param;

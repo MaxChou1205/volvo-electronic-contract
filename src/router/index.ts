@@ -36,7 +36,7 @@ const routes = [
         component: () => import("@/views/ModelStyleMaintainList.vue"),
         beforeEnter: [roleMiddleware],
         meta: {
-          role: "VCTL-ADMIN",
+          roles: [2, 3, 4],
         },
       },
       {
@@ -45,7 +45,7 @@ const routes = [
         component: () => import("@/views/ModelStyleMaintain.vue"),
         beforeEnter: [roleMiddleware],
         meta: {
-          role: "VCTL-ADMIN",
+          roles: [2, 3, 4],
         },
       },
       {
@@ -54,7 +54,7 @@ const routes = [
         component: () => import("@/views/ModelStyleMaintain.vue"),
         beforeEnter: [roleMiddleware],
         meta: {
-          role: "VCTL-ADMIN",
+          roles: [2, 3, 4],
         },
       },
       {
@@ -63,7 +63,7 @@ const routes = [
         component: () => import("@/views/SetMaintainList.vue"),
         beforeEnter: [roleMiddleware],
         meta: {
-          role: "VCTL-ADMIN",
+          roles: [2, 3, 4],
         },
       },
       {
@@ -72,7 +72,7 @@ const routes = [
         component: () => import("@/views/SetMaintain.vue"),
         beforeEnter: [roleMiddleware],
         meta: {
-          role: "VCTL-ADMIN",
+          roles: [2, 3, 4],
         },
       },
       {
@@ -81,7 +81,7 @@ const routes = [
         component: () => import("@/views/SetMaintain.vue"),
         beforeEnter: [roleMiddleware],
         meta: {
-          role: "VCTL-ADMIN",
+          roles: [2, 3, 4],
         },
       },
       {
@@ -90,7 +90,7 @@ const routes = [
         component: () => import("@/views/CompanyMaintain.vue"),
         beforeEnter: [roleMiddleware],
         meta: {
-          role: "VCTL-ADMIN",
+          roles: [3, 4],
         },
       },
     ],
