@@ -16,7 +16,8 @@
       <div class="mb-4 grid grid-cols-2 justify-between gap-y-4">
         <div>建議售價(含營業稅)</div>
         <div class="justify-self-end">
-          新台幣 {{ form.order.vehicleRetailAllAmount?.toLocaleString() || 0 }} 元
+          新台幣
+          {{ form.order.vehicleRetailAllAmount?.toLocaleString() || 0 }} 元
         </div>
         <template
           v-for="(accessory, index) in form.order.personalityOptionVOList"
@@ -250,7 +251,7 @@
             />
             <span>元</span>
           </div>
-          <div class="mb-4 flex items-center gap-2.5">
+          <div class="mb-4 flex items-baseline gap-2.5">
             <span>買方委辦貸款</span>
             <BaseInput
               class="w-[150px]"
@@ -263,6 +264,7 @@
               v-model.number="form.order.loanTerm"
               placeholder="期數"
               :options="optionStore.loanTermsOptions"
+              :required="String(form.order.payMode) === '14261002'"
             />
             <span>期，年利率</span>
             <BaseInput class="w-20" v-model="form.loanRate!" />
