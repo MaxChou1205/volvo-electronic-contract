@@ -82,7 +82,7 @@
           />
           <div>
             <MultiSelect
-              v-model="packageInfo.packageOptions"
+              v-model="packageInfo.packageDmsOptions"
               title="選配"
               placeholder="請選擇選配"
               :options="formOptions.optionOptions"
@@ -210,6 +210,7 @@ async function handleSave() {
   if (v$.value.$invalid) {
     return;
   }
+  packageInfo.value.packageOptions = list.value;
   await packageStore.createPackage(packageInfo.value);
   router.push({ name: "setMaintain" });
 }

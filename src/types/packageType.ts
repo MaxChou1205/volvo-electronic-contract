@@ -1,5 +1,6 @@
 export interface PackageInfo {
   packageName: string;
+  image: string;
   modelId: string;
   modelCode: string;
   modelName: string;
@@ -17,10 +18,42 @@ export interface PackageInfo {
   modelTrimName: string;
   vehicleRetailAllAmount: number;
   vehicleDealAllAmount: number;
+  packageDmsOptions: {
+    optionId: string;
+    optionCode: string;
+    optionName: string;
+    optionPrice: number;
+    value: string;
+    label: string;
+    code: string;
+  }[];
+  packageOptions: {
+    name: string;
+    price: number;
+  }[];
+}
+
+export interface PackageInfoPostReq
+  extends Omit<PackageInfo, "packageOptions"> {
   packageOptions: {
     optionId: string;
     optionCode: string;
     optionName: string;
     optionPrice: number;
+  }[];
+}
+
+export interface PackageInfoGetRes
+  extends Omit<PackageInfo, "packageDmsOptions" | "packageOptions"> {
+  imageUrl: string;
+  packageDmsOptions: {
+    optionId: string;
+    optionCode: string;
+    optionName: string;
+    optionPrice: number;
+  }[];
+  packageOptions: {
+    name: string;
+    price: number;
   }[];
 }
