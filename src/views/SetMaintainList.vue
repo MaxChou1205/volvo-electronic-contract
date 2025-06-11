@@ -13,7 +13,7 @@
     </header>
 
     <main class="overflow-auto p-4">
-      <div class="" v-if="data.length > 0">
+      <div class="" v-if="packageList.length > 0">
         <div class="mx-auto max-w-6xl">
           <div class="overflow-hidden rounded-lg bg-white shadow-sm">
             <table class="w-full">
@@ -49,7 +49,7 @@
               <tbody>
                 <tr
                   class="border-b border-gray-200 hover:bg-gray-50"
-                  v-for="(vehicle, index) in data"
+                  v-for="(vehicle, index) in processedCarList"
                   :key="index"
                   :class="index % 2 === 0 ? 'bg-gray-100' : 'bg-white'"
                 >
@@ -57,16 +57,14 @@
                     {{ vehicle.type }}
                   </td>
                   <td class="border-r border-gray-300 px-6 py-4 font-medium">
-                    {{ vehicle.model }}
+                    {{ vehicle.modelName }}
                   </td>
                   <td class="border-r border-gray-300 px-6 py-4 font-medium">
-                    {{ vehicle.name }}
+                    {{ vehicle.packageName }}
                   </td>
                   <td class="border-r border-gray-300 px-6 py-4 font-medium">
-                    <span
-                      :class="[vehicle.status === '下架' && 'text-gray-500']"
-                      >{{ vehicle.status }}</span
-                    >
+                    <!-- :class="[vehicle.packageStatus === '下架' && 'text-gray-500']" -->
+                    <span>{{ "上架?" }}</span>
                   </td>
                   <td class="px-6 py-4">
                     <div class="flex gap-3">
@@ -92,7 +90,7 @@
       <!-- Empty State -->
       <div
         class="flex h-[400px] items-center justify-center p-20"
-        v-if="data.length === 0"
+        v-if="packageList.length === 0"
       >
         <div class="text-center leading-[400px]">
           <h3 class="text-xl font-medium text-gray-900">
@@ -116,47 +114,113 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { storeToRefs } from "pinia";
+import { computed, ref } from "vue";
 import Pagination from "@/components/Pagination.vue";
+import { usePackageStore } from "@/stores/packageStore";
 
-const data = ref([
-  {
-    id: 1,
-    type: "休旅車",
-    model: "XC40",
-    name: "套組1",
-    status: "上架",
-  },
-  {
-    id: 2,
-    type: "休旅車",
-    model: "XC40",
-    name: "套組2",
-    status: "上架",
-  },
-  {
-    id: 3,
-    type: "轎跑車",
-    model: "EX60",
-    name: "套組3",
-    status: "上架",
-  },
-  {
-    id: 4,
-    type: "休旅車",
-    model: "XC90",
-    name: "套組4",
-    status: "下架",
-  },
-]);
+const packageStore = usePackageStore();
+const { packageList } = storeToRefs(packageStore);
 
 const paginationInfo = ref({
   page: 1,
-  totalPage: 2,
+  totalPage: 1,
+});
+
+const carTypeList = ref([
+  {
+    id: "0",
+    name: "EX40",
+    img: new URL("@/assets/img/EX40.png", import.meta.url).href,
+    mainCategory: "電動",
+    type: "休旅車",
+    modelId: "",
+    modelCode: "",
+    modelName: "",
+  },
+  {
+    id: "1",
+    name: "EX30",
+    img: new URL("@/assets/img/EX30.png", import.meta.url).href,
+    mainCategory: "電動",
+    type: "休旅車",
+    modelId: "",
+    modelCode: "",
+    modelName: "",
+  },
+  {
+    id: "2",
+    name: "EC40",
+    img: new URL("@/assets/img/EC40.png", import.meta.url).href,
+    mainCategory: "電動",
+    type: "跨界跑旅",
+    modelId: "",
+    modelCode: "",
+    modelName: "",
+  },
+  {
+    id: "3",
+    name: "XC90",
+    img: new URL("@/assets/img/XC90.png", import.meta.url).href,
+    mainCategory: "雙能電動",
+    type: "休旅車",
+    modelId: "",
+    modelCode: "",
+    modelName: "",
+  },
+  {
+    id: "4",
+    name: "XC60",
+    img: new URL("@/assets/img/XC60.png", import.meta.url).href,
+    mainCategory: "雙能電動",
+    type: "休旅車",
+    modelId: "",
+    modelCode: "",
+    modelName: "",
+  },
+  {
+    id: "5",
+    name: "V60",
+    img: new URL("@/assets/img/V60.png", import.meta.url).href,
+    mainCategory: "雙能電動",
+    type: "旅行車",
+    modelId: "",
+    modelCode: "",
+    modelName: "",
+  },
+  {
+    id: "8",
+    name: "XC40",
+    img: new URL("@/assets/img/XC40.png", import.meta.url).href,
+    mainCategory: "高效輕油電",
+    type: "休旅車",
+    modelId: "",
+    modelCode: "",
+    modelName: "",
+  },
+]);
+
+const processedCarList = computed(() => {
+  return packageList.value.map((item) => {
+    const car = carTypeList.value.find(
+      (car) => Number(car.id) === Number(item.modelId),
+    );
+    return {
+      ...item,
+      type: car?.type,
+    };
+  });
+});
+
+packageStore.getPackageList(1, 10, "id").then((res) => {
+  paginationInfo.value.totalPage = res.totalPage;
 });
 
 const onPageChange = (page: number) => {
   paginationInfo.value.page = page;
+  packageStore.getPackageList(page, 10, "id").then((res) => {
+    paginationInfo.value.totalPage = res.totalPage;
+  });
 };
 </script>
 

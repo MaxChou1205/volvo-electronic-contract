@@ -1,7 +1,9 @@
 export interface PackageInfo {
+  id: number;
   packageName: string;
-  image: string;
-  modelId: string;
+  image: string | null;
+  imageUrl: string | null;
+  modelId: number;
   modelCode: string;
   modelName: string;
   modelYearId: string;
@@ -56,4 +58,39 @@ export interface PackageInfoGetRes
     name: string;
     price: number;
   }[];
+}
+
+export interface PackageListGetRes {
+  items: [
+    {
+      id: number;
+      imageUrl: string | null;
+      thumbnailUrl: string | null;
+      packageName: string;
+      modelId: number;
+      modelCode: string;
+      modelName: string;
+      modelYearId: string;
+      modelYearCode: string;
+      modelYearName: string;
+      modelConfigId: string;
+      modelConfigCode: string;
+      modelConfigName: string;
+      modelColorId: string;
+      modelColorCode: string;
+      modelTrimId: string;
+      modelTrimCode: string;
+      modelTrimName: string;
+      vehicleRetailAllAmount: number;
+      vehicleDealAllAmount: number;
+      packageDmsOptions: [];
+      packageOptions: [];
+      createdAt: Date;
+      createdBy: string;
+      modifiedAt: Date;
+      modifiedBy: string;
+    },
+  ];
+  totalCount: number;
+  totalPage: number;
 }

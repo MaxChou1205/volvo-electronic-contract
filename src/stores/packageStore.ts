@@ -31,5 +31,13 @@ export const usePackageStore = defineStore("package", {
 
       await packageApi.createPackage(formData);
     },
+    async getPackageList(page: number, size: number, orderBy?: string) {
+      const response = await packageApi.getPackageList(page, size, orderBy);
+      this.packageList = response.items.map((item) => ({
+        ...item,
+        image: null,
+        modelColorName: "",
+      }));
+    },
   },
 });

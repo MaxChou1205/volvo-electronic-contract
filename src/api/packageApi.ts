@@ -1,4 +1,4 @@
-import type { PackageInfoPostReq } from "@/types/packageType";
+import type { PackageListGetRes } from "@/types/packageType";
 import { axiosInstance } from "@/utils/axios";
 
 export const packageApi = {
@@ -8,6 +8,19 @@ export const packageApi = {
         "Content-Type": "multipart/form-data",
       },
     });
+    return response.data;
+  },
+  getPackageList: async (page: number, size: number, orderBy?: string) => {
+    const response = await axiosInstance.get<PackageListGetRes>(
+      "/api/package",
+      {
+        params: {
+          page,
+          size,
+          orderBy,
+        },
+      },
+    );
     return response.data;
   },
 };
