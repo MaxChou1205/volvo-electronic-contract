@@ -77,7 +77,12 @@
                       >
                         修改
                       </router-link>
-                      <button class="button-gray">刪除</button>
+                      <button
+                        class="button-gray"
+                        @click="handleDelete(vehicle.id)"
+                      >
+                        刪除
+                      </button>
                     </div>
                   </td>
                 </tr>
@@ -212,15 +217,20 @@ const processedCarList = computed(() => {
   });
 });
 
-packageStore.getPackageList(1, 10, "id").then((res) => {
+packageStore.getPackageList(1, 10, "modifiedAt").then((res) => {
   paginationInfo.value.totalPage = res.totalPage;
 });
 
 const onPageChange = (page: number) => {
   paginationInfo.value.page = page;
-  packageStore.getPackageList(page, 10, "id").then((res) => {
+  packageStore.getPackageList(page, 10, "modifiedAt").then((res) => {
     paginationInfo.value.totalPage = res.totalPage;
   });
+};
+
+const handleDelete = async (id: number) => {
+  await packageStore.deletePackage(id);
+  packageStore.getPackageList(paginationInfo.value.page, 10, "modifiedAt");
 };
 </script>
 

@@ -38,6 +38,8 @@ export const usePackageStore = defineStore("package", {
         image: null,
         modelColorName: "",
       }));
+    async deletePackage(id: number) {
+      await packageApi.deletePackage(id);
     },
   },
 });
