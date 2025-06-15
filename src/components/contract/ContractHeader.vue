@@ -37,7 +37,7 @@
         v-for="item in sortList"
         :key="item.value"
         :class="{ 'font-medium text-blue-500': item.value === sortInfo.sortBy }"
-        @click="contractStore.changeSort(item.value, sortInfo.sortAscending)"
+        @click="orderContractStore.changeSort(item.value, sortInfo.sortAscending)"
       >
         {{ item.label }}
         <div
@@ -52,9 +52,9 @@
       <li
         class="flex cursor-pointer items-center pb-2 text-center"
         @click="
-          contractStore.changeSort(
-            contractStore.sortInfo.sortBy,
-            !contractStore.sortInfo.sortAscending,
+          orderContractStore.changeSort(
+            orderContractStore.sortInfo.sortBy,
+            !orderContractStore.sortInfo.sortAscending,
           )
         "
       >
@@ -94,10 +94,10 @@
 import { storeToRefs } from "pinia";
 import { ref } from "vue";
 import FilterMenu from "@/components/contract/FilterMenu.vue";
-import { useContractStore } from "@/stores/contractStore";
+import { useOrderContractStore } from "@/stores/orderContractStore";
 
-const contractStore = useContractStore();
-const { searchFilter, sortInfo } = storeToRefs(contractStore);
+const orderContractStore = useOrderContractStore();
+const { searchFilter, sortInfo } = storeToRefs(orderContractStore);
 
 const sortList = ref<{ label: string; value: string }[]>([
   // {
@@ -125,12 +125,12 @@ const toggleFilterMenu = () => {
 };
 
 const handleMenuReset = () => {
-  contractStore.resetFilter();
+  orderContractStore.resetFilter();
 };
 
 const handleMenuConfirm = () => {
-  contractStore.paginationInfo.page = 1;
-  contractStore.getContractList();
+  orderContractStore.paginationInfo.page = 1;
+  orderContractStore.getOrderContracts();
   isFilterMenuOpen.value = false;
 };
 </script>

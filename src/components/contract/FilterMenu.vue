@@ -4,7 +4,7 @@
       <div class="flex h-full w-full flex-col">
         <h2 class="mb-4 text-center text-sm font-bold">合約篩選</h2>
 
-        <div class="mb-3">
+        <!-- <div class="mb-3">
           <label class="mb-2 block text-sm text-gray-800">合約狀態</label>
           <div class="w-full">
             <Select
@@ -13,7 +13,7 @@
               :options="contractStatusOptions"
             />
           </div>
-        </div>
+        </div> -->
 
         <div class="mb-3">
           <label class="mb-2 block text-sm text-gray-800">合約創建日期</label>
@@ -62,14 +62,12 @@
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
 import { onMounted } from "vue";
-import { useContractStore } from "@/stores/contractStore";
 import { useOptionStore } from "@/stores/optionStore";
+import { useOrderContractStore } from "@/stores/orderContractStore";
 import DatePicker from "../DatePicker.vue";
-import Select from "../Select.vue";
 
 const optionStore = useOptionStore();
-const contractStore = useContractStore();
-const { contractStatusOptions } = storeToRefs(optionStore);
+const orderContractStore = useOrderContractStore();
 
 onMounted(async () => {
   await optionStore.getContractStatus();
@@ -77,5 +75,5 @@ onMounted(async () => {
 
 const emit = defineEmits(["reset", "confirm"]);
 
-const { searchFilter } = storeToRefs(contractStore);
+const { searchFilter } = storeToRefs(orderContractStore);
 </script>

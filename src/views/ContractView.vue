@@ -5,32 +5,29 @@
     <main class="overflow-auto">
       <div
         class="grid grid-cols-2 gap-[30px] p-[30px]"
-        v-if="contractList.length > 0"
+        v-if="orderContractList.length > 0"
       >
         <div
           class="rounded-[4px] bg-white px-4 py-5 text-sm"
-          v-for="contract in contractList"
-          :key="contract.contractNo"
+          v-for="contract in orderContractList"
+          :key="contract.orderNo"
         >
           <div class="mb-3 flex items-center justify-between">
             <div class="text-gray-900">合約編號</div>
-            <div class="text-gray-800">{{ contract.contractNo }}</div>
+            <div class="text-gray-800">{{ contract.orderNo }}</div>
           </div>
           <div class="text-black-400 mb-2">
-            <span class="text-lg">{{ contract.customerName }}</span> 性別？
+            <span class="text-lg">{{ contract.customerName }}</span>
+            {{ contract.genderLabel }}
           </div>
-          <div class="mb-3 flex items-center">
-            <Icon class="mr-1" icon-name="phone" size="16" />
-            <span class="text-gray-800">電話？</span>
-          </div>
-          <RouterLink
+          <a
             class="flex cursor-pointer items-center justify-end"
-            to=""
-            @click="getDetail(contract.contractNo)"
+            target="_blank"
+            :href="`${appBaseUrl}/api/Order/contract/${contract.orderNo}`"
           >
             <span class="text-blue-brand text-xs">查看更多</span>
             <Icon class="ml-1" icon-name="right-arrow" :size="24" />
-          </RouterLink>
+          </a>
         </div>
       </div>
       <div class="pt-20 text-center text-gray-500" v-else>
@@ -51,28 +48,22 @@ import { storeToRefs } from "pinia";
 import { onMounted, ref } from "vue";
 import Pagination from "@/components/Pagination.vue";
 import ContractHeader from "@/components/contract/ContractHeader.vue";
-import { useContractStore } from "@/stores/contractStore";
+import { useOrderContractStore } from "@/stores/orderContractStore";
 
-const contractStore = useContractStore();
-const { contractList, paginationInfo } = storeToRefs(contractStore);
+const orderContractStore = useOrderContractStore();
+const { orderContractList, paginationInfo } = storeToRefs(orderContractStore);
 const loading = ref(false);
+const appBaseUrl = import.meta.env.VITE_API_URL;
 
 onMounted(() => {
-  contractStore.getContractList();
+  orderContractStore.getOrderContracts();
 });
 
 const onPageChange = (page: number) => {
   paginationInfo.value.page = page;
   loading.value = true;
-  contractStore.getContractList();
+  orderContractStore.getOrderContracts();
   loading.value = false;
-};
-
-const getDetail = async (contractNo: string) => {
-  const res = await contractStore.getContractDetail(contractNo);
-  const pdfUrl = res.attachments?.pop();
-  if (!pdfUrl) return;
-  window.open(pdfUrl);
 };
 </script>
 
