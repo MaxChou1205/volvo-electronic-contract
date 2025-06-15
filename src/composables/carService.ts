@@ -97,7 +97,7 @@ export const useCarService = () => {
 
   const getYearOptions = async (form: Partial<OrderDetail>) => {
     if (!form.modelId) return;
-    const response = await carApi.getCarYears(form.modelId);
+    const response = await carApi.getCarYears(String(form.modelId));
     const result = response.map((item) => ({
       value: item.modelYearId,
       code: item.modelYearCode,
@@ -109,7 +109,10 @@ export const useCarService = () => {
 
   const getConfigOptions = async (form: Partial<OrderDetail>) => {
     if (!form.modelId || !form.modelYearId) return;
-    const response = await carApi.getCarConfigs(form.modelId, form.modelYearId);
+    const response = await carApi.getCarConfigs(
+      String(form.modelId),
+      String(form.modelYearId),
+    );
     const result = response.map((item) => ({
       value: item.modelConfigId,
       code: item.modelConfigCode,
@@ -122,8 +125,8 @@ export const useCarService = () => {
   const getColorOptions = async (form: Partial<OrderDetail>) => {
     if (!form.modelYearCode || !form.modelConfigCode) return;
     const response = await carApi.getCarColors(
-      form.modelYearCode,
-      form.modelConfigCode,
+      String(form.modelYearCode),
+      String(form.modelConfigCode),
     );
     const result = response.map((item) => ({
       value: String(item.modelColorId),
@@ -138,9 +141,9 @@ export const useCarService = () => {
     if (!form.modelYearCode || !form.modelConfigCode || !form.modelColorCode)
       return;
     const response = await carApi.getCarTrims(
-      form.modelYearCode,
-      form.modelConfigCode,
-      form.modelColorCode,
+      String(form.modelYearCode),
+      String(form.modelConfigCode),
+      String(form.modelColorCode),
     );
     const result = response.map((item) => ({
       value: String(item.modelTrimId),
@@ -160,10 +163,10 @@ export const useCarService = () => {
     )
       return;
     const response = await carApi.getCarOptions(
-      form.modelYearId,
-      form.modelConfigCode,
-      form.modelColorCode,
-      form.modelTrimCode,
+      String(form.modelYearId),
+      String(form.modelConfigCode),
+      String(form.modelColorCode),
+      String(form.modelTrimCode),
     );
     const result = response.map((item) => ({
       optionId: String(item.modelOptionId),

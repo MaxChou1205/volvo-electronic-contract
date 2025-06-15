@@ -229,6 +229,7 @@ const onPageChange = (page: number) => {
 };
 
 const handleDelete = async (id: number) => {
+  if (!window.confirm("確定要刪除嗎？")) return;
   await packageStore.deletePackage(id);
   packageStore.getPackageList(paginationInfo.value.page, 10, "modifiedAt");
 };

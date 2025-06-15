@@ -34,7 +34,7 @@
               @click="handleChangeCarInfo('modelId', form.order, car.id)"
               :ref="
                 (el) => {
-                  if (form.order.modelId === car.id && el)
+                  if (String(form.order.modelId) === car.id && el)
                     selectedCarRef = el as HTMLButtonElement;
                 }
               "
@@ -42,7 +42,7 @@
               <div
                 class="mb-1 flex h-24 w-24 items-center justify-center rounded-[4px] bg-gray-200"
                 :class="
-                  form.order.modelId === car.id
+                  String(form.order.modelId) === car.id
                     ? 'border-1 border-blue-500'
                     : ''
                 "
@@ -370,7 +370,7 @@ onMounted(async () => {
   });
 
   const currentCarInfo = formOptions.value.modelOptions.find(
-    (car) => car.id === form.value.order.modelId,
+    (car) => car.id === String(form.value.order.modelId),
   );
   if (currentCarInfo) {
     currentTabIndex.value = tabs.indexOf(currentCarInfo.mainCategory);
@@ -418,7 +418,7 @@ const tabs = ["電動", "雙能電動", "高效輕油電"];
 
 const carTypeList = ref([
   {
-    id: "0",
+    id: 0,
     name: "EX40",
     img: new URL("@/assets/img/EX40.png", import.meta.url).href,
     mainCategory: "電動",
@@ -428,7 +428,7 @@ const carTypeList = ref([
     modelName: "",
   },
   {
-    id: "1",
+    id: 1,
     name: "EX30",
     img: new URL("@/assets/img/EX30.png", import.meta.url).href,
     mainCategory: "電動",
@@ -438,7 +438,7 @@ const carTypeList = ref([
     modelName: "",
   },
   {
-    id: "2",
+    id: 2,
     name: "EC40",
     img: new URL("@/assets/img/EC40.png", import.meta.url).href,
     mainCategory: "電動",
@@ -448,7 +448,7 @@ const carTypeList = ref([
     modelName: "",
   },
   {
-    id: "3",
+    id: 3,
     name: "XC90",
     img: new URL("@/assets/img/XC90.png", import.meta.url).href,
     mainCategory: "雙能電動",
@@ -458,7 +458,7 @@ const carTypeList = ref([
     modelName: "",
   },
   {
-    id: "4",
+    id: 4,
     name: "XC60",
     img: new URL("@/assets/img/XC60.png", import.meta.url).href,
     mainCategory: "雙能電動",
@@ -468,7 +468,7 @@ const carTypeList = ref([
     modelName: "",
   },
   {
-    id: "5",
+    id: 5,
     name: "V60",
     img: new URL("@/assets/img/V60.png", import.meta.url).href,
     mainCategory: "雙能電動",
@@ -492,7 +492,7 @@ const carTypeList = ref([
   //   type: "休旅車",
   // },
   {
-    id: "8",
+    id: 8,
     name: "XC40",
     img: new URL("@/assets/img/XC40.png", import.meta.url).href,
     mainCategory: "高效輕油電",

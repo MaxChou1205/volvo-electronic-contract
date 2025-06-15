@@ -1,7 +1,9 @@
+import { TheFile } from "./fileType";
+
 export interface PackageInfo {
   id: number;
   packageName: string;
-  image: string | null;
+  image: TheFile | null;
   imageUrl: string | null;
   modelId: number;
   modelCode: string;
@@ -55,8 +57,10 @@ export interface PackageInfoGetRes
     optionPrice: number;
   }[];
   packageOptions: {
-    name: string;
-    price: number;
+    optionId: string;
+    optionCode: string;
+    optionName: string;
+    optionPrice: number;
   }[];
 }
 

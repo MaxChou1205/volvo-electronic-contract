@@ -55,7 +55,7 @@
         >
           <MultiCheckbox
             class="h-full w-full cursor-pointer py-2"
-            v-model="ids"
+            :model-value="ids"
             :option="option.value"
             :label="option.label"
             @change="handleChange"
@@ -71,14 +71,14 @@
   lang="ts"
   generic="T extends { value: string | number; label: string }"
 >
-import { ref, computed, useTemplateRef, onMounted } from "vue";
+import { ref, computed, useTemplateRef, onMounted, nextTick } from "vue";
 import useVuelidate, { type ValidationRule } from "@vuelidate/core";
 import { helpers, maxLength, minLength, required } from "@vuelidate/validators";
 import { OnClickOutside } from "@vueuse/components";
 import MultiCheckbox from "./MultiCheckbox.vue";
 
 const modelValue = defineModel<T[]>({ default: [] });
-const ids = ref<(string | number)[]>([]);
+// const ids = ref<(string | number)[]>([]);
 
 const props = defineProps<{
   title?: string;
@@ -96,10 +96,18 @@ const multiSelectRef = useTemplateRef<HTMLElement>("multiSelect");
 const isOpen = ref(false);
 const inputRef = ref<HTMLElement | null>(null);
 
-onMounted(() => {
-  if (modelValue.value.length > 0) {
-    ids.value = modelValue.value.map((item) => item.value);
-  }
+// onMounted(() => {
+// if (modelValue.value.length > 0) {
+//   ids.value = modelValue.value.map((item) => item.value);
+// }
+// });
+
+// const selectedIds = computed(() => {
+//   return modelValue.value.map((item) => item.value);
+// });
+
+const ids = computed(() => {
+  return modelValue.value.map((item) => item.value);
 });
 
 const selectedItems = computed(() => {
@@ -114,8 +122,16 @@ const isSelected = (option: T) => {
 const handleChange = (value: string | number) => {
   const option = props.options.find((option) => option.value === value);
   if (!option) return;
-  modelValue.value.push(option);
-  emit("change", option);
+  if (modelValue.value.some((item) => item.value === option.value)) {
+    modelValue.value = modelValue.value.filter(
+      (item) => item.value !== option.value,
+    );
+    emit("change", option);
+    return;
+  } else {
+    modelValue.value.push(option);
+    emit("change", option);
+  }
 };
 
 const openDropdown = () => {

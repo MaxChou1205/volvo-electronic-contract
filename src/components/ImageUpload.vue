@@ -41,7 +41,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import type { File } from "@/types/fileType";
+import type { TheFile } from "@/types/fileType";
 
 export type FileEventTarget = EventTarget & { files: FileList };
 
@@ -52,15 +52,15 @@ const { accept = "image/*", size = MAX_SIZE } = defineProps<{
   size?: number;
 }>();
 const emit = defineEmits<{
-  (e: "update:currentFile", file: File): void;
-  (e: "delete:currentFile", file: File): void;
+  (e: "update:currentFile", file: TheFile): void;
+  (e: "delete:currentFile", file: TheFile): void;
 }>();
 
-const pendingFiles = defineModel<File[]>("pendingFiles", {
+const pendingFiles = defineModel<TheFile[]>("pendingFiles", {
   required: false,
   default: () => [],
 });
-const currentFile = defineModel<File | null>("currentFile", {
+const currentFile = defineModel<TheFile | null>("currentFile", {
   required: false,
   default: null,
 });
@@ -77,11 +77,11 @@ const processFiles = (files: FileList | never[]) => {
     const img = new Image();
     img.src = _URL.createObjectURL(file);
     pendingFiles.value.push({
-      file: file as unknown as File,
+      file: file,
       url: img.src,
     });
     currentFile.value = {
-      file: file as unknown as File,
+      file: file,
       url: img.src,
     };
   }

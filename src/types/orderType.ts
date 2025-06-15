@@ -40,7 +40,7 @@ export type ApiOrderDetail = {
   orderStatus: number;
   deliveringDate: string;
   activityName: string | null;
-  modelId: string;
+  modelId: number;
   modelCode: string;
   modelName: string;
   modelYearId: string;

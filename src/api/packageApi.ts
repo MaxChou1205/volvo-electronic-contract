@@ -1,4 +1,4 @@
-import type { PackageListGetRes } from "@/types/packageType";
+import type { PackageInfoGetRes, PackageListGetRes } from "@/types/packageType";
 import { axiosInstance } from "@/utils/axios";
 
 export const packageApi = {
@@ -21,6 +21,24 @@ export const packageApi = {
         },
       },
     );
+    return response.data;
+  },
+  getPackageDetail: async (id: number) => {
+    const response = await axiosInstance.get<PackageInfoGetRes>(
+      `/api/package/${id}`,
+    );
+    return response.data;
+  },
+  updatePackage: async (id: number, payload: any) => {
+    const response = await axiosInstance.put(`/api/package/${id}`, payload, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return response.data;
+  },
+  deletePackage: async (id: number) => {
+    const response = await axiosInstance.delete(`/api/package/${id}`);
     return response.data;
   },
 };

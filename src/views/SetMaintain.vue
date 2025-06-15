@@ -17,7 +17,10 @@
         />
         <div>
           <div class="mb-3">套組照片</div>
-          <ImageUpload class="h-[200px] w-[200px]" />
+          <ImageUpload
+            class="h-[200px] w-[200px]"
+            v-model:current-file="packageInfo.image"
+          />
         </div>
         <div class="grid grid-cols-2 gap-7">
           <Select
@@ -146,7 +149,7 @@
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
 import { onMounted, ref } from "vue";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { useVuelidate } from "@vuelidate/core";
 import BaseInput from "@/components/BaseInput.vue";
 import Checkbox from "@/components/Checkbox.vue";
@@ -158,12 +161,25 @@ import Select from "@/components/Select.vue";
 import { useCarService } from "@/composables/carService";
 import { usePackageStore } from "@/stores/packageStore";
 
+const route = useRoute();
 const router = useRouter();
 const packageStore = usePackageStore();
 const { packageInfo } = storeToRefs(packageStore);
 
+if (route.params.id) {
+  packageStore.getPackageDetail(Number(route.params.id));
+} else {
+  packageStore.resetPackageInfo();
+}
+
 const carService = useCarService();
-const { formOptions, handleChangeCarInfo } = carService;
+const {
+  formOptions,
+  handleChangeCarInfo,
+  findRestFieldKeys,
+  setOptions,
+  fieldInfoMap,
+} = carService;
 const carList = ref<
   {
     value: string;
@@ -174,6 +190,26 @@ const carList = ref<
 
 onMounted(async () => {
   carList.value = await carService.getCarList();
+  list.value =
+    packageInfo.value.packageOptions.length > 0
+      ? packageInfo.value.packageOptions
+      : [
+          {
+            name: "",
+            price: 0,
+          },
+        ];
+  const keys = findRestFieldKeys("modelId");
+  for (const key of keys) {
+    const carInfo = fieldInfoMap.get(key);
+    if (carInfo) {
+      await setOptions(
+        carInfo.optionsKey,
+        carInfo.callbackKey,
+        packageInfo.value,
+      );
+    }
+  }
 });
 
 const v$ = useVuelidate();
@@ -211,7 +247,7 @@ async function handleSave() {
     return;
   }
   packageInfo.value.packageOptions = list.value;
-  await packageStore.createPackage(packageInfo.value);
+  await packageStore.savePackage(packageInfo.value, Number(route.params.id));
   router.push({ name: "setMaintain" });
 }
 </script>
