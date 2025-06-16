@@ -150,7 +150,7 @@ const processedCarList = computed(() => {
 });
 
 const fetchList = () => {
-  packageStore.getPackageList(1, 100, "modifiedAt").then((res) => {
+  packageStore.getPackageList(paginationInfo.value.page, 10, "modifiedAt").then((res) => {
     paginationInfo.value.totalPage = res.totalPage;
   });
 };
