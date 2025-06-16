@@ -9,7 +9,11 @@
 
     <main class="overflow-auto p-8">
       <div class="space-y-8 rounded-[10px] bg-white p-8">
-        <Checkbox value="" label="上架顯示於車型樣式" />
+        <Checkbox
+          v-model="packageInfo.isPublished"
+          :value="true"
+          label="上架顯示於車型樣式"
+        />
         <BaseInput
           v-model="packageInfo.packageName"
           :required="true"

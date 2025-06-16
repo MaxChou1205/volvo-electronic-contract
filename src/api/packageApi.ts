@@ -15,9 +15,9 @@ export const packageApi = {
       "/api/package",
       {
         params: {
-          page,
-          size,
-          orderBy,
+          PageNumber: page,
+          PageSize: size,
+          OrderBy: orderBy,
         },
       },
     );

@@ -26,6 +26,7 @@ const defaultPackageInfo = {
   modelTrimName: "",
   vehicleRetailAllAmount: 0,
   vehicleDealAllAmount: 0,
+  isPublished: false,
 } as PackageInfo;
 
 export const usePackageStore = defineStore("package", {
@@ -66,8 +67,7 @@ export const usePackageStore = defineStore("package", {
             formData.append(`PackageOptions[${index}].OptionPrice`, item.price);
           });
         } else if (key === "image" && value) {
-          // if (!value) return;
-          formData.append("image", value.file);
+          formData.append("Image", value.file);
         } else {
           formData.append(newKey, value);
         }

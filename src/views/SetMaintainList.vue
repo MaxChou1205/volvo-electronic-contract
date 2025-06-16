@@ -63,8 +63,12 @@
                     {{ vehicle.packageName }}
                   </td>
                   <td class="border-r border-gray-300 px-6 py-4 font-medium">
-                    <!-- :class="[vehicle.packageStatus === '下架' && 'text-gray-500']" -->
-                    <span>{{ "上架?" }}</span>
+                    <span
+                      :class="[
+                        vehicle.isPublished === false && 'text-gray-500',
+                      ]"
+                      >{{ vehicle.isPublished ? "上架" : "下架" }}</span
+                    >
                   </td>
                   <td class="px-6 py-4">
                     <div class="flex gap-3">
@@ -120,7 +124,7 @@
 
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
-import { computed, ref } from "vue";
+import { computed, onUnmounted, ref } from "vue";
 import Pagination from "@/components/Pagination.vue";
 import { usePackageStore } from "@/stores/packageStore";
 
@@ -217,22 +221,27 @@ const processedCarList = computed(() => {
   });
 });
 
-packageStore.getPackageList(1, 10, "modifiedAt").then((res) => {
-  paginationInfo.value.totalPage = res.totalPage;
-});
+const fetchList = () => {
+  packageStore.getPackageList(1, 100, "modifiedAt").then((res) => {
+    paginationInfo.value.totalPage = res.totalPage;
+  });
+};
+fetchList();
 
 const onPageChange = (page: number) => {
   paginationInfo.value.page = page;
-  packageStore.getPackageList(page, 10, "modifiedAt").then((res) => {
-    paginationInfo.value.totalPage = res.totalPage;
-  });
+  fetchList();
 };
 
 const handleDelete = async (id: number) => {
   if (!window.confirm("確定要刪除嗎？")) return;
   await packageStore.deletePackage(id);
-  packageStore.getPackageList(paginationInfo.value.page, 10, "modifiedAt");
+  fetchList();
 };
+
+onUnmounted(() => {
+  packageStore.$reset();
+});
 </script>
 
 <style scoped></style>

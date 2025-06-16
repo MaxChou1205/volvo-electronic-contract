@@ -1,3 +1,4 @@
+import { ApiPaginationResponse } from "./apiType";
 import { TheFile } from "./fileType";
 
 export interface PackageInfo {
@@ -35,6 +36,7 @@ export interface PackageInfo {
     name: string;
     price: number;
   }[];
+  isPublished: boolean;
 }
 
 export interface PackageInfoPostReq
@@ -64,37 +66,4 @@ export interface PackageInfoGetRes
   }[];
 }
 
-export interface PackageListGetRes {
-  items: [
-    {
-      id: number;
-      imageUrl: string | null;
-      thumbnailUrl: string | null;
-      packageName: string;
-      modelId: number;
-      modelCode: string;
-      modelName: string;
-      modelYearId: string;
-      modelYearCode: string;
-      modelYearName: string;
-      modelConfigId: string;
-      modelConfigCode: string;
-      modelConfigName: string;
-      modelColorId: string;
-      modelColorCode: string;
-      modelTrimId: string;
-      modelTrimCode: string;
-      modelTrimName: string;
-      vehicleRetailAllAmount: number;
-      vehicleDealAllAmount: number;
-      packageDmsOptions: [];
-      packageOptions: [];
-      createdAt: Date;
-      createdBy: string;
-      modifiedAt: Date;
-      modifiedBy: string;
-    },
-  ];
-  totalCount: number;
-  totalPage: number;
-}
+export interface PackageListGetRes extends ApiPaginationResponse<PackageInfo> {}
