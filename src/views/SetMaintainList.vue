@@ -126,6 +126,7 @@
 import { storeToRefs } from "pinia";
 import { computed, onUnmounted, ref } from "vue";
 import Pagination from "@/components/Pagination.vue";
+import { carTypeList } from "@/constants/car";
 import { usePackageStore } from "@/stores/packageStore";
 
 const packageStore = usePackageStore();
@@ -136,82 +137,9 @@ const paginationInfo = ref({
   totalPage: 1,
 });
 
-const carTypeList = ref([
-  {
-    id: "0",
-    name: "EX40",
-    img: new URL("@/assets/img/EX40.png", import.meta.url).href,
-    mainCategory: "電動",
-    type: "休旅車",
-    modelId: "",
-    modelCode: "",
-    modelName: "",
-  },
-  {
-    id: "1",
-    name: "EX30",
-    img: new URL("@/assets/img/EX30.png", import.meta.url).href,
-    mainCategory: "電動",
-    type: "休旅車",
-    modelId: "",
-    modelCode: "",
-    modelName: "",
-  },
-  {
-    id: "2",
-    name: "EC40",
-    img: new URL("@/assets/img/EC40.png", import.meta.url).href,
-    mainCategory: "電動",
-    type: "跨界跑旅",
-    modelId: "",
-    modelCode: "",
-    modelName: "",
-  },
-  {
-    id: "3",
-    name: "XC90",
-    img: new URL("@/assets/img/XC90.png", import.meta.url).href,
-    mainCategory: "雙能電動",
-    type: "休旅車",
-    modelId: "",
-    modelCode: "",
-    modelName: "",
-  },
-  {
-    id: "4",
-    name: "XC60",
-    img: new URL("@/assets/img/XC60.png", import.meta.url).href,
-    mainCategory: "雙能電動",
-    type: "休旅車",
-    modelId: "",
-    modelCode: "",
-    modelName: "",
-  },
-  {
-    id: "7",
-    name: "V60",
-    img: new URL("@/assets/img/V60.png", import.meta.url).href,
-    mainCategory: "雙能電動",
-    type: "旅行車",
-    modelId: "",
-    modelCode: "",
-    modelName: "",
-  },
-  {
-    id: "8",
-    name: "XC40",
-    img: new URL("@/assets/img/XC40.png", import.meta.url).href,
-    mainCategory: "高效輕油電",
-    type: "休旅車",
-    modelId: "",
-    modelCode: "",
-    modelName: "",
-  },
-]);
-
 const processedCarList = computed(() => {
   return packageList.value.map((item) => {
-    const car = carTypeList.value.find(
+    const car = carTypeList.find(
       (car) => Number(car.id) === Number(item.modelId),
     );
     return {
