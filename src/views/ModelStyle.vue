@@ -31,7 +31,10 @@
               class="flex cursor-pointer flex-col"
               v-for="(car, carIndex) in cars"
               :key="carIndex"
-              @click="handleChangeCarInfo('modelId', form.order, car.id)"
+              @click="
+                handleChangeCarInfo('modelId', form.order, car.id);
+                fetchPackageList();
+              "
               :ref="
                 (el) => {
                   if (String(form.order.modelId) === car.id && el)
@@ -57,12 +60,25 @@
         </HorizontalScroll>
       </div>
 
+      <div v-if="form.order.modelId && packageList.length > 0">
+        <div>優惠套裝</div>
+        <HorizontalScroll
+          ><PackageCard
+            v-for="packageInfo in packageList"
+            :key="`car${packageInfo.id}`"
+            :packageInfo="packageInfo"
+            @change="handlePackageChange"
+        /></HorizontalScroll>
+      </div>
+
       <div class="mt-8 grid grid-cols-2 gap-x-6 gap-y-8">
         <Select
           v-model="form.order.modelYearId"
           title="年式"
           :options="carFormOptions.yearOptions"
-          :disabled="carFormOptions.yearOptions.length === 0"
+          :disabled="
+            carFormOptions.yearOptions.length === 0 || selectedPackage != null
+          "
           :initValue="{
             label: form.order.modelYearName,
             value: form.order.modelYearId,
@@ -74,8 +90,16 @@
         <Select
           v-model="form.order.modelConfigId"
           title="車款動力"
-          :options="carFormOptions.configOptions"
-          :disabled="carFormOptions.configOptions.length === 0"
+          :options="[
+            ...carFormOptions.configOptions,
+            {
+              label: form.order.modelConfigName || '',
+              value: form.order.modelConfigId,
+            },
+          ]"
+          :disabled="
+            carFormOptions.configOptions.length === 0 || selectedPackage != null
+          "
           :initValue="{
             label: form.order.modelConfigName ?? '',
             value: form.order.modelConfigId,
@@ -87,8 +111,16 @@
         <Select
           v-model="form.order.modelColorId"
           title="車色"
-          :options="carFormOptions.colorOptions"
-          :disabled="carFormOptions.colorOptions.length === 0"
+          :options="[
+            ...carFormOptions.colorOptions,
+            {
+              label: form.order.modelColorName || '',
+              value: form.order.modelColorId,
+            },
+          ]"
+          :disabled="
+            carFormOptions.colorOptions.length === 0 || selectedPackage != null
+          "
           :initValue="{
             label: form.order.modelColorName ?? '',
             value: form.order.modelColorId,
@@ -100,8 +132,16 @@
         <Select
           v-model="form.order.modelTrimId"
           title="內裝"
-          :options="carFormOptions.trimOptions"
-          :disabled="carFormOptions.trimOptions.length === 0"
+          :options="[
+            ...carFormOptions.trimOptions,
+            {
+              label: form.order.modelTrimName || '',
+              value: form.order.modelTrimId,
+            },
+          ]"
+          :disabled="
+            carFormOptions.trimOptions.length === 0 || selectedPackage != null
+          "
           :initValue="{
             label: form.order.modelTrimName ?? '',
             value: form.order.modelTrimId,
@@ -115,8 +155,14 @@
             v-model="form.order.personalityOptionVOList"
             title="選配"
             placeholder="請選擇選配"
-            :options="carFormOptions.optionOptions"
-            :disabled="carFormOptions.optionOptions.length === 0"
+            :options="[
+              ...carFormOptions.optionOptions,
+              ...form.order.personalityOptionVOList,
+            ]"
+            :disabled="
+              carFormOptions.optionOptions.length === 0 ||
+              selectedPackage != null
+            "
           />
           <!-- <span v-if=".modelOptionNames">{{
             errors.modelOptionNames
@@ -150,19 +196,6 @@
       <hr class="divider" />
 
       <div class="mt-8">
-        <!-- <div>優惠套裝</div> -->
-        <!-- <HorizontalScroll
-          ><Card
-            v-for="(car, index) in carList"
-            v-model="selectedProjectId"
-            :key="`car${car.id}`"
-            :car="car"
-            :class="
-              selectedProjectId === car.id
-                ? 'border-2 border-blue-500'
-                : 'border-1 border-gray-600'
-            "
-        /></HorizontalScroll> -->
         <div class="text-black-400">
           <div class="mb-8">
             <SingleChoiceButton
@@ -316,6 +349,7 @@ import CurrencyInput from "@/components/CurrencyInput.vue";
 import DatePicker from "@/components/DatePicker.vue";
 import HorizontalScroll from "@/components/HorizontalScroll.vue";
 import MultiSelect from "@/components/MultiSelect.vue";
+import PackageCard from "@/components/PackageCard.vue";
 import Select from "@/components/Select.vue";
 import SingleChoiceButton from "@/components/SingleChoiceButton.vue";
 import Stepper from "@/components/Stepper.vue";
@@ -323,6 +357,8 @@ import { useCarService } from "@/composables/carService";
 import { useErrorHint } from "@/composables/useErrorHint";
 import { carTypeList } from "@/constants/car";
 import { useContractStore } from "@/stores/contractStore";
+import { usePackageStore } from "@/stores/packageStore";
+import type { PackageInfo } from "@/types/packageType";
 import county from "../assets/county.json";
 import exhibitionCenter from "../assets/exhibitionCenter.json";
 
@@ -377,6 +413,7 @@ onMounted(async () => {
     currentTabIndex.value = tabs.indexOf(currentCarInfo.mainCategory);
     form.value.order.modelCode = currentCarInfo.code ?? "";
     form.value.order.modelName = currentCarInfo.name ?? "";
+    fetchPackageList();
   }
 
   const keys = findRestFieldKeys("modelId");
@@ -413,6 +450,54 @@ const handleNext = async () => {
   router.push({ name: "memberInfo" });
 };
 
+// 優惠套裝
+const packageStore = usePackageStore();
+const fetchPackageList = () => {
+  packageStore.getPackageList(1, 100, "modifiedAt", {
+    // modelId: form.value.order.modelId,
+    isPublished: true,
+  });
+};
+const { packageList } = storeToRefs(packageStore);
+const selectedPackage = ref<number | null>(null);
+const handlePackageChange = (packageInfo: PackageInfo | null) => {
+  selectedPackage.value = packageInfo?.id ?? null;
+  if (packageInfo) {
+    // 選擇套組
+    form.value.order.modelColorId = packageInfo.modelColorId;
+    form.value.order.modelColorName = packageInfo.modelColorName;
+    form.value.order.modelColorCode = packageInfo.modelColorCode;
+
+    form.value.order.modelTrimId = packageInfo.modelTrimId;
+    form.value.order.modelTrimName = packageInfo.modelTrimName;
+    form.value.order.modelTrimCode = packageInfo.modelTrimCode;
+
+    form.value.order.modelConfigId = packageInfo.modelConfigId;
+    form.value.order.modelConfigName = packageInfo.modelConfigName;
+    form.value.order.modelConfigCode = packageInfo.modelConfigCode;
+
+    form.value.order.modelYearId = packageInfo.modelYearId;
+    form.value.order.modelYearName = packageInfo.modelYearName;
+    form.value.order.modelYearCode = packageInfo.modelYearCode;
+
+    form.value.order.personalityOptionVOList =
+      packageInfo.packageDmsOptions.map((item) => ({
+        optionId: item.optionId,
+        optionCode: item.optionCode,
+        optionName: item.optionName,
+        optionPrice: item.optionPrice,
+        label: item.optionName,
+        value: item.optionId,
+        code: item.optionCode,
+      }));
+  } else {
+    handleChangeCarInfo(
+      "modelId",
+      form.value.order,
+      String(form.value.order.modelId),
+    );
+  }
+};
 // ---車型樣式---
 const currentTabIndex = ref<number>(0);
 const tabs = ["電動", "雙能電動", "高效輕油電"];

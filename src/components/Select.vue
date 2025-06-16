@@ -1,6 +1,10 @@
 <template>
   <label class="inline-block">
-    <div class="mb-3" v-if="title" :class="{ 'required-asterisk': props.required }">
+    <div
+      class="mb-3"
+      v-if="title"
+      :class="{ 'required-asterisk': props.required }"
+    >
       {{ title }}
     </div>
     <div class="select">
@@ -30,7 +34,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from "vue";
+import { computed, onMounted, watch } from "vue";
 import useVuelidate, { type ValidationRule } from "@vuelidate/core";
 import { helpers, required } from "@vuelidate/validators";
 

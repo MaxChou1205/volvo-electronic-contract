@@ -83,8 +83,19 @@ export const usePackageStore = defineStore("package", {
       page: number,
       size: number,
       orderBy: string = "modifiedAt",
+      condition?: {
+        modelId?: number;
+        modelCode?: number;
+        modelName?: number;
+        isPublished?: boolean;
+      },
     ) {
-      const response = await packageApi.getPackageList(page, size, orderBy);
+      const response = await packageApi.getPackageList(
+        page,
+        size,
+        orderBy,
+        condition,
+      );
       this.packageList = response.items.map((item) => ({
         ...item,
         image: null,

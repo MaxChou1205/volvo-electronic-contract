@@ -10,7 +10,17 @@ export const packageApi = {
     });
     return response.data;
   },
-  getPackageList: async (page: number, size: number, orderBy?: string) => {
+  getPackageList: async (
+    page: number,
+    size: number,
+    orderBy?: string,
+    condition?: {
+      modelId?: number;
+      modelCode?: number;
+      modelName?: number;
+      isPublished?: boolean;
+    },
+  ) => {
     const response = await axiosInstance.get<PackageListGetRes>(
       "/api/package",
       {
@@ -18,6 +28,12 @@ export const packageApi = {
           PageNumber: page,
           PageSize: size,
           OrderBy: orderBy,
+          ...(condition && {
+            ModelId: condition?.modelId,
+            ModelCode: condition?.modelCode,
+            ModelName: condition?.modelName,
+            IsPublished: condition?.isPublished,
+          }),
         },
       },
     );
