@@ -13,7 +13,6 @@
           v-model="vehicleInfo.isPublished"
           :value="true"
           label="上架顯示於車型樣式"
-          :required="true"
         />
         <Select
           class="w-full"

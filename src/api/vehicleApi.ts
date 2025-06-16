@@ -15,9 +15,9 @@ export const vehicleApi = {
       "/api/vehicle",
       {
         params: {
-          page,
-          size,
-          orderBy,
+          PageNumber: page,
+          PageSize: size,
+          OrderBy: orderBy,
         },
       },
     );
