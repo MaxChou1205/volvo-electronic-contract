@@ -184,7 +184,7 @@ const carTypeList = ref([
     modelName: "",
   },
   {
-    id: "5",
+    id: "7",
     name: "V60",
     img: new URL("@/assets/img/V60.png", import.meta.url).href,
     mainCategory: "雙能電動",

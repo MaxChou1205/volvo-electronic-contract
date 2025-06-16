@@ -13,7 +13,7 @@
     </header>
 
     <main class="overflow-auto p-4">
-      <div class="" v-if="vehicles.length > 0">
+      <div class="" v-if="vehicleList.length > 0">
         <div class="mx-auto max-w-6xl">
           <div class="overflow-hidden rounded-lg bg-white shadow-sm">
             <table class="w-full">
@@ -44,20 +44,22 @@
               <tbody>
                 <tr
                   class="border-b border-gray-200 hover:bg-gray-50"
-                  v-for="(vehicle, index) in vehicles"
+                  v-for="(vehicle, index) in vehicleList"
                   :key="index"
                   :class="index % 2 === 0 ? 'bg-gray-100' : 'bg-white'"
                 >
                   <td class="border-r border-gray-300 px-6 py-4 font-medium">
-                    {{ vehicle.type }}
+                    {{ vehicle.category }}
                   </td>
                   <td class="border-r border-gray-300 px-6 py-4 font-medium">
-                    {{ vehicle.model }}
+                    {{ vehicle.modelName }}
                   </td>
                   <td class="border-r border-gray-300 px-6 py-4 font-medium">
                     <span
-                      :class="[vehicle.status === '下架' && 'text-gray-500']"
-                      >{{ vehicle.status }}</span
+                      :class="[
+                        vehicle.isPublished === false && 'text-gray-500',
+                      ]"
+                      >{{ vehicle.isPublished ? "上架" : "下架" }}</span
                     >
                   </td>
                   <td class="px-6 py-4">
@@ -71,7 +73,12 @@
                       >
                         修改
                       </router-link>
-                      <button class="button-gray">刪除</button>
+                      <button
+                        class="button-gray"
+                        @click="deleteVehicle(vehicle.id)"
+                      >
+                        刪除
+                      </button>
                     </div>
                   </td>
                 </tr>
@@ -84,7 +91,7 @@
       <!-- Empty State -->
       <div
         class="flex h-[400px] items-center justify-center p-20"
-        v-if="vehicles.length === 0"
+        v-if="vehicleList.length === 0"
       >
         <div class="text-center leading-[400px]">
           <h3 class="text-xl font-medium text-gray-900">
@@ -108,44 +115,41 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { storeToRefs } from "pinia";
+import { onUnmounted, ref } from "vue";
 import Pagination from "@/components/Pagination.vue";
+import { useVehicleStore } from "@/stores/vehicleStore";
 
-const vehicles = ref([
-  {
-    id: 1,
-    type: "休旅車",
-    model: "XC40",
-    status: "上架",
-  },
-  {
-    id: 2,
-    type: "休旅車",
-    model: "XC40",
-    status: "上架",
-  },
-  {
-    id: 3,
-    type: "轎跑車",
-    model: "EX60",
-    status: "上架",
-  },
-  {
-    id: 4,
-    type: "休旅車",
-    model: "XC90",
-    status: "下架",
-  },
-]);
+const vehicleStore = useVehicleStore();
+const { vehicleList } = storeToRefs(vehicleStore);
 
 const paginationInfo = ref({
   page: 1,
   totalPage: 2,
 });
 
+const fetchVehicleList = () => {
+  vehicleStore.getVehicleList(paginationInfo.value.page, 10).then((res) => {
+    paginationInfo.value.totalPage = res.totalPage;
+  });
+};
+// 初始化取得列表資料
+fetchVehicleList();
+
 const onPageChange = (page: number) => {
   paginationInfo.value.page = page;
+  fetchVehicleList();
 };
+
+const deleteVehicle = (id: number) => {
+  if (!confirm("確定要刪除嗎？")) return;
+  vehicleStore.deleteVehicle(id);
+  fetchVehicleList();
+};
+
+onUnmounted(() => {
+  vehicleStore.$reset();
+});
 </script>
 
 <style scoped></style>
