@@ -13,7 +13,7 @@
           :key="contract.orderNo"
         >
           <div class="mb-3 flex items-center justify-between">
-            <div class="text-gray-900">合約編號</div>
+            <div class="text-gray-900">訂單編號</div>
             <div class="text-gray-800">{{ contract.orderNo }}</div>
           </div>
           <div class="text-black-400 mb-2">
