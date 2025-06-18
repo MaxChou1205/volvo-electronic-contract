@@ -103,7 +103,6 @@ export const usePackageStore = defineStore("package", {
       this.packageList = response.items.map((item) => ({
         ...item,
         image: null,
-        modelColorName: "",
       }));
       return response;
     },
