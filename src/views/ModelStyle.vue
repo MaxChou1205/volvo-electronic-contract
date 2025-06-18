@@ -17,8 +17,6 @@
         車型樣式
       </div>
 
-      <!-- <Tabs class="px-15" v-model="currentTabIndex" :tabs="tabs" /> -->
-
       <div class="relative">
         <HorizontalScroll>
           <div
@@ -32,12 +30,12 @@
               v-for="(car, carIndex) in cars"
               :key="carIndex"
               @click="
-                handleChangeCarInfo('modelId', form.order, car.id);
+                handleChangeCarInfo('modelId', form.order, String(car.modelId));
                 fetchPackageList();
               "
               :ref="
                 (el) => {
-                  if (String(form.order.modelId) === car.id && el)
+                  if (String(form.order.modelId) === String(car.modelId) && el)
                     selectedCarRef = el as HTMLButtonElement;
                 }
               "
@@ -45,15 +43,15 @@
               <div
                 class="mb-1 flex h-24 w-24 items-center justify-center rounded-[4px] bg-gray-200"
                 :class="
-                  String(form.order.modelId) === car.id
+                  String(form.order.modelId) === String(car.modelId)
                     ? 'border-1 border-blue-500'
                     : ''
                 "
               >
-                <img :src="car.img" alt="car" />
+                <img :src="car.thumbnailUrl" alt="car" />
               </div>
               <div class="text-black-400 text-center text-xs">
-                {{ car.name }}
+                {{ car.modelName }}
               </div>
             </button>
           </div>
@@ -378,7 +376,8 @@ import { useErrorHint } from "@/composables/useErrorHint";
 import { carTypeList } from "@/constants/car";
 import { useContractStore } from "@/stores/contractStore";
 import { usePackageStore } from "@/stores/packageStore";
-import type { PackageInfoGetRes, PackageItem } from "@/types/packageType";
+import { useVehicleStore } from "@/stores/vehicleStore";
+import type { PackageItem } from "@/types/packageType";
 import county from "../assets/county.json";
 import exhibitionCenter from "../assets/exhibitionCenter.json";
 
@@ -426,14 +425,12 @@ onMounted(async () => {
     };
   });
 
-  const currentCarInfo = formOptions.value.modelOptions.find(
-    (car) => car.id === String(form.value.order.modelId),
-  );
-  if (currentCarInfo) {
-    currentTabIndex.value = tabs.indexOf(currentCarInfo.mainCategory);
-    form.value.order.modelCode = currentCarInfo.code ?? "";
-    form.value.order.modelName = currentCarInfo.name ?? "";
-    fetchPackageList();
+  if (!form.value.order.modelCode || !form.value.order.modelName) {
+    const currentCarInfo = formOptions.value.modelOptions.find(
+      (car) => car.id === String(form.value.order.modelId),
+    );
+    form.value.order.modelCode = currentCarInfo?.code ?? "";
+    form.value.order.modelName = currentCarInfo?.name ?? "";
   }
 
   const keys = findRestFieldKeys("modelId");
@@ -470,16 +467,29 @@ const handleNext = async () => {
   router.push({ name: "memberInfo" });
 };
 
+// ---車型樣式---
+const vehicleStore = useVehicleStore();
+const { vehicleList } = storeToRefs(vehicleStore);
+
+vehicleStore.getVehicleList(1, 100);
+
+const processedCarList = computed(() => {
+  return Object.groupBy(vehicleList.value, (item) => item.category);
+});
+
 // 優惠套裝
 const selectedPackage = ref<number | null>(null);
 const packageStore = usePackageStore();
 const { packageList } = storeToRefs(packageStore);
+
 const fetchPackageList = async () => {
   packageStore.getPackageList(1, 100, "modifiedAt", {
     modelCode: form.value.order.modelCode,
     isPublished: true,
   });
 };
+fetchPackageList();
+
 const handlePackageChange = (packageInfo: PackageItem | null) => {
   selectedPackage.value = packageInfo?.id ?? null;
   handleChangeCarInfo(
@@ -528,16 +538,6 @@ const handlePackageChange = (packageInfo: PackageItem | null) => {
     ];
   }
 };
-// ---車型樣式---
-const currentTabIndex = ref<number>(0);
-const tabs = ["電動", "雙能電動", "高效輕油電"];
-
-const processedCarList = computed(() => {
-  // const filteredCarList = carTypeList.value.filter(
-  //   (item) => item.mainCategory === tabs[currentTabIndex.value],
-  // );
-  return Object.groupBy(formOptions.value.modelOptions, (item) => item.type);
-});
 
 // 出廠年份
 const yearOfManufacture = computed(() => {
