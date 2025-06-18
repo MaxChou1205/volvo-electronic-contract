@@ -67,6 +67,7 @@
             v-for="packageInfo in packageList"
             :key="`car${packageInfo.id}`"
             :packageInfo="packageInfo"
+            :selectedPackage="selectedPackage"
             @change="handlePackageChange"
         /></HorizontalScroll>
       </div>
@@ -75,7 +76,16 @@
         <Select
           v-model="form.order.modelYearId"
           title="年式"
-          :options="carFormOptions.yearOptions"
+          :options="
+            carFormOptions.yearOptions.length > 0
+              ? carFormOptions.yearOptions
+              : [
+                  {
+                    label: form.order.modelYearName || '',
+                    value: form.order.modelYearId,
+                  },
+                ]
+          "
           :disabled="
             carFormOptions.yearOptions.length === 0 || selectedPackage != null
           "
@@ -90,13 +100,16 @@
         <Select
           v-model="form.order.modelConfigId"
           title="車款動力"
-          :options="[
-            ...carFormOptions.configOptions,
-            {
-              label: form.order.modelConfigName || '',
-              value: form.order.modelConfigId,
-            },
-          ]"
+          :options="
+            carFormOptions.configOptions.length > 0
+              ? carFormOptions.configOptions
+              : [
+                  {
+                    label: form.order.modelConfigName || '',
+                    value: form.order.modelConfigId,
+                  },
+                ]
+          "
           :disabled="
             carFormOptions.configOptions.length === 0 || selectedPackage != null
           "
@@ -111,13 +124,16 @@
         <Select
           v-model="form.order.modelColorId"
           title="車色"
-          :options="[
-            ...carFormOptions.colorOptions,
-            {
-              label: form.order.modelColorName || '',
-              value: form.order.modelColorId,
-            },
-          ]"
+          :options="
+            carFormOptions.colorOptions.length > 0
+              ? carFormOptions.colorOptions
+              : [
+                  {
+                    label: form.order.modelColorName || '',
+                    value: form.order.modelColorId,
+                  },
+                ]
+          "
           :disabled="
             carFormOptions.colorOptions.length === 0 || selectedPackage != null
           "
@@ -132,13 +148,16 @@
         <Select
           v-model="form.order.modelTrimId"
           title="內裝"
-          :options="[
-            ...carFormOptions.trimOptions,
-            {
-              label: form.order.modelTrimName || '',
-              value: form.order.modelTrimId,
-            },
-          ]"
+          :options="
+            carFormOptions.trimOptions.length > 0
+              ? carFormOptions.trimOptions
+              : [
+                  {
+                    label: form.order.modelTrimName || '',
+                    value: form.order.modelTrimId,
+                  },
+                ]
+          "
           :disabled="
             carFormOptions.trimOptions.length === 0 || selectedPackage != null
           "
@@ -155,10 +174,11 @@
             v-model="form.order.personalityOptionVOList"
             title="選配"
             placeholder="請選擇選配"
-            :options="[
-              ...carFormOptions.optionOptions,
-              ...form.order.personalityOptionVOList,
-            ]"
+            :options="
+              carFormOptions.optionOptions.length > 0
+                ? carFormOptions.optionOptions
+                : form.order.personalityOptionVOList
+            "
             :disabled="
               carFormOptions.optionOptions.length === 0 ||
               selectedPackage != null
@@ -358,7 +378,7 @@ import { useErrorHint } from "@/composables/useErrorHint";
 import { carTypeList } from "@/constants/car";
 import { useContractStore } from "@/stores/contractStore";
 import { usePackageStore } from "@/stores/packageStore";
-import type { PackageInfo } from "@/types/packageType";
+import type { PackageInfoGetRes, PackageItem } from "@/types/packageType";
 import county from "../assets/county.json";
 import exhibitionCenter from "../assets/exhibitionCenter.json";
 
@@ -451,17 +471,23 @@ const handleNext = async () => {
 };
 
 // 優惠套裝
+const selectedPackage = ref<number | null>(null);
 const packageStore = usePackageStore();
-const fetchPackageList = () => {
+const { packageList } = storeToRefs(packageStore);
+const fetchPackageList = async () => {
   packageStore.getPackageList(1, 100, "modifiedAt", {
-    // modelId: form.value.order.modelId,
+    modelCode: form.value.order.modelCode,
     isPublished: true,
   });
 };
-const { packageList } = storeToRefs(packageStore);
-const selectedPackage = ref<number | null>(null);
-const handlePackageChange = (packageInfo: PackageInfo | null) => {
+const handlePackageChange = (packageInfo: PackageItem | null) => {
   selectedPackage.value = packageInfo?.id ?? null;
+  handleChangeCarInfo(
+    "modelId",
+    form.value.order,
+    String(form.value.order.modelId),
+  );
+  form.value.order.personalityOptionVOList = [];
   if (packageInfo) {
     // 選擇套組
     form.value.order.modelColorId = packageInfo.modelColorId;
@@ -480,8 +506,8 @@ const handlePackageChange = (packageInfo: PackageInfo | null) => {
     form.value.order.modelYearName = packageInfo.modelYearName;
     form.value.order.modelYearCode = packageInfo.modelYearCode;
 
-    form.value.order.personalityOptionVOList =
-      packageInfo.packageDmsOptions.map((item) => ({
+    form.value.order.personalityOptionVOList = [
+      ...packageInfo.packageDmsOptions.map((item) => ({
         optionId: item.optionId,
         optionCode: item.optionCode,
         optionName: item.optionName,
@@ -489,13 +515,17 @@ const handlePackageChange = (packageInfo: PackageInfo | null) => {
         label: item.optionName,
         value: item.optionId,
         code: item.optionCode,
-      }));
-  } else {
-    handleChangeCarInfo(
-      "modelId",
-      form.value.order,
-      String(form.value.order.modelId),
-    );
+      })),
+      ...packageInfo.packageOptions.map((item) => ({
+        optionId: item.optionId,
+        optionCode: item.optionCode,
+        optionName: item.optionName,
+        optionPrice: item.optionPrice,
+        label: item.optionName,
+        value: item.optionId,
+        code: item.optionCode,
+      })),
+    ];
   }
 };
 // ---車型樣式---
@@ -518,61 +548,7 @@ const yearOfManufacture = computed(() => {
     .reverse();
 });
 
-// 優惠套裝
-// const carList = ref([
-//   {
-//     id: 0,
-//     name: "XC90 空力制霸極速狂飆優惠組合",
-//     marketPrice: 2332800,
-//     accessories: [
-//       {
-//         name: "空力套件",
-//         price: 609000,
-//       },
-//       {
-//         name: "全景天窗",
-//         price: 291000,
-//       },
-//       {
-//         name: "車頂置物架",
-//         price: 932800,
-//       },
-//     ],
-//     totalPrice: 3332800,
-//     salesPrice: 2848800,
-//   },
-//   {
-//     id: 1,
-//     name: "XC90 Ultimate 頂級奢華優惠組合",
-//     marketPrice: 2332800,
-//     accessories: [
-//       {
-//         name: "空力套件",
-//         price: 609000,
-//       },
-//       {
-//         name: "全景天窗",
-//         price: 291000,
-//       },
-//       {
-//         name: "車頂置物架",
-//         price: 932800,
-//       },
-//     ],
-//     totalPrice: 3332800,
-//     salesPrice: 2848800,
-//   },
-//   {
-//     id: 2,
-//     name: "XC90 尊榮優惠",
-//     marketPrice: 2332800,
-//     accessories: [],
-//     totalPrice: 2332800,
-//     salesPrice: 2330000,
-//   },
-// ]);
 // ---交車地點---
-
 const handleDeliveryLocationChange = () => {
   form.value.showroom = "";
   form.value.deliveryCityId = null;

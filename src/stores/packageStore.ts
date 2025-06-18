@@ -1,6 +1,10 @@
 import { defineStore } from "pinia";
 import { packageApi } from "@/api/packageApi";
-import type { PackageInfo } from "@/types/packageType";
+import type {
+  PackageInfo,
+  PackageItem,
+  PackageListGetRes,
+} from "@/types/packageType";
 
 const defaultPackageInfo = {
   id: 0,
@@ -32,7 +36,7 @@ const defaultPackageInfo = {
 export const usePackageStore = defineStore("package", {
   state: () => ({
     packageInfo: { ...defaultPackageInfo } as PackageInfo,
-    packageList: [] as PackageInfo[],
+    packageList: [] as PackageItem[],
   }),
   actions: {
     async savePackage(payload: PackageInfo, id?: number) {
@@ -85,11 +89,11 @@ export const usePackageStore = defineStore("package", {
       orderBy: string = "modifiedAt",
       condition?: {
         modelId?: number;
-        modelCode?: number;
-        modelName?: number;
+        modelCode?: string;
+        modelName?: string;
         isPublished?: boolean;
       },
-    ) {
+    ): Promise<PackageListGetRes> {
       const response = await packageApi.getPackageList(
         page,
         size,

@@ -16,8 +16,8 @@ export const packageApi = {
     orderBy?: string,
     condition?: {
       modelId?: number;
-      modelCode?: number;
-      modelName?: number;
+      modelCode?: string;
+      modelName?: string;
       isPublished?: boolean;
     },
   ) => {

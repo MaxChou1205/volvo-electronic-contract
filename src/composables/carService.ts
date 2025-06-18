@@ -218,6 +218,10 @@ export const useCarService = () => {
     const restFieldKeys = findRestFieldKeys(formKey);
     restFieldKeys.forEach((key) => {
       form[key] = undefined;
+      if (key === "modelOptionId") {
+        form.personalityOptionVOList = [];
+        form["packageDmsOptions"] = [];
+      }
       const info = fieldInfoMap.get(key);
       if (!info) return;
       formOptions.value[info.optionsKey] = [];

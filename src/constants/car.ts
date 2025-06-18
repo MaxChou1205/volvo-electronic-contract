@@ -40,7 +40,7 @@ export const carTypeList = [
     modelName: "",
   },
   {
-    id: "4",
+    id: "9",
     name: "XC60",
     img: new URL("@/assets/img/XC60.png", import.meta.url).href,
     mainCategory: "雙能電動",

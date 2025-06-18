@@ -96,16 +96,6 @@ const multiSelectRef = useTemplateRef<HTMLElement>("multiSelect");
 const isOpen = ref(false);
 const inputRef = ref<HTMLElement | null>(null);
 
-// onMounted(() => {
-// if (modelValue.value.length > 0) {
-//   ids.value = modelValue.value.map((item) => item.value);
-// }
-// });
-
-// const selectedIds = computed(() => {
-//   return modelValue.value.map((item) => item.value);
-// });
-
 const ids = computed(() => {
   return modelValue.value.map((item) => item.value);
 });

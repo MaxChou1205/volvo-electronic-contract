@@ -66,4 +66,13 @@ export interface PackageInfoGetRes
   }[];
 }
 
-export interface PackageListGetRes extends ApiPaginationResponse<PackageInfo> {}
+export type PackageItem = Omit<PackageInfo, "packageOptions"> & {
+  packageOptions: {
+    optionId: string;
+    optionCode: string;
+    optionName: string;
+    optionPrice: number;
+  }[];
+};
+
+export interface PackageListGetRes extends ApiPaginationResponse<PackageItem> {}

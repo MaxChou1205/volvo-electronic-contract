@@ -14,8 +14,8 @@
         <div class="h-43 w-43">
           <img
             class="h-full w-full object-cover"
-            src="@/assets/img/car1.png"
-            alt=""
+            :src="packageInfo.imageUrl ?? defaultThumbnail"
+            alt="套裝縮圖"
           />
         </div>
         <!-- <router-link class="block text-blue-500" to="">更多說明</router-link> -->
@@ -45,6 +45,18 @@
                 >
               </div>
             </li>
+            <li
+              class="ml-5 list-disc"
+              v-for="(accessory, index) in packageInfo.packageOptions"
+              :key="`accessory-${index}`"
+            >
+              <div class="flex justify-between space-y-1">
+                <span>{{ accessory.optionName }}</span>
+                <span class="text-right text-gray-600"
+                  >NT$ {{ accessory.optionPrice }}</span
+                >
+              </div>
+            </li>
           </ul>
         </div>
         <div class="mb-2 flex justify-between text-gray-600">
@@ -65,8 +77,14 @@
         </div>
         <button
           class="h-8 py-2 text-sm"
-          :class="
-            selectedPackage === packageInfo.id ? 'button-blue' : 'button-white'
+          :class="[
+            selectedPackage === packageInfo.id ? 'button-blue' : 'button-white',
+            selectedPackage !== null && selectedPackage !== packageInfo.id
+              ? 'disabled border-none'
+              : '',
+          ]"
+          :disabled="
+            selectedPackage !== null && selectedPackage !== packageInfo.id
           "
           @click="handleSelectPackage"
         >
@@ -79,21 +97,20 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import type { PackageInfo } from "@/types/packageType";
+import defaultThumbnail from "@/assets/img/car1.png";
+import type { PackageItem } from "@/types/packageType";
 
-const { packageInfo } = defineProps<{
-  packageInfo: PackageInfo;
+const { packageInfo, selectedPackage } = defineProps<{
+  packageInfo: PackageItem;
+  selectedPackage: number | null;
 }>();
 
-const selectedPackage = ref<number | null>(null);
 const emit = defineEmits(["change"]);
 
 const handleSelectPackage = () => {
-  if (selectedPackage.value === packageInfo.id) {
-    selectedPackage.value = null;
+  if (selectedPackage === packageInfo.id) {
     emit("change", null);
   } else {
-    selectedPackage.value = packageInfo.id;
     emit("change", packageInfo);
   }
 };
