@@ -72,6 +72,8 @@ export const usePackageStore = defineStore("package", {
           });
         } else if (key === "image" && value) {
           formData.append("Image", value.file);
+        } else if (key === "isPublished") {
+          formData.append(newKey, value.toString().toUpperCase());
         } else {
           formData.append(newKey, value);
         }
