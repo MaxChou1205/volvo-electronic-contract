@@ -141,9 +141,9 @@ const onPageChange = (page: number) => {
   fetchVehicleList();
 };
 
-const deleteVehicle = (id: number) => {
+const deleteVehicle = async (id: number) => {
   if (!confirm("確定要刪除嗎？")) return;
-  vehicleStore.deleteVehicle(id);
+  await vehicleStore.deleteVehicle(id);
   fetchVehicleList();
 };
 
