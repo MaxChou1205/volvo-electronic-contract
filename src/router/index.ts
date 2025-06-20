@@ -87,6 +87,24 @@ const routes = [
       {
         name: "companyMaintain",
         path: "/company-maintain",
+        component: () => import("@/views/CompanyMaintainList.vue"),
+        beforeEnter: [roleMiddleware],
+        meta: {
+          roles: [3, 4],
+        },
+      },
+      {
+        name: "companyMaintainAdd",
+        path: "/company-maintain/add",
+        component: () => import("@/views/CompanyMaintain.vue"),
+        beforeEnter: [roleMiddleware],
+        meta: {
+          roles: [3, 4],
+        },
+      },
+      {
+        name: "companyMaintainEdit",
+        path: "/company-maintain/edit/:code",
         component: () => import("@/views/CompanyMaintain.vue"),
         beforeEnter: [roleMiddleware],
         meta: {
@@ -125,6 +143,10 @@ const routes = [
     path: "/contract-finish/:orderId",
     component: () => import("@/views/FinishView.vue"),
     beforeEnter: [authMiddleware, contractMiddleware],
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    redirect: "/order",
   },
 ];
 

@@ -289,13 +289,15 @@
             v-model="agreementForm.contractAgreement"
             :value="true"
             disabled
-            ><button
+            ><a
               class="cursor-pointer text-blue-500"
-              type="button"
-              @click="openContractModal"
+              :href="companyInfo?.agreementUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+              @click="agreementForm.contractAgreement = true"
             >
               新車訂購合約條款
-            </button></Checkbox
+            </a></Checkbox
           >
           <div
             v-if="
@@ -313,13 +315,15 @@
             v-model="agreementForm.confidentialityAgreement"
             :value="true"
             disabled
-            ><button
+            ><a
               class="cursor-pointer text-blue-500"
-              type="button"
-              @click="openConfidentialityModal"
+              :href="companyInfo?.nonDisclosureAgreementUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+              @click="agreementForm.confidentialityAgreement = true"
             >
               保密條款與注意事項
-            </button></Checkbox
+            </a></Checkbox
           >
           <div
             v-if="
@@ -335,13 +339,15 @@
         <div>
           <Checkbox v-model="agreementForm.vipAgreement" :value="true" disabled
             >我已閱讀且同意
-            <button
+            <a
               class="ml-1 cursor-pointer text-blue-500"
-              type="button"
-              @click="openVipModal"
+              :href="companyInfo?.membershipTermsUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+              @click="agreementForm.vipAgreement = true"
             >
               VOLVO貴賓會員條款
-            </button></Checkbox
+            </a></Checkbox
           >
           <div
             v-if="
@@ -396,7 +402,7 @@
           </div>
           <div class="flex items-center justify-between">
             <span>賣方用印</span>
-            <span class="text-blue-500">新凱汽車股份有限公司</span>
+            <span class="text-blue-500">{{ companyInfo?.name }}</span>
           </div>
           <div class="flex items-center justify-between">
             <span>銷售顧問</span>
@@ -426,14 +432,14 @@
           <div
             class="border-black-400 relative h-35 rounded-[4px] border-1 p-3 text-xs"
           >
-            <div>地址：臺北市內湖區民權東路6段17號</div>
-            <div>電話：02-8791-3456</div>
-            <div>統編：80198953</div>
-            <!-- <img
-              class="absolute right-2 bottom-2 h-[82px] w-[136px]"
-              src="@/assets/img/seal.png"
+            <div>地址：{{ companyInfo?.address }}</div>
+            <div>電話：{{ companyInfo?.phone }}</div>
+            <div>統編：{{ companyInfo?.taxId }}</div>
+            <img
+              class="absolute right-2 bottom-2 h-[82px] w-[136px] object-contain"
+              :src="companyInfo?.largeSealUrl"
               alt=""
-            /> -->
+            />
           </div>
           <div>
             <div
@@ -1116,6 +1122,8 @@ import Select from "@/components/Select.vue";
 import SingleChoiceButton from "@/components/SingleChoiceButton.vue";
 import Stepper from "@/components/Stepper.vue";
 import { useErrorHint } from "@/composables/useErrorHint";
+import { useAuthStore } from "@/stores/authStore";
+import { useCompanyStore } from "@/stores/companyStore";
 import { useContractStore } from "@/stores/contractStore";
 import { useOptionStore } from "@/stores/optionStore";
 import { useSignatureStore } from "@/stores/signature";
@@ -1204,6 +1212,22 @@ const finalPriceTypeOptions = computed(() =>
     (item) => item.value === 14261001 || item.value === 14261002,
   ),
 );
+
+const companyStore = useCompanyStore();
+const { companyInfo } = storeToRefs(companyStore);
+if (!companyInfo.value.id) {
+  const authStore = useAuthStore();
+  const { userInfo } = storeToRefs(authStore);
+  companyStore
+    .getCompanyDetail(userInfo.value?.companyCode || "")
+    .finally(() => {
+      if (!companyInfo.value.id) {
+        alert("查無經銷商資料");
+        router.push({ name: "order" });
+        return;
+      }
+    });
+}
 
 // 條約
 const agreementForm = ref({

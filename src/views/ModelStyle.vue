@@ -374,6 +374,8 @@ import Stepper from "@/components/Stepper.vue";
 import { useCarService } from "@/composables/carService";
 import { useErrorHint } from "@/composables/useErrorHint";
 import { carTypeList } from "@/constants/car";
+import { useAuthStore } from "@/stores/authStore";
+import { useCompanyStore } from "@/stores/companyStore";
 import { useContractStore } from "@/stores/contractStore";
 import { usePackageStore } from "@/stores/packageStore";
 import { useVehicleStore } from "@/stores/vehicleStore";
@@ -413,6 +415,22 @@ const formOptions = ref({
   trimOptions: [],
   optionOptions: [],
 });
+
+const authStore = useAuthStore();
+const { userInfo } = storeToRefs(authStore);
+const companyStore = useCompanyStore();
+const { companyInfo } = storeToRefs(companyStore);
+if (!companyInfo.value.id) {
+  companyStore
+    .getCompanyDetail(userInfo.value?.companyCode || "")
+    .finally(() => {
+      if (!companyInfo.value.id) {
+        alert("查無經銷商資料");
+        router.push({ name: "order" });
+        return;
+      }
+    });
+}
 
 onMounted(async () => {
   const carList = await carService.getCarList();
@@ -537,7 +555,8 @@ const handlePackageChange = (packageInfo: PackageItem | null) => {
       })),
     ];
 
-    form.value.order.vehicleRetailAllAmount = packageInfo.vehicleRetailAllAmount;
+    form.value.order.vehicleRetailAllAmount =
+      packageInfo.vehicleRetailAllAmount;
     form.value.order.orderAllAmount = packageInfo.vehicleRetailAllAmount;
     form.value.order.vehicleDealAllAmount = packageInfo.vehicleDealAllAmount;
   }

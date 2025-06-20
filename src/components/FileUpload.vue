@@ -24,9 +24,12 @@
       </button>
     </label>
     <div class="mt-2" v-if="currentFile?.url">
-      <a class="link" :href="currentFile?.url" target="_blank">{{
-        currentFile?.fileName
-      }}</a>
+      <a
+        class="link block max-w-full break-words break-all"
+        :href="currentFile?.url"
+        target="_blank"
+        >{{ currentFile?.fileName }}</a
+      >
     </div>
   </div>
 </template>
