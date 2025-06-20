@@ -538,6 +538,7 @@ const handlePackageChange = (packageInfo: PackageItem | null) => {
     ];
 
     form.value.order.vehicleRetailAllAmount = packageInfo.vehicleRetailAllAmount;
+    form.value.order.orderAllAmount = packageInfo.vehicleRetailAllAmount;
     form.value.order.vehicleDealAllAmount = packageInfo.vehicleDealAllAmount;
   }
 };
