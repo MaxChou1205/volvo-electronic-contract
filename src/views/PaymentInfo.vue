@@ -283,6 +283,10 @@
 
       <hr class="divider" />
 
+      <BaseInput v-model="form.order.remark" title="備註" input-type="textarea" />
+
+      <hr class="divider" />
+
       <div class="space-y-8">
         <div>
           <Checkbox
