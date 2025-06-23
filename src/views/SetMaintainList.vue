@@ -30,12 +30,12 @@
                     型號
                   </th>
                   <th
-                    class="border-blue-brand border-r px-6 py-4 text-center text-lg font-medium"
+                    class="border-blue-brand w-[250px] border-r px-6 py-4 text-center text-lg font-medium"
                   >
                     套組名稱
                   </th>
                   <th
-                    class="border-blue-brand border-r px-6 py-4 text-center text-lg font-medium"
+                    class="border-blue-brand w-[80px] border-r px-2 py-4 text-center text-lg font-medium"
                   >
                     狀態
                   </th>
@@ -62,7 +62,9 @@
                   <td class="border-r border-gray-300 px-6 py-4 font-medium">
                     {{ vehicle.packageName }}
                   </td>
-                  <td class="border-r border-gray-300 px-6 py-4 font-medium">
+                  <td
+                    class="border-r border-gray-300 px-2 py-4 text-center font-medium"
+                  >
                     <span
                       :class="[
                         vehicle.isPublished === false && 'text-gray-500',
@@ -71,7 +73,7 @@
                     >
                   </td>
                   <td class="px-6 py-4">
-                    <div class="flex gap-3">
+                    <div class="flex items-center justify-center gap-3">
                       <router-link
                         class="button-blue"
                         :to="{
@@ -150,9 +152,11 @@ const processedCarList = computed(() => {
 });
 
 const fetchList = () => {
-  packageStore.getPackageList(paginationInfo.value.page, 10, "modifiedAt").then((res) => {
-    paginationInfo.value.totalPage = res.totalPage;
-  });
+  packageStore
+    .getPackageList(paginationInfo.value.page, 10, "modifiedAt")
+    .then((res) => {
+      paginationInfo.value.totalPage = res.totalPage;
+    });
 };
 fetchList();
 
