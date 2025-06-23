@@ -63,7 +63,7 @@
                     >
                   </td>
                   <td class="px-6 py-4">
-                    <div class="flex gap-3">
+                    <div class="flex items-center justify-center gap-3">
                       <router-link
                         class="button-blue"
                         :to="{
