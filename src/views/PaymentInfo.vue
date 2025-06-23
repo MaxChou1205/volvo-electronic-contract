@@ -283,7 +283,11 @@
 
       <hr class="divider" />
 
-      <BaseInput v-model="form.order.remark" title="備註" input-type="textarea" />
+      <BaseInput
+        v-model="form.order.remark"
+        title="備註"
+        input-type="textarea"
+      />
 
       <hr class="divider" />
 
@@ -1126,7 +1130,6 @@ import Select from "@/components/Select.vue";
 import SingleChoiceButton from "@/components/SingleChoiceButton.vue";
 import Stepper from "@/components/Stepper.vue";
 import { useErrorHint } from "@/composables/useErrorHint";
-import { useAuthStore } from "@/stores/authStore";
 import { useCompanyStore } from "@/stores/companyStore";
 import { useContractStore } from "@/stores/contractStore";
 import { useOptionStore } from "@/stores/optionStore";
@@ -1220,10 +1223,8 @@ const finalPriceTypeOptions = computed(() =>
 const companyStore = useCompanyStore();
 const { companyInfo } = storeToRefs(companyStore);
 if (!companyInfo.value.id) {
-  const authStore = useAuthStore();
-  const { userInfo } = storeToRefs(authStore);
   companyStore
-    .getCompanyDetail(userInfo.value?.companyCode || "")
+    .getCompanyDetail(form.value.order.companyCode || "")
     .finally(() => {
       if (!companyInfo.value.id) {
         alert("查無經銷商資料");

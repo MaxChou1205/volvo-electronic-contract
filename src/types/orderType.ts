@@ -88,6 +88,7 @@ export type ApiOrderDetail = {
     url: string;
   }[];
   remark: string;
+  companyCode: string | null;
 };
 
 export type OrderDetail = Omit<

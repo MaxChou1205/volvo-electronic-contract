@@ -374,7 +374,6 @@ import Stepper from "@/components/Stepper.vue";
 import { useCarService } from "@/composables/carService";
 import { useErrorHint } from "@/composables/useErrorHint";
 import { carTypeList } from "@/constants/car";
-import { useAuthStore } from "@/stores/authStore";
 import { useCompanyStore } from "@/stores/companyStore";
 import { useContractStore } from "@/stores/contractStore";
 import { usePackageStore } from "@/stores/packageStore";
@@ -416,13 +415,11 @@ const formOptions = ref({
   optionOptions: [],
 });
 
-const authStore = useAuthStore();
-const { userInfo } = storeToRefs(authStore);
 const companyStore = useCompanyStore();
 const { companyInfo } = storeToRefs(companyStore);
 if (!companyInfo.value.id) {
   companyStore
-    .getCompanyDetail(userInfo.value?.companyCode || "")
+    .getCompanyDetail(form.value.order.companyCode || "")
     .finally(() => {
       if (!companyInfo.value.id) {
         alert("查無經銷商資料");
