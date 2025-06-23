@@ -65,8 +65,8 @@
                   <td class="border-r border-gray-300 px-6 py-4 font-medium">
                     {{ company.phone }}
                   </td>
-                  <td class="px-6 py-4">
-                    <div class="flex gap-3">
+                  <td class="px-2 py-4">
+                    <div class="flex items-center justify-center gap-3">
                       <router-link
                         class="button-blue"
                         :to="{
