@@ -17,6 +17,11 @@
             :required="true"
           />
           <BaseInput
+            v-model="companyInfo.code"
+            title="經銷商代碼"
+            :required="true"
+          />
+          <BaseInput
             v-model="companyInfo.ownerName"
             title="負責人名稱"
             :required="true"

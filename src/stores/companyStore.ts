@@ -2,7 +2,6 @@ import { defineStore } from "pinia";
 import { companyApi } from "@/api/companyApi";
 import type { CompanyInfo } from "@/types/companyType";
 import { TheFile } from "@/types/fileType";
-import { useAuthStore } from "./authStore";
 
 export const useCompanyStore = defineStore("company", {
   state: () => ({
@@ -43,7 +42,6 @@ export const useCompanyStore = defineStore("company", {
     },
 
     async saveCompany(payload: CompanyInfo, id?: number) {
-      const authStore = useAuthStore();
       const formData = new FormData();
       Object.entries(payload).forEach(([key, value]) => {
         if (
@@ -72,10 +70,6 @@ export const useCompanyStore = defineStore("company", {
           formData.append(newKey, String(value));
         }
       });
-
-      if (!payload.code) {
-        formData.append("Code", authStore.userInfo?.companyCode || "");
-      }
 
       if (id) {
         await companyApi.updateCompany(id, formData);
