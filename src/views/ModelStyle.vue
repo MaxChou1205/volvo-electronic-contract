@@ -498,6 +498,7 @@ const packageStore = usePackageStore();
 const { packageList } = storeToRefs(packageStore);
 
 const fetchPackageList = async () => {
+  selectedPackage.value = null;
   packageStore.getPackageList(1, 100, "modifiedAt", {
     modelCode: form.value.order.modelCode,
     isPublished: true,
