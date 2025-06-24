@@ -18,7 +18,13 @@
             alt="套裝縮圖"
           />
         </div>
-        <!-- <router-link class="block text-blue-500" to="">更多說明</router-link> -->
+        <button
+          class="button-gray block h-8 text-sm py-2"
+          v-if="showMoreOptions"
+          @click="openModal"
+        >
+          更多說明
+        </button>
       </div>
       <div class="flex flex-1 flex-col text-xs">
         <div class="mb-3 flex justify-between text-sm">
@@ -35,19 +41,7 @@
           <ul class="mt-1">
             <li
               class="ml-5 list-disc"
-              v-for="(accessory, index) in packageInfo.packageDmsOptions"
-              :key="`accessory-${index}`"
-            >
-              <div class="flex justify-between space-y-1">
-                <span>{{ accessory.optionName }}</span>
-                <span class="text-right text-gray-600"
-                  >NT$ {{ accessory.optionPrice }}</span
-                >
-              </div>
-            </li>
-            <li
-              class="ml-5 list-disc"
-              v-for="(accessory, index) in packageInfo.packageOptions"
+              v-for="(accessory, index) in filteredOptions"
               :key="`accessory-${index}`"
             >
               <div class="flex justify-between space-y-1">
@@ -92,13 +86,47 @@
         </button>
       </div>
     </div>
+
+    <Modal ref="modalRef" :showCancelButton="true" :cancelButtonText="'關閉'">
+      <div class="max-h-[500px] overflow-y-auto pr-2">
+        <ul class="mt-1">
+          <li
+            class="ml-5 list-disc"
+            v-for="(accessory, index) in packageInfo.packageDmsOptions"
+            :key="`accessory-${index}`"
+          >
+            <div class="flex justify-between space-y-1">
+              <span>{{ accessory.optionName }}</span>
+              <span class="text-right text-gray-600"
+                >NT$ {{ accessory.optionPrice }}</span
+              >
+            </div>
+          </li>
+          <li
+            class="ml-5 list-disc"
+            v-for="(accessory, index) in packageInfo.packageOptions"
+            :key="`accessory-${index}`"
+          >
+            <div class="flex justify-between space-y-1">
+              <span>{{ accessory.optionName }}</span>
+              <span class="text-right text-gray-600"
+                >NT$ {{ accessory.optionPrice }}</span
+              >
+            </div>
+          </li>
+        </ul>
+      </div>
+    </Modal>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import defaultThumbnail from "@/assets/img/car1.png";
+import Modal from "@/components/Modal.vue";
 import type { PackageItem } from "@/types/packageType";
+
+const modalRef = ref<InstanceType<typeof Modal> | null>(null);
 
 const { packageInfo, selectedPackage } = defineProps<{
   packageInfo: PackageItem;
@@ -106,6 +134,23 @@ const { packageInfo, selectedPackage } = defineProps<{
 }>();
 
 const emit = defineEmits(["change"]);
+
+const filteredOptions = computed(() => {
+  return [
+    ...packageInfo.packageDmsOptions,
+    ...packageInfo.packageOptions,
+  ].slice(0, 5);
+});
+
+const showMoreOptions = computed(() => {
+  return (
+    [...packageInfo.packageDmsOptions, ...packageInfo.packageOptions].length > 5
+  );
+});
+
+const openModal = () => {
+  modalRef.value?.open();
+};
 
 const handleSelectPackage = () => {
   if (selectedPackage === packageInfo.id) {

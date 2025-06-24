@@ -34,7 +34,7 @@
             <slot></slot>
           </div>
 
-          <div class="flex w-full justify-between space-x-7">
+          <div class="flex w-full justify-between mt-2 space-x-7">
             <button
               class="button-gray w-full"
               v-if="showCancelButton"
