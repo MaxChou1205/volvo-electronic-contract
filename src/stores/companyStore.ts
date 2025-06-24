@@ -95,17 +95,17 @@ export const useCompanyStore = defineStore("company", {
         },
         agreement: {
           file: null,
-          url: response.agreementUrl,
+          url: `${import.meta.env.VITE_PDF_PATH}${response.agreementUrl}`,
           fileName: response.agreementUrl,
         },
         nonDisclosureAgreement: {
           file: null,
-          url: response.nonDisclosureAgreementUrl,
+          url: `${import.meta.env.VITE_PDF_PATH}${response.nonDisclosureAgreementUrl}`,
           fileName: response.nonDisclosureAgreementUrl,
         },
         membershipTerms: {
           file: null,
-          url: response.membershipTermsUrl,
+          url: `${import.meta.env.VITE_PDF_PATH}${response.membershipTermsUrl}`,
           fileName: response.membershipTermsUrl,
         },
       };

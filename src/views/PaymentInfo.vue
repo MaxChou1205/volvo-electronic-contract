@@ -299,10 +299,13 @@
             disabled
             ><a
               class="cursor-pointer text-blue-500"
-              :href="companyInfo?.agreementUrl"
-              target="_blank"
-              rel="noopener noreferrer"
-              @click="agreementForm.contractAgreement = true"
+              @click.stop="
+                openIframeModal(
+                  '新車訂購合約條款',
+                  'contractAgreement',
+                  companyInfo?.agreement?.url,
+                )
+              "
             >
               新車訂購合約條款
             </a></Checkbox
@@ -325,10 +328,13 @@
             disabled
             ><a
               class="cursor-pointer text-blue-500"
-              :href="companyInfo?.nonDisclosureAgreementUrl"
-              target="_blank"
-              rel="noopener noreferrer"
-              @click="agreementForm.confidentialityAgreement = true"
+              @click.stop="
+                openIframeModal(
+                  '保密條款與注意事項',
+                  'confidentialityAgreement',
+                  companyInfo?.nonDisclosureAgreement?.url,
+                )
+              "
             >
               保密條款與注意事項
             </a></Checkbox
@@ -349,10 +355,13 @@
             >我已閱讀且同意
             <a
               class="ml-1 cursor-pointer text-blue-500"
-              :href="companyInfo?.membershipTermsUrl"
-              target="_blank"
-              rel="noopener noreferrer"
-              @click="agreementForm.vipAgreement = true"
+              @click.stop="
+                openIframeModal(
+                  'VOLVO貴賓會員條款',
+                  'vipAgreement',
+                  companyInfo?.membershipTerms?.url,
+                )
+              "
             >
               VOLVO貴賓會員條款
             </a></Checkbox
@@ -467,6 +476,35 @@
           </div>
         </div>
       </div>
+
+      <!-- iframe Modal -->
+      <Modal ref="iframeModalRef">
+        <div class="text-black">
+          <h3 class="mb-5 text-2xl">{{ currentModalTitle }}</h3>
+          <div
+            class="relative h-[500px] overflow-y-auto"
+            ref="iframeContainerRef"
+          >
+            <iframe
+              class="h-full w-full border-0"
+              scrolling="no"
+              ref="iframeRef"
+              :src="currentIframeUrl"
+            ></iframe>
+            <Checkbox
+              class="mt-4"
+              v-model="agreementForm[currentAgreementType]"
+              :value="true"
+              label="本人已詳讀並同意"
+            />
+          </div>
+          <div class="mt-4 flex items-center justify-between">
+            <button class="button-blue" type="button" @click="closeIframeModal">
+              關閉
+            </button>
+          </div>
+        </div>
+      </Modal>
 
       <!-- 新車訂購合約條款 -->
       <Modal ref="contractModalRef">
@@ -853,7 +891,7 @@
               </p>
               <p>
                 收集和使用車輛記錄資料可能為必要做法，以便(i)技術人員在車輛保養維護期間診斷及修復車輛故障，(ii)
-                VCTL 產品開發，例如提升車輛品質與安全功能，(iii)管理 VCTL
+                VCTL 產品開發，例如提升車輛性能、品質和安全性；(iii)管理 VCTL
                 的保固權益，及(iv)履行法律要求。
               </p>
               <p>
@@ -1286,6 +1324,30 @@ const checkboxValidationRules = {
   },
 };
 const v$Checkbox = useVuelidate(checkboxValidationRules, agreementForm.value);
+
+// iframe Modal
+const iframeModalRef = ref<InstanceType<typeof Modal> | null>(null);
+const iframeRef = ref<HTMLIFrameElement | null>(null);
+const iframeContainerRef = ref<HTMLDivElement | null>(null);
+const currentIframeUrl = ref("");
+const currentAgreementType = ref("");
+const currentModalTitle = ref("");
+
+const openIframeModal = (
+  title: string,
+  agreementType: string,
+  url?: string,
+) => {
+  if (!url) return;
+  currentIframeUrl.value = url;
+  currentModalTitle.value = title;
+  currentAgreementType.value = agreementType;
+  iframeModalRef.value?.open();
+};
+
+const closeIframeModal = () => {
+  iframeModalRef.value?.close();
+};
 
 // 簽名
 const signatureStore = useSignatureStore();
