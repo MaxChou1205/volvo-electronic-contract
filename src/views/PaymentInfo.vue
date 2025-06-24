@@ -443,11 +443,11 @@
             <div>地址：{{ companyInfo?.address }}</div>
             <div>電話：{{ companyInfo?.phone }}</div>
             <div>統編：{{ companyInfo?.taxId }}</div>
-            <img
+            <!-- <img
               class="absolute right-2 bottom-2 h-[82px] w-[136px] object-contain"
               :src="companyInfo?.largeSealUrl"
               alt=""
-            />
+            /> -->
           </div>
           <div>
             <div
