@@ -81,6 +81,9 @@ importers:
       sass-embedded:
         specifier: ^1.85.1
         version: 1.85.1
+      simple-git-hooks:
+        specifier: ^2.13.0
+        version: 2.13.0
       typescript:
         specifier: ~5.7.2
         version: 5.7.3
@@ -1205,6 +1208,10 @@ packages:
   signature_pad@5.0.6:
     resolution: {integrity: sha512-JF37hO5T5IF81dYahfT9hYTjB/ARhGO81PRuWdx12Jpl14vZyK3fS236N2RiA3lxalZF93HUBc46aCW+ghhUdw==}
 
+  simple-git-hooks@2.13.0:
+    resolution: {integrity: sha512-N+goiLxlkHJlyaYEglFypzVNMaNplPAk5syu0+OPp/Bk6dwVoXF6FfOw2vO0Dp+JHsBaI+w6cm8TnFl2Hw6tDA==}
+    hasBin: true
+
   source-map-js@1.2.1:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
     engines: {node: '>=0.10.0'}
@@ -2244,6 +2251,8 @@ snapshots:
       sass-embedded-win32-x64: 1.85.1
 
   signature_pad@5.0.6: {}
+
+  simple-git-hooks@2.13.0: {}
 
   source-map-js@1.2.1: {}
 
