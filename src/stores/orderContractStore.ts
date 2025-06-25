@@ -181,6 +181,7 @@ export const useOrderContractStore = defineStore("orderContract", {
           paymentBankName: response.paymentBankName ?? "",
           loanAmounts: response.loanAmounts ?? 0,
           selfPayOptionList: [],
+          optionList: [],
           vehicleDealAllAmount: response.vehicleDealAllAmount ?? 0,
           vehicleRetailAllAmount: response.vehicleRetailAllAmount ?? 0,
           customerCertificateNo: response.customerCertificateNo ?? "",
