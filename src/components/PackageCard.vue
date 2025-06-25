@@ -19,7 +19,7 @@
           />
         </div>
         <button
-          class="button-gray block h-8 text-sm py-2"
+          class="button-gray block h-8 py-2 text-sm"
           v-if="showMoreOptions"
           @click="openModal"
         >
@@ -73,12 +73,12 @@
           class="h-8 py-2 text-sm"
           :class="[
             selectedPackage === packageInfo.id ? 'button-blue' : 'button-white',
-            selectedPackage !== null && selectedPackage !== packageInfo.id
+            selectedPackage !== 0 && selectedPackage !== packageInfo.id
               ? 'disabled border-none'
               : '',
           ]"
           :disabled="
-            selectedPackage !== null && selectedPackage !== packageInfo.id
+            selectedPackage !== 0 && selectedPackage !== packageInfo.id
           "
           @click="handleSelectPackage"
         >
@@ -128,9 +128,9 @@ import type { PackageItem } from "@/types/packageType";
 
 const modalRef = ref<InstanceType<typeof Modal> | null>(null);
 
-const { packageInfo, selectedPackage } = defineProps<{
+const { packageInfo, selectedPackage = 0 } = defineProps<{
   packageInfo: PackageItem;
-  selectedPackage: number | null;
+  selectedPackage: number;
 }>();
 
 const emit = defineEmits(["change"]);

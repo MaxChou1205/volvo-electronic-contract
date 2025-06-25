@@ -28,6 +28,7 @@ export const useContractStore = defineStore("contract", {
       createDateEnd: null,
     },
     contractList: [] as ApiContractListItem[],
+    selectedPackageId: 0 as number,
   }),
   actions: {
     async initContract(orderId: string) {
@@ -72,6 +73,8 @@ export const useContractStore = defineStore("contract", {
         customerSignatureBase64: null,
         consultantSignatureBase64: null,
       };
+
+      this.selectedPackageId = 0;
     },
     async createContract(payload: Partial<Contract>) {
       try {

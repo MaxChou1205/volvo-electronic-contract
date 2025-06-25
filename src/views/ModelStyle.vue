@@ -65,7 +65,7 @@
             v-for="packageInfo in packageList"
             :key="`car${packageInfo.id}`"
             :packageInfo="packageInfo"
-            :selectedPackage="selectedPackage"
+            :selectedPackage="selectedPackageId"
             @change="handlePackageChange"
         /></HorizontalScroll>
       </div>
@@ -85,7 +85,7 @@
                 ]
           "
           :disabled="
-            carFormOptions.yearOptions.length === 0 || selectedPackage != null
+            carFormOptions.yearOptions.length === 0 || selectedPackageId != 0
           "
           :initValue="{
             label: form.order.modelYearName,
@@ -109,7 +109,7 @@
                 ]
           "
           :disabled="
-            carFormOptions.configOptions.length === 0 || selectedPackage != null
+            carFormOptions.configOptions.length === 0 || selectedPackageId != 0
           "
           :initValue="{
             label: form.order.modelConfigName ?? '',
@@ -133,7 +133,7 @@
                 ]
           "
           :disabled="
-            carFormOptions.colorOptions.length === 0 || selectedPackage != null
+            carFormOptions.colorOptions.length === 0 || selectedPackageId != 0
           "
           :initValue="{
             label: form.order.modelColorName ?? '',
@@ -157,7 +157,7 @@
                 ]
           "
           :disabled="
-            carFormOptions.trimOptions.length === 0 || selectedPackage != null
+            carFormOptions.trimOptions.length === 0 || selectedPackageId != 0
           "
           :initValue="{
             label: form.order.modelTrimName ?? '',
@@ -179,7 +179,7 @@
             "
             :disabled="
               carFormOptions.optionOptions.length === 0 ||
-              selectedPackage != null
+              selectedPackageId != 0
             "
           />
           <!-- <span v-if=".modelOptionNames">{{
@@ -396,7 +396,7 @@ const { scrollToError } = useErrorHint();
 
 const selectedCarRef = ref<HTMLButtonElement | null>(null);
 
-const { contract: form } = storeToRefs(contractStore);
+const { contract: form, selectedPackageId } = storeToRefs(contractStore);
 const formOptions = ref({
   modelOptions: [] as {
     id: string;
@@ -493,12 +493,10 @@ const processedCarList = computed(() => {
 });
 
 // 優惠套裝
-const selectedPackage = ref<number | null>(null);
 const packageStore = usePackageStore();
 const { packageList } = storeToRefs(packageStore);
 
 const fetchPackageList = async () => {
-  selectedPackage.value = null;
   packageStore.getPackageList(1, 100, "modifiedAt", {
     modelCode: form.value.order.modelCode,
     isPublished: true,
@@ -507,7 +505,7 @@ const fetchPackageList = async () => {
 fetchPackageList();
 
 const handlePackageChange = (packageInfo: PackageItem | null) => {
-  selectedPackage.value = packageInfo?.id ?? null;
+  selectedPackageId.value = packageInfo?.id ?? 0;
   handleChangeCarInfo(
     "modelId",
     form.value.order,
