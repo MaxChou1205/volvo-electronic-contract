@@ -47,15 +47,16 @@
       </button>
       <div
         class="mb-2 flex items-center justify-between"
-        v-for="(option, index) in additionalOptions"
+        v-for="(option, index) in form.order.optionList"
         :key="index"
       >
         <div class="min-w-55">
-          <BaseInput v-model="option.name" />
+          <BaseInput v-model="option.optionName" />
         </div>
         <div class="flex items-center justify-between">
           <div class="flex items-baseline justify-self-end">
-            新台幣 <CurrencyInput class="mx-2 w-55" v-model="option.price" /> 元
+            新台幣
+            <CurrencyInput class="mx-2 w-55" v-model="option.optionPrice" /> 元
           </div>
           <Icon
             class="ml-2 cursor-pointer"
@@ -1204,15 +1205,14 @@ const v$ = useVuelidate(validationRules, form);
 const { scrollToError } = useErrorHint();
 
 // 加選項目
-const additionalOptions = ref<{ name: string; price: number }[]>([]);
 const addAdditionalOption = () => {
-  additionalOptions.value.push({
-    name: "",
-    price: 0,
+  form.value.order.optionList.push({
+    optionName: "",
+    optionPrice: 0,
   });
 };
 const removeAdditionalOption = (index: number) => {
-  additionalOptions.value.splice(index, 1);
+  form.value.order.optionList.splice(index, 1);
 };
 const totalPrice = computed(() => {
   return (
@@ -1221,8 +1221,8 @@ const totalPrice = computed(() => {
       (total, option) => total + Number(option.optionPrice),
       0,
     ) +
-    additionalOptions.value.reduce(
-      (total, option) => total + Number(option.price),
+    form.value.order.optionList.reduce(
+      (total, option) => total + Number(option.optionPrice),
       0,
     )
   );
@@ -1397,16 +1397,8 @@ const postContract = async () => {
     scrollToError();
     return;
   }
-  form.value.order.personalityOptionVOList.push(
-    ...additionalOptions.value.map((item) => ({
-      optionId: "",
-      optionCode: "",
-      optionName: item.name,
-      optionPrice: item.price,
-      label: item.name,
-      value: item.name,
-      code: "",
-    })),
+  form.value.order.optionList = form.value.order.optionList.filter(
+    (item) => item.optionName,
   );
   form.value.order.selfPayOptionList =
     form.value.order.selfPayOptionList.filter((item) => item.optionName);

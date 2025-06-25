@@ -110,6 +110,10 @@ export type OrderDetail = Omit<
     optionName: string;
     optionPrice: number;
   }[];
+  optionList: {
+    optionName: string;
+    optionPrice: number;
+  }[];
 };
 
 export type OrderDetailView = OrderDetail & {

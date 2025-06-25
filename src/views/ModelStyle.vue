@@ -532,8 +532,8 @@ const handlePackageChange = (packageInfo: PackageItem | null) => {
     form.value.order.modelYearName = packageInfo.modelYearName;
     form.value.order.modelYearCode = packageInfo.modelYearCode;
 
-    form.value.order.personalityOptionVOList = [
-      ...packageInfo.packageDmsOptions.map((item) => ({
+    form.value.order.personalityOptionVOList =
+      packageInfo.packageDmsOptions.map((item) => ({
         optionId: item.optionId,
         optionCode: item.optionCode,
         optionName: item.optionName,
@@ -541,17 +541,11 @@ const handlePackageChange = (packageInfo: PackageItem | null) => {
         label: item.optionName,
         value: item.optionId,
         code: item.optionCode,
-      })),
-      ...packageInfo.packageOptions.map((item) => ({
-        optionId: item.optionId,
-        optionCode: item.optionCode,
-        optionName: item.optionName,
-        optionPrice: item.optionPrice,
-        label: item.optionName,
-        value: item.optionId,
-        code: item.optionCode,
-      })),
-    ];
+      }));
+    form.value.order.optionList = packageInfo.packageOptions.map((item) => ({
+      optionName: item.optionName,
+      optionPrice: item.optionPrice,
+    }));
 
     form.value.order.vehicleRetailAllAmount =
       packageInfo.vehicleRetailAllAmount;
