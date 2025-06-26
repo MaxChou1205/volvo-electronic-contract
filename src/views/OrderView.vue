@@ -34,7 +34,7 @@
         </div>
       </div>
       <div v-else>
-        <p class="text-center text-gray-500 pt-20">無相符資料</p>
+        <p class="pt-20 text-center text-gray-500">無相符資料</p>
       </div>
       <Pagination
         v-if="paginationInfo.totalPage > 1"
@@ -48,11 +48,14 @@
 
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
+import { useRouter, useRoute } from "vue-router";
 import Pagination from "@/components/Pagination.vue";
 import OrderHeader from "@/components/order/OrderHeader.vue";
 import { useOrderStore } from "@/stores/orderStore";
 
+const route = useRoute();
+const router = useRouter();
 const orderStore = useOrderStore();
 const { paginationInfo, orderList } = storeToRefs(orderStore);
 const loading = ref(false);
@@ -62,11 +65,12 @@ const onPageChange = (page: number) => {
   loading.value = true;
   orderStore.getOrders();
   loading.value = false;
+  router.replace({ query: { page: String(page) } });
 };
 
-onMounted(() => {
-  orderStore.getOrders();
-});
+orderStore.$reset();
+paginationInfo.value.page = Number(route.query.page) || 1;
+orderStore.getOrders();
 </script>
 
 <style scoped></style>

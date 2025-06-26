@@ -37,6 +37,10 @@ export const usePackageStore = defineStore("package", {
   state: () => ({
     packageInfo: { ...defaultPackageInfo } as PackageInfo,
     packageList: [] as PackageItem[],
+    paginationInfo: {
+      page: 1,
+      totalPage: 0,
+    },
   }),
   actions: {
     async savePackage(payload: PackageInfo, id?: number) {
@@ -106,6 +110,7 @@ export const usePackageStore = defineStore("package", {
         ...item,
         image: null,
       }));
+      this.paginationInfo.totalPage = response.totalPage;
       return response;
     },
     async getPackageDetail(id: number) {

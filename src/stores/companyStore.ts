@@ -29,6 +29,10 @@ export const useCompanyStore = defineStore("company", {
       modifiedAt: "",
       modifiedBy: "",
     } as CompanyInfo,
+    paginationInfo: {
+      page: 1,
+      totalPage: 0,
+    },
   }),
   actions: {
     async getCompanyList(
@@ -38,6 +42,7 @@ export const useCompanyStore = defineStore("company", {
     ) {
       const response = await companyApi.getCompanyList(page, size, orderBy);
       this.companyList = response.items;
+      this.paginationInfo.totalPage = response.totalPage;
       return response;
     },
 

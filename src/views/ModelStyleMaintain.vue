@@ -52,7 +52,10 @@
         <div class="flex items-center gap-4">
           <router-link
             class="button-gray w-full"
-            :to="{ name: 'modelStyleMaintain' }"
+            :to="{
+              name: 'modelStyleMaintain',
+              query: { page: String(paginationInfo.page) },
+            }"
             >取消</router-link
           >
           <button class="button-blue w-full" @click="saveVehicle">儲存</button>
@@ -78,7 +81,7 @@ const router = useRouter();
 const id = Number(route.params.id);
 
 const vehicleStore = useVehicleStore();
-const { vehicleInfo } = storeToRefs(vehicleStore);
+const { vehicleInfo, paginationInfo } = storeToRefs(vehicleStore);
 
 const carService = useCarService();
 const { getCarList } = carService;

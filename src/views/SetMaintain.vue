@@ -140,7 +140,12 @@
         </div>
 
         <div class="justify-items mt-3 flex w-full gap-4">
-          <router-link class="button-gray w-full" :to="{ name: 'setMaintain' }"
+          <router-link
+            class="button-gray w-full"
+            :to="{
+              name: 'setMaintain',
+              query: { page: String(paginationInfo.page) },
+            }"
             >返回</router-link
           >
           <button class="button-blue w-full" @click="handleSave">儲存</button>
@@ -168,7 +173,7 @@ import { usePackageStore } from "@/stores/packageStore";
 const route = useRoute();
 const router = useRouter();
 const packageStore = usePackageStore();
-const { packageInfo } = storeToRefs(packageStore);
+const { packageInfo, paginationInfo } = storeToRefs(packageStore);
 
 if (route.params.id) {
   packageStore.getPackageDetail(Number(route.params.id));

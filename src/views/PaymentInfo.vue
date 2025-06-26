@@ -1404,6 +1404,7 @@ const postContract = async () => {
     form.value.order.selfPayOptionList.filter((item) => item.optionName);
 
   await contractStore.createContract(form.value);
+  contractStore.$reset();
   router.push({ name: "contract" });
 };
 </script>

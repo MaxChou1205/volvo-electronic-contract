@@ -116,17 +116,14 @@
 
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
-import { onUnmounted, ref } from "vue";
+import { useRouter, useRoute } from "vue-router";
 import Pagination from "@/components/Pagination.vue";
 import { useVehicleStore } from "@/stores/vehicleStore";
 
+const route = useRoute();
+const router = useRouter();
 const vehicleStore = useVehicleStore();
-const { vehicleList } = storeToRefs(vehicleStore);
-
-const paginationInfo = ref({
-  page: 1,
-  totalPage: 2,
-});
+const { vehicleList, paginationInfo } = storeToRefs(vehicleStore);
 
 const fetchVehicleList = () => {
   vehicleStore.getVehicleList(paginationInfo.value.page, 10).then((res) => {
@@ -134,11 +131,14 @@ const fetchVehicleList = () => {
   });
 };
 // 初始化取得列表資料
+vehicleStore.$reset();
+paginationInfo.value.page = Number(route.query.page) || 1;
 fetchVehicleList();
 
 const onPageChange = (page: number) => {
   paginationInfo.value.page = page;
   fetchVehicleList();
+  router.replace({ query: { page: String(page) } });
 };
 
 const deleteVehicle = async (id: number) => {
@@ -146,10 +146,6 @@ const deleteVehicle = async (id: number) => {
   await vehicleStore.deleteVehicle(id);
   fetchVehicleList();
 };
-
-onUnmounted(() => {
-  vehicleStore.$reset();
-});
 </script>
 
 <style scoped></style>

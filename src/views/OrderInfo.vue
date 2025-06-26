@@ -210,7 +210,10 @@
           <div class="flex flex-wrap justify-center gap-x-[10%] gap-y-4">
             <RouterLink
               class="h-auto w-full max-w-[250px] rounded-[8px] bg-gray-500 py-4 text-center text-lg text-white"
-              :to="{ name: 'order' }"
+              :to="{
+                name: 'order',
+                query: { page: orderStore.paginationInfo.page ?? 1 },
+              }"
             >
               <span>返回</span>
             </RouterLink>
@@ -228,7 +231,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from "vue";
+import { computed } from "vue";
 import { useRoute } from "vue-router";
 import Field from "@/components/order/Field.vue";
 import OrderHeader from "@/components/order/OrderHeader.vue";
@@ -240,9 +243,7 @@ const orderDetail = computed(() => orderStore.orderDetailView);
 
 const id = route.params.id as string;
 
-onMounted(() => {
-  orderStore.getOrderDetail(id);
-});
+orderStore.getOrderDetail(id);
 </script>
 
 <style scoped></style>

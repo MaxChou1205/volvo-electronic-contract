@@ -45,25 +45,29 @@
 
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
+import { useRouter, useRoute } from "vue-router";
 import Pagination from "@/components/Pagination.vue";
 import ContractHeader from "@/components/contract/ContractHeader.vue";
 import { useOrderContractStore } from "@/stores/orderContractStore";
 
+const route = useRoute();
+const router = useRouter();
 const orderContractStore = useOrderContractStore();
 const { orderContractList, paginationInfo } = storeToRefs(orderContractStore);
 const loading = ref(false);
 const appBaseUrl = import.meta.env.VITE_API_URL;
 
-onMounted(() => {
-  orderContractStore.getOrderContracts();
-});
+orderContractStore.$reset();
+paginationInfo.value.page = Number(route.query.page) || 1;
+orderContractStore.getOrderContracts();
 
 const onPageChange = (page: number) => {
   paginationInfo.value.page = page;
   loading.value = true;
   orderContractStore.getOrderContracts();
   loading.value = false;
+  router.replace({ query: { page: String(page) } });
 };
 </script>
 

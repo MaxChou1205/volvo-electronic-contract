@@ -23,6 +23,10 @@ export const useVehicleStore = defineStore("vehicle", {
   state: () => ({
     vehicleInfo: { ...defaultVehicleInfo },
     vehicleList: [] as VehicleInfo[],
+    paginationInfo: {
+      page: 1,
+      totalPage: 0,
+    },
   }),
   actions: {
     async saveVehicle(payload: VehicleInfo, id?: number) {
@@ -54,6 +58,7 @@ export const useVehicleStore = defineStore("vehicle", {
     ) {
       const response = await vehicleApi.getVehicleList(page, size, orderBy);
       this.vehicleList = response.items;
+      this.paginationInfo.totalPage = response.totalPage;
       return response;
     },
     async getVehicleDetail(id: number) {

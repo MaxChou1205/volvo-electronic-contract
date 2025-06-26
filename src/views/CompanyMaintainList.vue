@@ -119,17 +119,14 @@
 
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
-import { onUnmounted, ref } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import Pagination from "@/components/Pagination.vue";
 import { useCompanyStore } from "@/stores/companyStore";
 
+const route = useRoute();
+const router = useRouter();
 const companyStore = useCompanyStore();
-const { companyList } = storeToRefs(companyStore);
-
-const paginationInfo = ref({
-  page: 1,
-  totalPage: 2,
-});
+const { companyList, paginationInfo } = storeToRefs(companyStore);
 
 const fetchCompanyList = () => {
   companyStore.getCompanyList(paginationInfo.value.page, 10).then((res) => {
@@ -137,11 +134,14 @@ const fetchCompanyList = () => {
   });
 };
 // 初始化取得列表資料
+companyStore.$reset();
+paginationInfo.value.page = Number(route.query.page) || 1;
 fetchCompanyList();
 
 const onPageChange = (page: number) => {
   paginationInfo.value.page = page;
   fetchCompanyList();
+  router.replace({ query: { page: String(page) } });
 };
 
 const deleteCompany = async (id: number) => {
@@ -149,10 +149,6 @@ const deleteCompany = async (id: number) => {
   await companyStore.deleteCompany(id);
   fetchCompanyList();
 };
-
-onUnmounted(() => {
-  companyStore.$reset();
-});
 </script>
 
 <style scoped></style>

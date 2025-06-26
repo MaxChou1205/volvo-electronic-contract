@@ -77,7 +77,10 @@
         <div class="mt-10 flex w-full items-center gap-4">
           <router-link
             class="button-gray w-full"
-            :to="{ name: 'companyMaintain' }"
+            :to="{
+              name: 'companyMaintain',
+              query: { page: String(paginationInfo.page) },
+            }"
             >取消</router-link
           >
           <button class="button-blue w-full" @click="saveCompany">儲存</button>
@@ -100,7 +103,7 @@ const router = useRouter();
 const route = useRoute();
 
 const companyStore = useCompanyStore();
-const { companyInfo } = storeToRefs(companyStore);
+const { companyInfo, paginationInfo } = storeToRefs(companyStore);
 
 if (route.params?.code) {
   companyStore.getCompanyDetail(route.params.code as string);

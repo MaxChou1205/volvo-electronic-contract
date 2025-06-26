@@ -126,18 +126,16 @@
 
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
-import { computed, onUnmounted, ref } from "vue";
+import { computed } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import Pagination from "@/components/Pagination.vue";
 import { carTypeList } from "@/constants/car";
 import { usePackageStore } from "@/stores/packageStore";
 
+const route = useRoute();
+const router = useRouter();
 const packageStore = usePackageStore();
-const { packageList } = storeToRefs(packageStore);
-
-const paginationInfo = ref({
-  page: 1,
-  totalPage: 1,
-});
+const { packageList, paginationInfo } = storeToRefs(packageStore);
 
 const processedCarList = computed(() => {
   return packageList.value.map((item) => {
@@ -158,11 +156,14 @@ const fetchList = () => {
       paginationInfo.value.totalPage = res.totalPage;
     });
 };
+packageStore.$reset();
+paginationInfo.value.page = Number(route.query.page) || 1;
 fetchList();
 
 const onPageChange = (page: number) => {
   paginationInfo.value.page = page;
   fetchList();
+  router.replace({ query: { page: String(page) } });
 };
 
 const handleDelete = async (id: number) => {
@@ -170,10 +171,6 @@ const handleDelete = async (id: number) => {
   await packageStore.deletePackage(id);
   fetchList();
 };
-
-onUnmounted(() => {
-  packageStore.$reset();
-});
 </script>
 
 <style scoped></style>
