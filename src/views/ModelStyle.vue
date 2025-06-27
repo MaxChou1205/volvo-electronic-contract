@@ -31,6 +31,7 @@
               :key="carIndex"
               @click="
                 handleChangeCarInfo('modelId', form.order, String(car.modelId));
+                selectedPackageId = 0;
                 fetchPackageList();
               "
               :ref="
@@ -381,6 +382,7 @@ import { useVehicleStore } from "@/stores/vehicleStore";
 import type { PackageItem } from "@/types/packageType";
 import county from "../assets/county.json";
 import exhibitionCenter from "../assets/exhibitionCenter.json";
+import { useOrderStore } from "@/stores/orderStore";
 
 const router = useRouter();
 const contractStore = useContractStore();
@@ -504,6 +506,7 @@ const fetchPackageList = async () => {
 };
 fetchPackageList();
 
+const orderStore = useOrderStore();
 const handlePackageChange = (packageInfo: PackageItem | null) => {
   selectedPackageId.value = packageInfo?.id ?? 0;
   handleChangeCarInfo(
@@ -512,6 +515,11 @@ const handlePackageChange = (packageInfo: PackageItem | null) => {
     String(form.value.order.modelId),
   );
   form.value.order.personalityOptionVOList = [];
+  form.value.order.optionList = [];
+  form.value.order.vehicleRetailAllAmount = orderStore.priceInfo.vehicleRetailAllAmount;
+  form.value.order.orderAllAmount = orderStore.priceInfo.orderAllAmount;
+  form.value.order.vehicleDealAllAmount = orderStore.priceInfo.vehicleDealAllAmount;
+
   if (packageInfo) {
     // 選擇套組
     form.value.order.modelColorId = packageInfo.modelColorId;

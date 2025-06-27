@@ -38,6 +38,11 @@ export const useOrderStore = defineStore("order", {
     },
     orderList: [] as OrderListItem[],
     orderDetail: null as OrderDetail | null,
+    priceInfo: {
+      vehicleRetailAllAmount: 0,
+      orderAllAmount: 0,
+      vehicleDealAllAmount: 0,
+    }
   }),
   getters: {
     orderDetailView: (state): OrderDetailView | null => {
@@ -179,6 +184,11 @@ export const useOrderStore = defineStore("order", {
           vehicleRetailAllAmount: response.vehicleRetailAllAmount ?? 0,
           customerCertificateNo: response.customerCertificateNo ?? "",
           drawerCertificateNo: response.drawerCertificateNo ?? "",
+        };
+        this.priceInfo = {
+          vehicleRetailAllAmount: response.vehicleRetailAllAmount ?? 0,
+          orderAllAmount: response.orderAllAmount ?? 0,
+          vehicleDealAllAmount: response.vehicleDealAllAmount ?? 0,
         };
         return this.orderDetail;
       } catch (err) {
