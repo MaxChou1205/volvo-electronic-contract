@@ -57,11 +57,21 @@ export const useOptionStore = defineStore("option", {
       return response;
     },
     async getLoanTerms() {
+      const customOrder = {
+        十二期: 1,
+        十八期: 2,
+        二十四期: 3,
+        三十六期: 4,
+        四十八期: 5,
+        六十期: 6,
+      };
       const response = await optionApi.getLoanTerms();
-      this.loanTermsOptions = Object.entries(response).map(([key, value]) => ({
-        label: value,
-        value: key,
-      }));
+      this.loanTermsOptions = Object.entries(response)
+        .map(([key, value]) => ({
+          label: value,
+          value: key,
+        }))
+        .sort((a, b) => customOrder[a.label] - customOrder[b.label]);
       return response;
     },
     async getDepositPayWays() {
