@@ -18,6 +18,9 @@
     "allowJs": true,
     "checkJs": true,
     "resolveJsonModule": true,
+    "incremental": false,
+    "composite": false,
+    "tsBuildInfoFile": null,
     "types": [
       "vite/client"
     ],
