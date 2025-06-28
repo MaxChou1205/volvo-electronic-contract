@@ -31,8 +31,8 @@
               :key="carIndex"
               @click="
                 handleChangeCarInfo('modelId', form.order, String(car.modelId));
-                selectedPackageId = 0;
                 fetchPackageList();
+                handlePackageChange(null);
               "
               :ref="
                 (el) => {
