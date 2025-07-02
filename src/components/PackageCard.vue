@@ -46,7 +46,7 @@
             >
               <div class="flex justify-between space-y-1">
                 <span>{{ accessory.optionName }}</span>
-                <span class="text-right text-gray-600"
+                <span class="ml-2 min-w-[34px] text-right text-gray-600"
                   >NT$ {{ accessory.optionPrice }}</span
                 >
               </div>

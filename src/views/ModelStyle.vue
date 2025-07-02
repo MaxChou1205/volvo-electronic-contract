@@ -387,6 +387,7 @@ const router = useRouter();
 const contractStore = useContractStore();
 const carService = useCarService();
 const {
+  getCarList,
   fieldInfoMap,
   formOptions: carFormOptions,
   handleChangeCarInfo,
@@ -412,6 +413,8 @@ if (!companyInfo.value.id) {
       }
     });
 }
+
+getCarList();
 
 onMounted(async () => {
   if (!form.value.order.modelCode || !form.value.order.modelName) {
@@ -452,6 +455,12 @@ const handleNext = async () => {
   if (v$.value.$invalid) {
     scrollToError();
     return;
+  }
+  const configInfo = carFormOptions.value.configOptions.find(
+    (item) => String(item.value) === String(form.value.order.modelConfigId),
+  );
+  if (configInfo && selectedPackageId.value === 0) {
+    form.value.order.vehicleRetailAllAmount = configInfo.price;
   }
   router.push({ name: "memberInfo" });
 };

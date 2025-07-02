@@ -73,7 +73,7 @@ export const useCarService = () => {
   const formOptions = ref({
     modelOptions: [] as OptionItem[],
     yearOptions: [] as OptionItem[],
-    configOptions: [] as OptionItem[],
+    configOptions: [] as (OptionItem & { price: number })[],
     colorOptions: [] as OptionItem[],
     trimOptions: [] as OptionItem[],
     optionOptions: [] as (OptionItem & {
@@ -117,6 +117,7 @@ export const useCarService = () => {
       value: item.modelConfigId,
       code: item.modelConfigCode,
       label: item.modelConfigName,
+      price: Number(item.price),
     }));
     formOptions.value.configOptions = result;
     return result;
