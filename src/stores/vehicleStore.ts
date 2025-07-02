@@ -55,8 +55,19 @@ export const useVehicleStore = defineStore("vehicle", {
       page: number,
       size: number,
       orderBy: string = "modifiedAt",
+      condition?: {
+        modelId?: number;
+        modelCode?: string;
+        modelName?: string;
+        isPublished?: boolean;
+      },
     ) {
-      const response = await vehicleApi.getVehicleList(page, size, orderBy);
+      const response = await vehicleApi.getVehicleList(
+        page,
+        size,
+        orderBy,
+        condition,
+      );
       this.vehicleList = response.items;
       this.paginationInfo.totalPage = response.totalPage;
       return response;

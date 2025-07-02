@@ -10,7 +10,17 @@ export const vehicleApi = {
     });
     return response.data;
   },
-  getVehicleList: async (page: number, size: number, orderBy?: string) => {
+  getVehicleList: async (
+    page: number,
+    size: number,
+    orderBy?: string,
+    condition?: {
+      modelId?: number;
+      modelCode?: string;
+      modelName?: string;
+      isPublished?: boolean;
+    },
+  ) => {
     const response = await axiosInstance.get<VehicleListGetRes>(
       "/api/vehicle",
       {
@@ -18,6 +28,12 @@ export const vehicleApi = {
           PageNumber: page,
           PageSize: size,
           OrderBy: orderBy,
+          ...(condition && {
+            ModelId: condition?.modelId,
+            ModelCode: condition?.modelCode,
+            ModelName: condition?.modelName,
+            IsPublished: condition?.isPublished,
+          }),
         },
       },
     );

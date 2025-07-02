@@ -377,12 +377,12 @@ import { useErrorHint } from "@/composables/useErrorHint";
 import { carTypeList } from "@/constants/car";
 import { useCompanyStore } from "@/stores/companyStore";
 import { useContractStore } from "@/stores/contractStore";
+import { useOrderStore } from "@/stores/orderStore";
 import { usePackageStore } from "@/stores/packageStore";
 import { useVehicleStore } from "@/stores/vehicleStore";
 import type { PackageItem } from "@/types/packageType";
 import county from "../assets/county.json";
 import exhibitionCenter from "../assets/exhibitionCenter.json";
-import { useOrderStore } from "@/stores/orderStore";
 
 const router = useRouter();
 const contractStore = useContractStore();
@@ -488,7 +488,7 @@ const handleNext = async () => {
 const vehicleStore = useVehicleStore();
 const { vehicleList } = storeToRefs(vehicleStore);
 
-vehicleStore.getVehicleList(1, 100);
+vehicleStore.getVehicleList(1, 100, undefined, { isPublished: true });
 
 const processedCarList = computed(() => {
   return Object.groupBy(vehicleList.value, (item) => item.category);
@@ -516,9 +516,11 @@ const handlePackageChange = (packageInfo: PackageItem | null) => {
   );
   form.value.order.personalityOptionVOList = [];
   form.value.order.optionList = [];
-  form.value.order.vehicleRetailAllAmount = orderStore.priceInfo.vehicleRetailAllAmount;
+  form.value.order.vehicleRetailAllAmount =
+    orderStore.priceInfo.vehicleRetailAllAmount;
   form.value.order.orderAllAmount = orderStore.priceInfo.orderAllAmount;
-  form.value.order.vehicleDealAllAmount = orderStore.priceInfo.vehicleDealAllAmount;
+  form.value.order.vehicleDealAllAmount =
+    orderStore.priceInfo.vehicleDealAllAmount;
 
   if (packageInfo) {
     // 選擇套組
