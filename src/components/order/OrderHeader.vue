@@ -84,7 +84,7 @@
         isFilterMenuOpen ? 'translate-x-0' : 'translate-x-full',
       ]"
     >
-      <div class="p-4">
+      <div class="p-4 h-full">
         <FilterMenu @reset="handleMenuReset" @confirm="handleMenuConfirm" />
       </div>
     </div>

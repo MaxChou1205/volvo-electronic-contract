@@ -40,14 +40,14 @@
 
         <div class="my-auto flex gap-4">
           <button
-            class="w-full cursor-pointer rounded bg-gray-400 py-3 font-medium text-white"
+            class="button-gray w-full"
             type="button"
             @click="emit('reset')"
           >
             重設
           </button>
           <button
-            class="w-full cursor-pointer rounded bg-blue-800 py-3 font-medium text-white"
+            class="button-blue w-full"
             type="button"
             @click="emit('confirm')"
           >

@@ -1,10 +1,10 @@
 <template>
-  <div class="text-black-400 mx-auto max-w-4xl px-4 py-6">
-    <div class="flex flex-col gap-8 md:flex-row">
-      <div class="w-full">
+  <div class="text-black-400 mx-auto h-full max-w-4xl px-4 py-6">
+    <div class="flex h-full flex-col gap-8 md:flex-row">
+      <div class="flex h-full w-full flex-col">
         <h2 class="mb-4 text-center text-sm font-bold">訂單篩選</h2>
 
-        <div class="mb-3">
+        <!-- <div class="mb-3">
           <label class="mb-2 block text-sm text-gray-800">訂單狀態</label>
           <div class="w-full">
             <Select
@@ -13,7 +13,7 @@
               :options="orderStatusOptions"
             />
           </div>
-        </div>
+        </div> -->
 
         <div class="mb-3">
           <label class="mb-2 block text-sm text-gray-800">訂單創建日期</label>
@@ -86,17 +86,13 @@
           <BaseInput v-model="searchFilter.licenseNumber" placeholder="請輸入" />
         </div> -->
 
-        <div class="flex gap-4">
-          <button
-            class="w-full button-gray"
-            @click="emit('reset')"
-          >
+        <div class="flex-grow"></div>
+
+        <div class="my-auto flex gap-4">
+          <button class="button-gray w-full" @click="emit('reset')">
             重設
           </button>
-          <button
-            class="w-full button-blue"
-            @click="emit('confirm')"
-          >
+          <button class="button-blue w-full" @click="emit('confirm')">
             確定
           </button>
         </div>
