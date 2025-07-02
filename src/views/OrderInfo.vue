@@ -231,7 +231,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted } from "vue";
+import { computed } from "vue";
 import { useRoute } from "vue-router";
 import Field from "@/components/order/Field.vue";
 import OrderHeader from "@/components/order/OrderHeader.vue";
@@ -244,18 +244,6 @@ const orderDetail = computed(() => orderStore.orderDetailView);
 const id = route.params.id as string;
 
 orderStore.getOrderDetail(id);
-
-onMounted(() => {
-  window.addEventListener("focus", function () {
-    window.location.reload();
-  });
-});
-
-onUnmounted(() => {
-  window.removeEventListener("focus", function () {
-    window.location.reload();
-  });
-});
 </script>
 
 <style scoped></style>

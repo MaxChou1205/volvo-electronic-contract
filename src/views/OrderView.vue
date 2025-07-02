@@ -48,7 +48,7 @@
 
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
-import { onMounted, onUnmounted, ref } from "vue";
+import { ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import Pagination from "@/components/Pagination.vue";
 import OrderHeader from "@/components/order/OrderHeader.vue";
@@ -71,18 +71,6 @@ const onPageChange = (page: number) => {
 orderStore.$reset();
 paginationInfo.value.page = Number(route.query.page) || 1;
 orderStore.getOrders();
-
-onMounted(() => {
-  window.addEventListener("focus", function () {
-    window.location.reload();
-  });
-});
-
-onUnmounted(() => {
-  window.removeEventListener("focus", function () {
-    window.location.reload();
-  });
-});
 </script>
 
 <style scoped></style>
