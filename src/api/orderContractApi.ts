@@ -32,7 +32,8 @@ export const orderContractApi = {
     const transformedFilter = Object.entries(params.filter).reduce(
       (acc, [key, value]) => {
         if (value) {
-          acc[`filter.${key}`] = value;
+          const newKey = key.charAt(0).toUpperCase() + key.slice(1);
+          acc[`Filter.${newKey}`] = value;
         }
         return acc;
       },

@@ -12,11 +12,13 @@
             v-model="searchFilter.customerNameOrPhone"
             type="text"
             placeholder="搜尋客戶姓名/手機"
+            @keyup.enter="handleMenuConfirm()"
           />
         </div>
         <button
           class="bg-blue-brand flex cursor-pointer items-center rounded-tr-xl rounded-br-xl px-4 py-3"
           type="button"
+          @click="handleMenuConfirm()"
         >
           <Icon iconName="magnifier-white" :size="24" />
         </button>
