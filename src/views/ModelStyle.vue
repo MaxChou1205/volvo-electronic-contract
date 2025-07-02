@@ -374,7 +374,6 @@ import SingleChoiceButton from "@/components/SingleChoiceButton.vue";
 import Stepper from "@/components/Stepper.vue";
 import { useCarService } from "@/composables/carService";
 import { useErrorHint } from "@/composables/useErrorHint";
-import { carTypeList } from "@/constants/car";
 import { useCompanyStore } from "@/stores/companyStore";
 import { useContractStore } from "@/stores/contractStore";
 import { useOrderStore } from "@/stores/orderStore";
@@ -399,23 +398,6 @@ const { scrollToError } = useErrorHint();
 const selectedCarRef = ref<HTMLButtonElement | null>(null);
 
 const { contract: form, selectedPackageId } = storeToRefs(contractStore);
-const formOptions = ref({
-  modelOptions: [] as {
-    id: string;
-    name: string;
-    img: string;
-    mainCategory: string;
-    type: string;
-    value?: string;
-    label?: string;
-    code?: string;
-  }[],
-  yearOptions: [],
-  configOptions: [],
-  colorOptions: [],
-  trimOptions: [],
-  optionOptions: [],
-});
 
 const companyStore = useCompanyStore();
 const { companyInfo } = storeToRefs(companyStore);
@@ -432,22 +414,12 @@ if (!companyInfo.value.id) {
 }
 
 onMounted(async () => {
-  const carList = await carService.getCarList();
-  formOptions.value.modelOptions = carTypeList.map((carType) => {
-    const matchedCar = carList.find((car) => car.label === carType.name);
-    return {
-      ...carType,
-      ...matchedCar,
-      id: matchedCar?.value ?? "",
-    };
-  });
-
   if (!form.value.order.modelCode || !form.value.order.modelName) {
-    const currentCarInfo = formOptions.value.modelOptions.find(
-      (car) => car.id === String(form.value.order.modelId),
+    const currentCarInfo = vehicleList.value.find(
+      (car) => car.modelId === Number(form.value.order.modelId),
     );
-    form.value.order.modelCode = currentCarInfo?.code ?? "";
-    form.value.order.modelName = currentCarInfo?.name ?? "";
+    form.value.order.modelCode = currentCarInfo?.modelCode ?? "";
+    form.value.order.modelName = currentCarInfo?.modelName ?? "";
   }
 
   const keys = findRestFieldKeys("modelId");

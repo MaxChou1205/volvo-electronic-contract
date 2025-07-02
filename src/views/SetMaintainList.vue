@@ -129,22 +129,26 @@ import { storeToRefs } from "pinia";
 import { computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import Pagination from "@/components/Pagination.vue";
-import { carTypeList } from "@/constants/car";
 import { usePackageStore } from "@/stores/packageStore";
+import { useVehicleStore } from "@/stores/vehicleStore";
 
 const route = useRoute();
 const router = useRouter();
 const packageStore = usePackageStore();
 const { packageList, paginationInfo } = storeToRefs(packageStore);
+const vehicleStore = useVehicleStore();
+const { vehicleList } = storeToRefs(vehicleStore);
+
+vehicleStore.getVehicleList(1, 100);
 
 const processedCarList = computed(() => {
   return packageList.value.map((item) => {
-    const car = carTypeList.find(
-      (car) => Number(car.id) === Number(item.modelId),
+    const car = vehicleList.value.find(
+      (car) => Number(car.modelId) === Number(item.modelId),
     );
     return {
       ...item,
-      type: car?.type,
+      type: car?.category,
     };
   });
 });

@@ -1,6 +1,10 @@
+/**
+ * @deprecated
+ * 請使用 vehicleList 取代
+ */
 export const carTypeList = [
   {
-    id: "0",
+    id: "1",
     name: "EX40",
     img: new URL("@/assets/img/EX40.png", import.meta.url).href,
     mainCategory: "電動",
@@ -10,7 +14,7 @@ export const carTypeList = [
     modelName: "",
   },
   {
-    id: "1",
+    id: "3",
     name: "EX30",
     img: new URL("@/assets/img/EX30.png", import.meta.url).href,
     mainCategory: "電動",
@@ -30,7 +34,7 @@ export const carTypeList = [
     modelName: "",
   },
   {
-    id: "3",
+    id: "6",
     name: "XC90",
     img: new URL("@/assets/img/XC90.png", import.meta.url).href,
     mainCategory: "雙能電動",
