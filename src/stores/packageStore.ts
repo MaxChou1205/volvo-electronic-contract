@@ -31,6 +31,8 @@ const defaultPackageInfo = {
   vehicleRetailAllAmount: 0,
   vehicleDealAllAmount: 0,
   isPublished: false,
+  publishedDateStart: "",
+  publishedDateEnd: "",
 } as PackageInfo;
 
 export const usePackageStore = defineStore("package", {
@@ -78,15 +80,23 @@ export const usePackageStore = defineStore("package", {
           formData.append("Image", value.file);
         } else if (key === "isPublished") {
           formData.append(newKey, value.toString().toUpperCase());
+        } else if (key === "publishedDateStart") {
+          formData.append(newKey, new Date(value).toISOString());
+        } else if (key === "publishedDateEnd") {
+          formData.append(newKey, new Date(value).toISOString());
         } else {
           formData.append(newKey, value);
         }
       });
 
-      if (id) {
-        await packageApi.updatePackage(id, formData);
-      } else {
-        await packageApi.createPackage(formData);
+      try {
+        if (id) {
+          await packageApi.updatePackage(id, formData);
+        } else {
+          await packageApi.createPackage(formData);
+        }
+      } catch (err) {
+        alert(err);
       }
     },
     async getPackageList(
@@ -98,6 +108,8 @@ export const usePackageStore = defineStore("package", {
         modelCode?: string;
         modelName?: string;
         isPublished?: boolean;
+        publishedDateStart?: string;
+        publishedDateEnd?: string;
       },
     ): Promise<PackageListGetRes> {
       const response = await packageApi.getPackageList(
@@ -109,6 +121,9 @@ export const usePackageStore = defineStore("package", {
       this.packageList = response.items.map((item) => ({
         ...item,
         image: null,
+        isPublished:
+          item.publishedDateStart <= new Date().toISOString() &&
+          item.publishedDateEnd >= new Date().toISOString(),
       }));
       this.paginationInfo.totalPage = response.totalPage;
       return response;

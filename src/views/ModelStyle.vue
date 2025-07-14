@@ -482,7 +482,8 @@ const { packageList } = storeToRefs(packageStore);
 const fetchPackageList = async () => {
   packageStore.getPackageList(1, 100, "modifiedAt", {
     modelCode: form.value.order.modelCode,
-    isPublished: true,
+    publishedDateStart: new Date().toISOString(),
+    publishedDateEnd: new Date().toISOString(),
   });
 };
 fetchPackageList();

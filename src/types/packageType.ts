@@ -37,6 +37,8 @@ export interface PackageInfo {
     price: number;
   }[];
   isPublished: boolean;
+  publishedDateStart: string;
+  publishedDateEnd: string;
 }
 
 export interface PackageInfoPostReq

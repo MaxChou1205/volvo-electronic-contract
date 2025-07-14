@@ -173,7 +173,11 @@ const onPageChange = (page: number) => {
 const handleDelete = async (id: number) => {
   if (!window.confirm("確定要刪除嗎？")) return;
   await packageStore.deletePackage(id);
-  fetchList();
+  if (packageList.value.length % 10 === 1 && paginationInfo.value.page > 1) {
+    onPageChange(paginationInfo.value.page - 1);
+  } else {
+    fetchList();
+  }
 };
 </script>
 

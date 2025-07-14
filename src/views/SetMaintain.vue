@@ -9,11 +9,29 @@
 
     <main class="overflow-auto p-8">
       <div class="space-y-8 rounded-[10px] bg-white p-8">
-        <Checkbox
+        <!-- <Checkbox
           v-model="packageInfo.isPublished"
           :value="true"
           label="上架顯示於車型樣式"
-        />
+        /> -->
+        <label class="required-asterisk mb-3 block">上架日期</label>
+        <div class="flex items-center gap-4">
+          <DatePicker
+            class="w-full"
+            v-model="packageInfo.publishedDateStart"
+            placeholder="上架日期"
+            auto-position="bottom"
+            :required="true"
+          />
+          <span class="mx-3 text-black">～</span>
+          <DatePicker
+            class="w-full"
+            v-model="packageInfo.publishedDateEnd"
+            placeholder="下架日期"
+            auto-position="bottom"
+            :required="true"
+          />
+        </div>
         <BaseInput
           v-model="packageInfo.packageName"
           :required="true"
@@ -163,6 +181,7 @@ import { useVuelidate } from "@vuelidate/core";
 import BaseInput from "@/components/BaseInput.vue";
 import Checkbox from "@/components/Checkbox.vue";
 import CurrencyInput from "@/components/CurrencyInput.vue";
+import DatePicker from "@/components/DatePicker.vue";
 import Icon from "@/components/Icon.vue";
 import ImageUpload from "@/components/ImageUpload.vue";
 import MultiSelect from "@/components/MultiSelect.vue";
