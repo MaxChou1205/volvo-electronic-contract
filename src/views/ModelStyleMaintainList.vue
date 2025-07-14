@@ -144,7 +144,11 @@ const onPageChange = (page: number) => {
 const deleteVehicle = async (id: number) => {
   if (!confirm("確定要刪除嗎？")) return;
   await vehicleStore.deleteVehicle(id);
-  fetchVehicleList();
+  if (vehicleList.value.length % 10 === 1 && paginationInfo.value.page > 1) {
+    onPageChange(paginationInfo.value.page - 1);
+  } else {
+    fetchVehicleList();
+  }
 };
 </script>
 

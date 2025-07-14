@@ -9,11 +9,29 @@
 
     <main class="overflow-auto p-8">
       <div class="space-y-8 rounded-[10px] bg-white p-8">
-        <Checkbox
+        <!-- <Checkbox
           v-model="vehicleInfo.isPublished"
           :value="true"
           label="上架顯示於車型樣式"
-        />
+        /> -->
+        <label class="required-asterisk mb-3 block">上架日期</label>
+        <div class="flex items-center gap-4">
+          <DatePicker
+            class="w-full"
+            v-model="vehicleInfo.publishedDateStart"
+            placeholder="上架日期"
+            auto-position="bottom"
+            :required="true"
+          />
+          <span class="mx-3 text-black">～</span>
+          <DatePicker
+            class="w-full"
+            v-model="vehicleInfo.publishedDateEnd"
+            placeholder="下架日期"
+            auto-position="bottom"
+            :required="true"
+          />
+        </div>
         <Select
           class="w-full"
           v-model="vehicleInfo.modelId"
@@ -67,10 +85,10 @@
 
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
-import { ref, computed } from "vue";
+import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import useVuelidate from "@vuelidate/core";
-import Checkbox from "@/components/Checkbox.vue";
+import DatePicker from "@/components/DatePicker.vue";
 import ImageUpload from "@/components/ImageUpload.vue";
 import Select from "@/components/Select.vue";
 import { useCarService } from "@/composables/carService";

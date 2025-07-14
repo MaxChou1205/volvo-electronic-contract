@@ -16,6 +16,8 @@ export interface VehicleInfo {
   createdBy: string;
   modifiedAt: string | Date;
   modifiedBy: string;
+  publishedDateStart: string;
+  publishedDateEnd: string;
 }
 
 export interface VehicleInfoGetRes extends VehicleInfo {}

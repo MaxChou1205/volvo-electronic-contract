@@ -13,6 +13,8 @@ const defaultVehicleInfo: VehicleInfo = {
   modelName: "",
   category: "",
   isPublished: false,
+  publishedDateStart: "",
+  publishedDateEnd: "",
   createdAt: "",
   createdBy: "",
   modifiedAt: "",
@@ -40,6 +42,10 @@ export const useVehicleStore = defineStore("vehicle", {
           formData.append("Image", value.file);
         } else if (key === "thumbnail") {
           formData.append("Thumbnail", value.file);
+        } else if (key === "publishedDateStart") {
+          formData.append(newKey, new Date(value).toISOString());
+        } else if (key === "publishedDateEnd") {
+          formData.append(newKey, new Date(value).toISOString());
         } else {
           formData.append(newKey, String(value));
         }
@@ -60,6 +66,8 @@ export const useVehicleStore = defineStore("vehicle", {
         modelCode?: string;
         modelName?: string;
         isPublished?: boolean;
+        publishedDateStart?: string;
+        publishedDateEnd?: string;
       },
     ) {
       const response = await vehicleApi.getVehicleList(
@@ -68,7 +76,12 @@ export const useVehicleStore = defineStore("vehicle", {
         orderBy,
         condition,
       );
-      this.vehicleList = response.items;
+      this.vehicleList = response.items.map((item) => ({
+        ...item,
+        isPublished:
+          item.publishedDateStart <= new Date().toISOString() &&
+          item.publishedDateEnd >= new Date().toISOString(),
+      }));
       this.paginationInfo.totalPage = response.totalPage;
       return response;
     },
