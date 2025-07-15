@@ -469,10 +469,13 @@ const handleNext = async () => {
 const vehicleStore = useVehicleStore();
 const { vehicleList } = storeToRefs(vehicleStore);
 
-vehicleStore.getVehicleList(1, 100, undefined, { isPublished: true });
+vehicleStore.getVehicleList(1, 100, undefined);
 
 const processedCarList = computed(() => {
-  return Object.groupBy(vehicleList.value, (item) => item.category);
+  return Object.groupBy(
+    vehicleList.value.filter((item) => item.isPublished),
+    (item) => item.category,
+  );
 });
 
 // 優惠套裝

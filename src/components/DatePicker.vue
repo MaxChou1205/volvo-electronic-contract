@@ -3,7 +3,7 @@
     <VueDatePicker
       v-model="modelValue"
       :auto-position="autoPosition"
-      :clearable="false"
+      :clearable="clearable"
       :auto-apply="true"
       :enable-time-picker="false"
       :locale="'zh-TW'"
@@ -37,7 +37,10 @@
             :disabled="disabled"
             placeholder="請選擇日期"
           />
-          <div class="absolute top-[50%] right-3 -translate-y-1/2">
+          <div
+            class="absolute top-[50%] -translate-y-1/2"
+            :class="clearable ? 'right-8' : 'right-3'"
+          >
             <svg
               width="20"
               height="20"
@@ -131,10 +134,12 @@ const {
   disabled = false,
   autoPosition = "top",
   required = false,
+  clearable = false,
 } = defineProps<{
   disabled?: boolean;
   autoPosition?: "top" | "bottom";
   required?: boolean;
+  clearable?: boolean;
 }>();
 
 const validations = {

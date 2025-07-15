@@ -79,8 +79,10 @@ export const useVehicleStore = defineStore("vehicle", {
       this.vehicleList = response.items.map((item) => ({
         ...item,
         isPublished:
-          item.publishedDateStart <= new Date().toISOString() &&
-          item.publishedDateEnd >= new Date().toISOString(),
+          (item.publishedDateStart === null &&
+            item.publishedDateEnd === null) ||
+          (item.publishedDateStart <= new Date().toISOString() &&
+            item.publishedDateEnd >= new Date().toISOString()),
       }));
       this.paginationInfo.totalPage = response.totalPage;
       return response;

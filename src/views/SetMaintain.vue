@@ -14,14 +14,14 @@
           :value="true"
           label="上架顯示於車型樣式"
         /> -->
-        <label class="required-asterisk mb-3 block">上架日期</label>
+        <label class="mb-3 block">上架日期</label>
         <div class="flex items-center gap-4">
           <DatePicker
             class="w-full"
             v-model="packageInfo.publishedDateStart"
             placeholder="上架日期"
             auto-position="bottom"
-            :required="true"
+            clearable
           />
           <span class="mx-3 text-black">～</span>
           <DatePicker
@@ -29,7 +29,7 @@
             v-model="packageInfo.publishedDateEnd"
             placeholder="下架日期"
             auto-position="bottom"
-            :required="true"
+            clearable
           />
         </div>
         <BaseInput
