@@ -81,6 +81,10 @@ export const useVehicleStore = defineStore("vehicle", {
         isPublished:
           (item.publishedDateStart === null &&
             item.publishedDateEnd === null) ||
+          (item.publishedDateEnd === null &&
+            item.publishedDateStart <= new Date().toISOString()) ||
+          (item.publishedDateStart === null &&
+            item.publishedDateEnd >= new Date().toISOString()) ||
           (item.publishedDateStart <= new Date().toISOString() &&
             item.publishedDateEnd >= new Date().toISOString()),
       }));
