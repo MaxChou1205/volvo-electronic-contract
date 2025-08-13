@@ -78,6 +78,8 @@ export const useVehicleStore = defineStore("vehicle", {
       );
       this.vehicleList = response.items.map((item) => ({
         ...item,
+        imageUrl: `${import.meta.env.VITE_PDF_PATH}${item.imageUrl}`,
+        thumbnailUrl: `${import.meta.env.VITE_PDF_PATH}${item.thumbnailUrl}`,
         isPublished:
           (item.publishedDateStart === null &&
             item.publishedDateEnd === null) ||
@@ -95,11 +97,11 @@ export const useVehicleStore = defineStore("vehicle", {
       const response = await vehicleApi.getVehicleDetail(id);
       response.image = {
         file: null,
-        url: response.imageUrl,
+        url: `${import.meta.env.VITE_PDF_PATH}${response.imageUrl}`,
       };
       response.thumbnail = {
         file: null,
-        url: response.thumbnailUrl,
+        url: `${import.meta.env.VITE_PDF_PATH}${response.thumbnailUrl}`,
       };
       this.vehicleInfo = response;
     },

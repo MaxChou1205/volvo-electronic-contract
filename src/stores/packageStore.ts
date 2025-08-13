@@ -121,6 +121,7 @@ export const usePackageStore = defineStore("package", {
       this.packageList = response.items.map((item) => ({
         ...item,
         image: null,
+        imageUrl: `${import.meta.env.VITE_PDF_PATH}${item.imageUrl}`,
         isPublished:
           (item.publishedDateStart === null &&
             item.publishedDateEnd === null) ||
@@ -151,7 +152,7 @@ export const usePackageStore = defineStore("package", {
         })),
         image: {
           file: null,
-          url: response.imageUrl,
+          url: `${import.meta.env.VITE_PDF_PATH}${response.imageUrl}`,
         },
       };
     },
