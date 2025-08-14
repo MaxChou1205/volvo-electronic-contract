@@ -469,7 +469,9 @@ const handleNext = async () => {
 const vehicleStore = useVehicleStore();
 const { vehicleList } = storeToRefs(vehicleStore);
 
-vehicleStore.getVehicleList(1, 100, undefined);
+vehicleStore.getVehicleList(1, 100, undefined, {
+  isPublishedNow: true,
+});
 
 const processedCarList = computed(() => {
   return Object.groupBy(
@@ -487,6 +489,7 @@ const fetchPackageList = async () => {
     modelCode: form.value.order.modelCode,
     publishedDateStart: new Date().toISOString(),
     publishedDateEnd: new Date().toISOString(),
+    isPublishedNow: true,
   });
 };
 fetchPackageList();

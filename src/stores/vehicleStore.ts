@@ -65,7 +65,7 @@ export const useVehicleStore = defineStore("vehicle", {
         modelId?: number;
         modelCode?: string;
         modelName?: string;
-        isPublished?: boolean;
+        isPublishedNow?: boolean;
         publishedDateStart?: string;
         publishedDateEnd?: string;
       },

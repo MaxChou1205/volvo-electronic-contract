@@ -18,9 +18,9 @@ export const packageApi = {
       modelId?: number;
       modelCode?: string;
       modelName?: string;
-      isPublished?: boolean;
       publishedDateStart?: string;
       publishedDateEnd?: string;
+      isPublishedNow?: boolean;
     },
   ) => {
     const response = await axiosInstance.get<PackageListGetRes>(
@@ -34,7 +34,7 @@ export const packageApi = {
             ModelId: condition?.modelId,
             ModelCode: condition?.modelCode,
             ModelName: condition?.modelName,
-            IsPublished: condition?.isPublished,
+            IsPublishedNow: condition?.isPublishedNow,
             PublishedDateStart: condition?.publishedDateStart,
             PublishedDateEnd: condition?.publishedDateEnd,
           }),

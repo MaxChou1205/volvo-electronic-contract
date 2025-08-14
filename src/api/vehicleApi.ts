@@ -18,7 +18,7 @@ export const vehicleApi = {
       modelId?: number;
       modelCode?: string;
       modelName?: string;
-      isPublished?: boolean;
+      isPublishedNow?: boolean;
       publishedDateStart?: string;
       publishedDateEnd?: string;
     },
@@ -34,7 +34,7 @@ export const vehicleApi = {
             ModelId: condition?.modelId,
             ModelCode: condition?.modelCode,
             ModelName: condition?.modelName,
-            IsPublished: condition?.isPublished,
+            IsPublishedNow: condition?.isPublishedNow,
             PublishedDateStart: condition?.publishedDateStart,
             PublishedDateEnd: condition?.publishedDateEnd,
           }),

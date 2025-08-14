@@ -107,9 +107,9 @@ export const usePackageStore = defineStore("package", {
         modelId?: number;
         modelCode?: string;
         modelName?: string;
-        isPublished?: boolean;
         publishedDateStart?: string;
         publishedDateEnd?: string;
+        isPublishedNow?: boolean;
       },
     ): Promise<PackageListGetRes> {
       const response = await packageApi.getPackageList(
