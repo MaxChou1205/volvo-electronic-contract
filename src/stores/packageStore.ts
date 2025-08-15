@@ -1,3 +1,4 @@
+import { startOfDay, endOfDay } from "date-fns";
 import { defineStore } from "pinia";
 import { packageApi } from "@/api/packageApi";
 import type {
@@ -81,9 +82,9 @@ export const usePackageStore = defineStore("package", {
         } else if (key === "isPublished") {
           formData.append(newKey, value.toString().toUpperCase());
         } else if (key === "publishedDateStart") {
-          formData.append(newKey, new Date(value).toISOString());
+          formData.append(newKey, startOfDay(new Date(value)).toISOString());
         } else if (key === "publishedDateEnd") {
-          formData.append(newKey, new Date(value).toISOString());
+          formData.append(newKey, endOfDay(new Date(value)).toISOString());
         } else {
           formData.append(newKey, value);
         }

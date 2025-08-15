@@ -1,3 +1,4 @@
+import { startOfDay, endOfDay } from "date-fns";
 import { defineStore } from "pinia";
 import { vehicleApi } from "@/api/vehicleApi";
 import type { VehicleInfo } from "@/types/vehicleType";
@@ -43,9 +44,9 @@ export const useVehicleStore = defineStore("vehicle", {
         } else if (key === "thumbnail") {
           formData.append("Thumbnail", value.file);
         } else if (key === "publishedDateStart") {
-          formData.append(newKey, new Date(value).toISOString());
+          formData.append(newKey, startOfDay(new Date(value)).toISOString());
         } else if (key === "publishedDateEnd") {
-          formData.append(newKey, new Date(value).toISOString());
+          formData.append(newKey, endOfDay(new Date(value)).toISOString());
         } else {
           formData.append(newKey, String(value));
         }
